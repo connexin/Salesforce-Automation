@@ -1,0 +1,107 @@
+<apex:page standardController="Gamma_Mobile__c" extensions="GammaMobileController" label="Mobile Management" docType="html-5.0">
+    <apex:sectionHeader title="Mobile Management"/>
+    <apex:form >
+        <apex:tabPanel >
+            <apex:tab title="Provisioning Management" label="Provisioning Management">
+                <apex:pageBlock title="Search SIMs">
+                    <apex:pageBlockSection columns="1">
+                        <apex:inputText label="Mobile Number" value="{! searchMobile}" list="{! msisdnUsedList}"/>
+                        <apex:inputText label="SIM Number (Iccid)" value="{! searchIccid}" list="{! iccidUsedList}"/>
+                        <apex:inputField id="contact" label="Contact" value="{! Gamma_Mobile__c.Contact__c}" required="false"/>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockButtons location="bottom">
+                        <apex:commandButton title="Search" action="{! searchSims}" value="Search"/>
+                        <apex:commandButton title="Clear" action="{! clearSearch}" value="Clear"/>
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+                <apex:pageBlock title="Provisioned SIMs" id="provisionList">
+                    <apex:pageMessages id="errorMessages" ></apex:pageMessages>
+                    <apex:pageBlockSection columns="1">
+                        <apex:outputText rendered="{! provisionedList.size == 0}">No new provisions.</apex:outputText>
+                        <apex:pageBlockTable value="{! provisionedList}" var="provision" rendered="{! provisionedList.size > 0}">
+                            <apex:column headerValue="SIM Number" value="{! provision.Iccid__c}"/>
+                            <apex:column headerValue="Mobile Number" value="{! provision.Msisdn__c}"/>
+                            <apex:column headerValue="Contact" value="{! provision.Contact__r.Name}"/>
+                            <apex:column headerValue="Status" value="{! provision.Status__c}"/>
+                            <apex:column headerValue="Action" >
+                                <apex:actionStatus id="showStatus">
+                                    <apex:facet name="start">
+                                        <apex:outputPanel >
+                                            <apex:image value="/img/loading.gif" width="20" height="20"/>
+                                            <apex:outputLabel value="Requesting..."></apex:outputLabel>
+                                        </apex:outputPanel>
+                                    </apex:facet>
+                                    <apex:facet name="stop">
+                                        <apex:outputPanel >
+                                            <apex:commandLink action="{! activateSim}" title="Activate" value="Activate" status="showStatus" reRender="provisionList,activatedList">
+                                                <apex:param name="activateProvisionIccidVal" value="{! provision.Iccid__c}" assignTo="{! activateProvisionIccidVal}"/>
+                                                <apex:param name="activateProvisionMsisdnVal" value="{! provision.Msisdn__c}" assignTo="{! activateProvisionMsisdnVal}"/>
+                                            </apex:commandLink>&nbsp; &nbsp;
+                                            <apex:commandLink action="{! cancelProvision}" title="Delete" value="Delete" status="showStatus" reRender="provisionList,activatedList">
+                                                <apex:param name="delProvisionIccidVal" value="{! provision.Iccid__c}" assignTo="{! delProvisionIccidVal}"/>
+                                                <apex:param name="delProvisionMsisdnVal" value="{! provision.Msisdn__c}" assignTo="{! delProvisionMsisdnVal}"/>
+                                            </apex:commandLink>
+                                        </apex:outputPanel>
+                                    </apex:facet>
+                                </apex:actionStatus>
+                            </apex:column>
+                        </apex:pageBlockTable>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockButtons >
+                        <apex:commandButton title="New" action="{! newProvision}" value="New"/>
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+            </apex:tab>
+            
+            <!------------------------------------------------------------->
+            
+            <apex:tab title="Service Management" label="Service Management">
+                <apex:pageBlock title="Search SIMs">
+                    <apex:pageMessages id="errorMessages" ></apex:pageMessages>
+                    <apex:pageBlockSection columns="1">
+                        <apex:inputText label="Mobile Number" value="{! searchMobile}" list="{! msisdnUsedList}"/>
+                        <apex:inputText label="SIM Number (Iccid)" value="{! searchIccid}" list="{! iccidUsedList}"/>
+                        <apex:inputField id="contact" label="Contact" value="{! Gamma_Mobile__c.Contact__c}" required="false"/>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockButtons location="bottom">
+                        <apex:commandButton title="Search" action="{! searchSims}" value="Search"/>
+                        <apex:commandButton title="Clear" action="{! clearSearch}" value="Clear"/>
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+                <apex:pageBlock title="Active SIMs" id="activatedList">
+                    <apex:pageBlockSection columns="1">
+                        <apex:outputText rendered="{! activatedList.size == 0}">No active SIMs.</apex:outputText>
+                        <apex:pageBlockTable value="{! activatedList}" var="activated" rendered="{! activatedList.size > 0}">
+                            <apex:column headerValue="SIM Number" value="{! activated.Iccid__c}"/>
+                            <apex:column headerValue="Mobile Number" value="{! activated.Msisdn__c}"/>
+                            <apex:column headerValue="Contact" value="{! activated.Contact__r.Name}"/>
+                            <apex:column headerValue="Status" value="{! activated.Status__c}"/>
+                            <apex:column headerValue="Action" >
+                                <apex:actionStatus id="showStatus">
+                                    <apex:facet name="start">
+                                        <apex:outputPanel >
+                                            <apex:image value="/img/loading.gif" width="20" height="20"/>
+                                            <apex:outputLabel value="Requesting..."></apex:outputLabel>
+                                        </apex:outputPanel>
+                                    </apex:facet>
+                                    <apex:facet name="stop">
+                                        <apex:outputPanel >
+                                            <apex:commandLink action="{! updateSim}" title="Update" value="Update" status="showStatus" reRender="errorMessages,provisionList,activatedList" >
+                                                <apex:param name="acctId" value="{! activated.Id}" assignTo="{! acctId}"/>
+                                                <apex:param name="activateProvisionMsisdnVal" value="{! activated.Msisdn__c}" assignTo="{! activateProvisionMsisdnVal}"/>
+                                            </apex:commandLink>
+                                        </apex:outputPanel>
+                                    </apex:facet>
+                                </apex:actionStatus>
+                            </apex:column>
+                        </apex:pageBlockTable>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockButtons >
+                        <apex:commandButton title="New" action="{! newProvision}" value="New"/>
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+            </apex:tab>
+        </apex:tabPanel>
+        
+    </apex:form>
+</apex:page>

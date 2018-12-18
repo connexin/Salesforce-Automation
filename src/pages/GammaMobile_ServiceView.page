@@ -1,0 +1,199 @@
+<apex:page standardController="Gamma_Mobile__c" extensions="GammaMobileServiceViewController">
+    <apex:sectionHeader title="Service Management"/>
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockSection title="Summary" collapsible="false" id="summary">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Service Status</apex:outputLabel>
+                    <apex:outputText style="background-color:{!IF(mobileClass.service.status.selectedServiceStatus == 'ACTIVE', 'lightgreen', '#FEA794')};" value="{! mobileClass.service.status.selectedServiceStatus}"></apex:outputText>
+                </apex:pageBlockSectionItem>
+                <apex:outputField label="Sim Number (Iccid)" value="{! mobileObj.Iccid__c}"/>
+                <apex:outputField label="Mobile Number" value="{! mobileObj.Msisdn__c}"/>
+                <apex:outputField label="Contact" value="{! mobileObj.Contact__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+                <apex:actionStatus id="showStatus">
+                    <apex:facet name="start">
+                        <apex:outputPanel >
+                            <apex:image value="/img/loading.gif" width="20" height="20"/>
+                            <apex:outputLabel value="Requesting..."></apex:outputLabel>
+                        </apex:outputPanel>
+                    </apex:facet>
+                    <apex:facet name="stop">
+                        <apex:commandButton action="{! reload}" value="Refresh" title="Refresh" status="showStatus" reRender="serviceDetails,summary,main"/>
+                    </apex:facet>
+                </apex:actionStatus>
+            </apex:pageBlockButtons>
+            <apex:pageMessages id="main" ></apex:pageMessages>
+        </apex:pageBlock>
+    </apex:form>
+    <apex:form >
+        <apex:tabPanel id="serviceDetails" rendered="{! enableUpdate}">
+            <apex:tab label="Main">
+                <apex:pageblock >
+                    <apex:pageBlockSection title="Main Detail" collapsible="false">
+                        <apex:inputField label="Contact" value="{! mobileObj.Contact__c}"/>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection title="Tariff" collapsible="false">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel >Tariff Status</apex:outputLabel>
+                            <apex:outputText >{! mobileClass.service.tariff.tariffStatus.selectedTariffStatus}</apex:outputText>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel >Start Date</apex:outputLabel>
+                            <apex:outputText >{! mobileClass.service.tariff.startDate}</apex:outputText>
+                        </apex:pageBlockSectionItem>
+                        <apex:selectList multiselect="false" size="1" title="Tariff" label="Tariff" value="{! updatedtariff}" >
+                            <apex:selectOptions value="{! tariffList}"></apex:selectOptions>
+                        </apex:selectList>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockButtons location="top">
+                        <apex:actionStatus id="showStatus">
+                            <apex:facet name="start">
+                                <apex:outputPanel >
+                                    <apex:image value="/img/loading.gif" width="20" height="20"/>
+                                    <apex:outputLabel value="Requesting..."></apex:outputLabel>
+                                </apex:outputPanel>
+                            </apex:facet>
+                            <apex:facet name="stop">
+                                <apex:outputPanel >
+                                    <apex:commandButton title="Update Main" value="Update Main" action="{! updateMain}" rendered="{! enableUpdate}" status="showStatus" reRender="serviceDetails,summary,main"/>
+                                    <!--apex:commandButton title="Update" value="Update All" action="{! updateAll}" rendered="{! enableUpdate}" status="showStatus" reRender="serviceDetails,summary,main"/-->
+                                    <apex:commandButton title="Cancel" value="Cancel" action="{! cancelUpdate}" status="showStatus" reRender="serviceDetails,summary,main"/>
+                                </apex:outputPanel>
+                            </apex:facet>
+                        </apex:actionStatus>
+                    </apex:pageBlockButtons>
+                </apex:pageblock>
+            </apex:tab>
+            <apex:tab label="Services">
+                <apex:pageblock >
+                    <apex:pageBlockSection title="Edit Network Services" collapsible="false">
+                        <apex:inputCheckbox label="Mobile Data And 4G" value="{! mobileData}"/>
+                        <!--apex:inputCheckbox label="4G" value="{! mobileData}"/-->
+                        <apex:inputCheckbox label="International Calling" value="{! intlCallingService}"/>
+                        <apex:inputCheckbox label="International Roaming" value="{! intlRoamingService}"/>
+                        <apex:inputCheckbox label="Data Roaming" value="{! dataRoamingService}"/>
+                        <apex:inputCheckbox label="Premium Services" value="{! premiumService}"/>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockButtons location="top">
+                        <apex:actionStatus id="showStatus">
+                            <apex:facet name="start">
+                                <apex:outputPanel >
+                                    <apex:image value="/img/loading.gif" width="20" height="20"/>
+                                    <apex:outputLabel value="Requesting..."></apex:outputLabel>
+                                </apex:outputPanel>
+                            </apex:facet>
+                            <apex:facet name="stop">
+                                <apex:outputPanel >
+                                    <apex:commandButton title="Update" value="Update Services" action="{! updateServices}" rendered="{! enableUpdate}" status="showStatus" reRender="serviceDetails,summary,main"/>
+                                    <!--apex:commandButton title="Update" value="Update All" action="{! updateAll}" rendered="{! enableUpdate}" status="showStatus" reRender="serviceDetails,summary,main"/-->
+                                    <apex:commandButton title="Cancel" value="Cancel" action="{! cancelUpdate}" status="showStatus" reRender="serviceDetails,summary,main"/>
+                                </apex:outputPanel>
+                            </apex:facet>
+                        </apex:actionStatus>
+                    </apex:pageBlockButtons>
+                </apex:pageblock>
+            </apex:tab>
+            <apex:tab label="BoltOns">
+                <apex:pageBlock >
+                    <apex:pageBlockSection title="Edit BoltOns " collapsible="false">
+                        <apex:selectList label="UK Data" value="{! ukDataBolton}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{! dataBoltonList}"></apex:selectOptions>
+                        </apex:selectList>
+                        <apex:inputCheckbox label="Business SMS 250" value="{! sms250}"/>
+                        <apex:inputCheckbox label="Smart Business Pack (combining: Non-Geographic 250, MMS 50 & International SMS 50)" value="{! smartBusinessPack}"/>
+                        <apex:inputCheckbox label="EU daily Business Traveller" value="{! euDailyBusinessTraveller}"/>
+                        <apex:inputCheckbox label="ROW Business 7 day Traveller" value="{! rowBusiness7DayTraveller}"/>
+                        <apex:inputCheckbox label="Intl Voice Europe & North America" value="{! intlVoiceEuNa}"/>
+                        <apex:inputCheckbox label="Intl Voice Rest Of World" value="{! intlVoiceRow}"/>
+                        <apex:inputCheckbox label="Worldwide Data 250MB" value="{! worldWideData}"/>
+                        <apex:inputCheckbox label="MultiNet" value="{! multiNet}"/>
+                        <apex:inputCheckbox label="Data Sharer Enabler" value="{! dataSharer}"/>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockButtons location="top">
+                        <apex:actionStatus id="showStatus">
+                            <apex:facet name="start">
+                                <apex:outputPanel >
+                                    <apex:image value="/img/loading.gif" width="20" height="20"/>
+                                    <apex:outputLabel value="Requesting..."></apex:outputLabel>
+                                </apex:outputPanel>
+                            </apex:facet>
+                            <apex:facet name="stop">
+                                <apex:outputPanel >
+                                    <apex:commandButton title="Update" value="Update BoltOns" action="{! updateBoltOns}" rendered="{! enableUpdate}" status="showStatus" reRender="serviceDetails,summary,main"/>
+                                    <!--apex:commandButton title="Update" value="Update All" action="{! updateAll}" rendered="{! enableUpdate}" status="showStatus" reRender="serviceDetails,summary,main"/-->
+                                    <apex:commandButton title="Cancel" value="Cancel" action="{! cancelUpdate}" status="showStatus" reRender="serviceDetails,summary,main"/>
+                                </apex:outputPanel>
+                            </apex:facet>
+                        </apex:actionStatus>
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+            </apex:tab>
+            <apex:tab label="Barring">
+                <apex:pageBlock >
+                    <apex:pageBlockSection title="Edit Network Bars" collapsible="false">
+                        <apex:inputCheckbox label="Voicemail" value="{! barVoicemail}"/>
+                        <apex:inputCheckbox label="Incoming Calls" value="{! barIncomingCalls}"/>
+                        <apex:inputCheckbox label="Outgoing Calls" value="{! barOutgoingCalls}"/>
+                        <apex:inputCheckbox label="Send SMS" value="{! barSendSms}"/>
+                        <apex:inputCheckbox label="Receive SMS" value="{! barReceiveSms}"/>
+                        <apex:inputCheckbox label="Send MMS" value="{! barSendMms}"/>
+                        <apex:inputCheckbox label="Receive MMS" value="{! barReceiveMms}"/>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockButtons location="top">
+                        <apex:actionStatus id="showStatus">
+                            <apex:facet name="start">
+                                <apex:outputPanel >
+                                    <apex:image value="/img/loading.gif" width="20" height="20"/>
+                                    <apex:outputLabel value="Requesting..."></apex:outputLabel>
+                                </apex:outputPanel>
+                            </apex:facet>
+                            <apex:facet name="stop">
+                                <apex:outputPanel >
+                                    <apex:commandButton title="Update" value="Update Barring" action="{! updateBarring}" rendered="{! enableUpdate}" status="showStatus" reRender="serviceDetails,summary,main"/>
+                                    <!--apex:commandButton title="Update" value="Update All" action="{! updateAll}" rendered="{! enableUpdate}" status="showStatus" reRender="serviceDetails,summary,main"/-->
+                                    <apex:commandButton title="Cancel" value="Cancel" action="{! cancelUpdate}" status="showStatus" reRender="serviceDetails,summary,main"/>
+                                </apex:outputPanel>
+                            </apex:facet>
+                        </apex:actionStatus>
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+            </apex:tab>
+            <apex:tab label="Notifications">
+                <apex:pageBlock >
+                    <apex:pageBlockSection title="Notifications" collapsible="false" columns="1">
+                        <apex:inputCheckbox label="Data Cap & Data Cap reached message" value="{! notifyDataCap}"/>
+                        <apex:inputCheckbox label="Initial Data Notification message" value="{! notifyInitialData}"/>
+                        <apex:inputCheckbox label="80% Data Cap reached message" value="{! notify80PercentDataReached}"/>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection title="International Charges" collapsible="false" columns="1">
+                        <apex:selectList label="Eu Roaming Max Charge" value="{! euRoamingMaxCharge}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{! euRMCList}"></apex:selectOptions>
+                        </apex:selectList>
+                        <apex:selectList label="Row Roaming Max Charge" value="{! rowRoamingMaxCharge}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{! rowRMCList}"></apex:selectOptions>
+                        </apex:selectList>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockButtons location="top">
+                        <apex:actionStatus id="showStatus">
+                            <apex:facet name="start">
+                                <apex:outputPanel >
+                                    <apex:image value="/img/loading.gif" width="20" height="20"/>
+                                    <apex:outputLabel value="Requesting..."></apex:outputLabel>
+                                </apex:outputPanel>
+                            </apex:facet>
+                            <apex:facet name="stop">
+                                <apex:outputPanel >
+                                    <apex:commandButton title="Update" value="Update Roaming Config" action="{! updateRoamingConfig}" rendered="{! enableUpdate}" status="showStatus" reRender="serviceDetails,summary,main"/>
+                                    <!--apex:commandButton title="Update" value="Update All" action="{! updateAll}" rendered="{! enableUpdate}" status="showStatus" reRender="serviceDetails,summary,main"/-->
+                                    <apex:commandButton title="Cancel" value="Cancel" action="{! cancelUpdate}" status="showStatus" reRender="serviceDetails,summary,main"/>
+                                </apex:outputPanel>
+                            </apex:facet>
+                        </apex:actionStatus>
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+            </apex:tab>
+        </apex:tabPanel>
+    </apex:form>
+</apex:page>

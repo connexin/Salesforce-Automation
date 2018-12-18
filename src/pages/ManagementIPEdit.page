@@ -1,0 +1,137 @@
+<apex:page standardController="Management_IP__c" extensions="ManagementIPController">
+    
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" />
+    
+    <apex:sectionHeader title="Management IP Edit" subtitle="New Management IP" help=""/>
+    
+    <apex:form >
+        <apex:pageBlock mode="edit" title="Management IP Edit" >
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{! save }"/>
+                <apex:commandButton value="Cancel" action="{! cancel }"/>
+            </apex:pageBlockButtons>
+            <apex:pageMessages />
+            <apex:pageBlockSection title="Management Site">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{! $ObjectType.Management_IP__c.fields.Site__c.label }" for="site" />
+                        <apex:actionRegion >
+                            <apex:inputField value="{! Management_IP__c.Site__c }" required="true" id="site" />
+                            <br />
+                            <apex:commandButton value="Generate IP" action="{! generateIP }" rerender="name" />
+                            
+                        </apex:actionRegion>
+                    </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Information">
+                <apex:inputText value="{! freeIP }" required="true" id="name" label="IP Address"/>
+                <apex:pageBlockSectionItem />
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{! $ObjectType.Management_IP__c.fields.Hostname__c.label }" />
+                    <apex:actionRegion >
+                        <apex:inputField value="{! Management_IP__c.Hostname__c }" required="true" >
+                            <apex:actionSupport event="onchange" reRender="sector" />
+                        </apex:inputField>
+                    </apex:actionRegion>
+                </apex:pageBlockSectionItem>
+                <apex:PageBlockSectionItem />
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{! $ObjectType.Management_IP__c.fields.Device__c .label }" />
+                    <apex:actionRegion >
+                        <apex:inputField value="{! Management_IP__c.Device__c }" required="true" >
+                            <apex:actionSupport event="onchange" reRender="ptp" />
+                        </apex:inputField>
+                    </apex:actionRegion>
+                </apex:pageBlockSectionItem>
+                <apex:PageBlockSectionItem />
+                <apex:inputField value="{! Management_IP__c.Active__c }" />
+                <apex:PageBlockSectionItem />
+                <apex:inputField value="{! Management_IP__c.MAC_Address__c }" required="true" />
+                <apex:PageBlockSectionItem />
+                <apex:inputField value="{! Management_IP__c.Limited_VPN_Access__c }" />
+                <apex:PageBlockSectionItem />
+                <apex:inputField value="{! Management_IP__c.Comment__c }" />
+            </apex:pageBlockSection>
+            
+            <apex:outputPanel id="sector">
+                <apex:pageBlockSection title="Sector Info" rendered="{! AND(RIGHT(Management_IP__c.Hostname__c, 5) == '.ptmp', NOT(CONTAINS(LEFT(Management_IP__c.Hostname__c, LEN(Management_IP__c.Hostname__c) - 5), '.'))) }" >
+                    <apex:inputField value="{! Management_IP__c.Sector_SSID__c }" required="true" />
+                    <apex:inputField value="{! Management_IP__c.Azimuth__c }" />
+                    <apex:inputField value="{! Management_IP__c.PPPoE_VLAN__c }" required="true" />
+                    <apex:inputField value="{! Management_IP__c.Elevation__c }" />
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+            
+            <apex:outputPanel id="ptp">
+                <apex:pageBlockSection title="PTP Information" rendered="{! PTP }" >
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{! $ObjectType.Management_IP__c.fields.Remote_Device__c.label }" />
+                        <apex:outputPanel id="remoteDevice" >
+                            <apex:inputField value="{! Management_IP__c.Remote_Device__c }" required="{! Management_IP__c.Siklu_Mode__c == 'slave' }" >
+                                <apex:actionSupport event="onchange" action="{! remoteDeviceChanged }" reRender="txlinkid,rxlinkid" />
+                            </apex:inputField>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{! $ObjectType.Management_IP__c.fields.Siklu_Mode__c.label }" />
+                        <apex:actionRegion >
+                            <apex:outputPanel >
+                                <apex:inputField value="{! Management_IP__c.Siklu_Mode__c }" rendered="{! SikluPTP }" required="true" >
+                                    <apex:actionSupport event="onchange" rerender="remoteDevice,txlinkid,rxlinkid" />
+                                </apex:inputField>
+                            </apex:outputPanel>
+                        </apex:actionRegion>
+                    </apex:pageBlockSectionItem>
+                    <apex:inputField value="{! Management_IP__c.Azimuth__c }" />
+                    <apex:inputField value="{! Management_IP__c.Elevation__c }" />
+                    <apex:inputField value="{! Management_IP__c.Siklu_Channel_Bandwidth__c }" rendered="{! SikluPTP }" required="true" />
+                    <apex:inputField value="{! Management_IP__c.Siklu_Tx_Frequency__c }" rendered="{! SikluPTP }" required="true" />
+                    <apex:pageBLockSectionItem rendered="{! SikluPTP }" >
+                        <apex:outputLabel value="{! $ObjectType.Management_IP__c.fields.Siklu_Tx_Link_Id__c.label }" />
+                        <apex:outputPanel id="txlinkid" >
+                            <apex:inputField value="{! Management_IP__c.Siklu_Tx_Link_Id__c }" rendered="{! SikluPTP && Management_IP__c.Siklu_Mode__c == 'master' }" />
+                            <apex:outputText value="{! sikluTxLinkId }" rendered="{! SikluPTP && Management_IP__c.Siklu_Mode__c == 'slave' }" />
+                        </apex:outputPanel>
+                    </apex:pageBLockSectionItem>
+                    <apex:pageBLockSectionItem rendered="{! SikluPTP }" >
+                        <apex:outputLabel value="{! $ObjectType.Management_IP__c.fields.Siklu_Rx_Link_Id__c.label }" />
+                        <apex:outputPanel id="rxlinkid" >
+                            <apex:inputField value="{! Management_IP__c.Siklu_Rx_Link_Id__c }" rendered="{! SikluPTP && Management_IP__c.Siklu_Mode__c == 'master' }" />
+                            <apex:outputText value="{! sikluRxLinkId }" rendered="{! SikluPTP && Management_IP__c.Siklu_Mode__c == 'slave' }" />
+                        </apex:outputPanel>
+                    </apex:pageBLockSectionItem>
+                    <apex:pageBLockSectionItem rendered="{! SikluPTP && Management_IP__c.Siklu_Mode__c == 'master' }" >
+                        <apex:outputLabel />
+                        <apex:commandButton value="Generate Link Ids" action="{! generateSikluLinkIds }" rerender="txlinkid,rxlinkid" />
+                    </apex:pageBLockSectionItem>
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+            
+        </apex:pageBlock>
+    </apex:form>
+    
+    <script type="text/javascript">
+    $j = jQuery.noConflict();
+    
+    $j(document).ready(function(){
+        input = $j("input[id*=name]")[0];
+        $j($j("input[id*=name]")[0]).parent().html('<div class="requiredInput"><div class="requiredBlock"></div>' + input.outerHTML + '</div>');
+    });
+    
+    </script>
+    
+    <apex:includeScript value="/support/console/20.0/integration.js"/>
+    <script type="text/javascript">
+        function testSetTabTitle() {
+            //Set the current tab's title
+            sforce.console.setTabTitle('New Management IP');
+        }
+        var pageLoad = window.onload;
+        window.onload = function() {
+            if (pageLoad) {
+                pageLoad();
+            }
+            testSetTabTitle();
+        }
+        </script>
+    
+</apex:page>

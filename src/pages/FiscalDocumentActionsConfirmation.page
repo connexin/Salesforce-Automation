@@ -1,0 +1,30 @@
+<apex:page standardController="Fiscal_Document__c" extensions="FiscalDocumentsActionsController">
+    <apex:form >
+    
+        <apex:pageBlock rendered="{! firstConfirmation == false}">
+            <apex:pageBlockSection title="{! fiscal_document.RecordType.Name} Reference: {! fiscal_document.Reference__c} - Auto Actions confirmation">
+                <apex:pageBlockSectionItem >
+                    <apex:outputText value="Do you want to automatically send this invoice to the customer and collect payment?"></apex:outputText>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockButtons location="Bottom">
+                <apex:commandButton action="{! setFirstActions}" value="Yes" reRender="secConf"/>
+                <apex:commandButton action="{! unsetActions}" value="No"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    
+        <apex:pageBlock rendered="{! firstConfirmation == true}" id="secConf">
+            <apex:pageBlockSection title="Invoice Reference: {! fiscal_document.Reference__c} - Auto Actions confirmation">
+                <apex:pageBlockSectionItem >
+                    <apex:outputText value="Are you sure?"></apex:outputText>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockButtons location="Bottom">
+                <apex:commandButton action="{! setSecondActions}" value="Yes"/>
+                <apex:commandButton action="{! unsetActions}" value="No"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

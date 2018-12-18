@@ -1,0 +1,118 @@
+<apex:page standardController="Management_IP_Port_Assignment__c" extensions="ManagementIPPortAssignmentController">
+    
+    <apex:outputPanel id="lookupScript">
+        <script type="text/javascript"> 
+        function openLookup(baseURL, width, modified, searchParam) {
+            console.log(baseURL);
+            var originalbaseURL = baseURL;
+            var originalwidth = width;
+            var originalmodified = modified;
+            var originalsearchParam = searchParam;
+            
+            var lookupType = baseURL.substr(baseURL.indexOf('lkent=') + 6, 3);
+            if (modified == '1') baseURL = baseURL + searchParam;
+            
+            var isCustomLookup = false;
+            
+            // Check the LookupType against the Management_IP_Port_Assignment__c Key Prefix
+            if (lookupType == "{! managementIPPortAssignmentKeyPrefix }") {
+                
+                var urlArr = baseURL.split("&");
+                var txtId = '';
+                if (urlArr.length > 2) {
+                    urlArr = urlArr[1].split('=');
+                    txtId = urlArr[1];
+                }
+                
+                // Following is the url of Custom Lookup page. You need to change that accordingly
+                baseURL = "/apex/ConnectedDeviceLookup?txt=" + txtId;
+                
+                baseURL = baseURL + "&frm=" + escapeUTF("{!$Component.portAssignmentForm}");
+                if (modified == '1') {
+                    baseURL = baseURL + "&lksearch=" + searchParam;
+                }
+                
+                baseURL = baseURL + "&currentDeviceId={! Management_IP_Port_Assignment__c.Management_IP__c }";
+                
+                if (txtId.indexOf('ConnectedDeviceInput') > -1 ) {
+                    isCustomLookup = true;
+                }
+            }
+            
+            
+            if (isCustomLookup == true) {
+                openPopup(baseURL, "lookup", 350, 480, "width="+width+",height=480,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no", true);
+            }
+            else {
+                if (modified == '1') originalbaseURL = originalbaseURL + originalsearchParam;
+                openPopup(originalbaseURL, "lookup", 350, 480, "width="+originalwidth+",height=480,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no", true);
+            } 
+        }
+        </script>
+    </apex:outputPanel>
+    
+    <apex:sectionHeader title="Port Assignment Edit" subtitle="New Port Assignment" help=""/>
+    
+    <apex:form id="portAssignmentForm">
+        <apex:pageBlock mode="edit" title="Port Assignment Edit" id="pageBlk" >
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{! save }"/>
+                <apex:commandButton value="Cancel" action="{! cancel }"/>
+            </apex:pageBlockButtons>
+            <apex:pageMessages />
+            <apex:pageBlockSection title="Information">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{! $ObjectType.Management_IP_Port_Assignment__c.fields.Management_IP__c.label }" for="managementIP" />
+                    <apex:actionRegion >
+                        <apex:inputField value="{! Management_IP_Port_Assignment__c.Management_IP__c }" required="true" id="managementIP" >
+                            <apex:actionSupport event="onchange" rerender="portAssignment,lookupScript" action="{! setManagementDeviceType }"/>
+                        </apex:inputField>
+                    </apex:actionRegion>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Port Assignment" id="portAssignment">
+                <apex:inputField value="{! Management_IP_Port_Assignment__c.Management_Device_Type_Port__c }" style="width: 500px" />
+                <apex:outputPanel style="display: none">
+                    <apex:inputField value="{! Management_IP_Port_Assignment__c.Management_Device_Type__c }" />
+                </apex:outputPanel>
+                <apex:pageBlockSectionItem id="connectedDevicePgBlkSecItem">
+                    <apex:outputLabel value="{! $ObjectType.Management_IP_Port_Assignment__c.fields.Connected_Device__c.label }" />
+                    <apex:inputField value="{! Management_IP_Port_Assignment__c.Connected_Device__c }" id="ConnectedDeviceInput" style="width: 500px" >
+                        <apex:actionSupport event="onchange" rerender="portsettings" />
+                    </apex:inputField>
+                </apex:pageBlockSectionItem>
+                <apex:PageBlockSectionItem />
+                <apex:inputField value="{! Management_IP_Port_Assignment__c.Description__c }" style="width: 500px" />
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection id="portsettings" title="Port Settings" rendered="{! Management_IP_Port_Assignment__c.Id != null && Management_IP_Port_Assignment__c.Connected_Device__c != null }" >
+                <apex:inputField value="{! Management_IP_Port_Assignment__c.Auto_Negotiate__c }" >
+                    <apex:actionSupport event="onchange" rerender="portspeedsettings" />
+                </apex:inputField>
+                <apex:inputField value="{! Management_IP_Port_Assignment__c.Auto_Set_PoE__c }" >
+                    <apex:actionSupport event="onchange" rerender="poesettings" />
+                </apex:inputField>
+            </apex:pageBlockSection>
+            
+            <apex:outputPanel id="portspeedsettings" >
+                <apex:pageBlockSection title="Port Speed Settings" rendered="{! Management_IP_Port_Assignment__c.Id != null && Management_IP_Port_Assignment__c.Auto_Negotiate__c == false && Management_IP_Port_Assignment__c.Connected_Device__c != null }" >
+                    <apex:inputField value="{! Management_IP_Port_Assignment__c.Port_Speed__c }" />
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+            
+            <apex:outputPanel id="poesettings" >
+                <apex:pageBlockSection title="PoE Settings" rendered="{! Management_IP_Port_Assignment__c.Id != null && Management_IP_Port_Assignment__c.Auto_Set_PoE__c == false && Management_IP_Port_Assignment__c.Connected_Device__c != null }" >
+                    <apex:inputField value="{! Management_IP_Port_Assignment__c.PoE_Input__c }" />
+                    <apex:inputField value="{! Management_IP_Port_Assignment__c.PoE_Output__c }" />
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+            
+        </apex:pageBlock>
+        
+        <script type="text/javascript">
+            lookupPick2('{!$Component.portAssignmentForm}', '{! $Component.portAssignmentForm.pageBlk.portAssignment.connectedDevicePgBlkSecItem.ConnectedDeviceInput }_lkid', '{! $Component.portAssignmentForm.pageBlk.portAssignment.connectedDevicePgBlkSecItem.ConnectedDeviceInput }', '{! Management_IP_Port_Assignment__c.Connected_Device__c }', '{! Management_IP_Port_Assignment__c.Connected_Device_Name__c }', false);
+        </script>
+        
+    </apex:form>
+
+</apex:page>

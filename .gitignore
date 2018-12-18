@@ -1,0 +1,9 @@
+# Eclipse
+.project
+.settings/
+.metadata
+target/*
+build.properties
+
+# SalesForce
+Referenced Packages

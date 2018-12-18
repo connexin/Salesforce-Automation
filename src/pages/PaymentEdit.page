@@ -1,0 +1,50 @@
+<apex:page standardController="Payment__c" extensions="PaymentController" >
+    <apex:sectionHeader title="Payment Edit" subtitle="New Payment" help=""/>
+    
+    <apex:form >
+        <apex:pageBlock mode="edit" title="Payment Edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{! save }"/>
+                <apex:commandButton value="Cancel" action="{! cancel }"/>
+            </apex:pageBlockButtons>
+            <apex:pageMessages />
+            <apex:pageBlockSection title="Information">
+                <apex:inputField value="{! Payment__c.Account__c }" required="true" rendered="{! Payment__c.Draft__c == true || ISBLANK(Payment__c.Id) }" />
+                <apex:outputField value="{! Payment__c.Account__c }" rendered="{! Payment__c.Draft__c == false && NOT(ISBLANK(Payment__c.Id)) }" />
+
+                <!--<apex:pageBlockSectionItem rendered="{! Payment__c.Draft__c == true || ISBLANK(Payment__c.Id) }" >                    
+                    <apex:outputLabel for="source" value="{! $ObjectType.Payment__c.Fields.Source__c.Label }" />
+                    <apex:actionRegion >
+                        <apex:inputField value="{! Payment__c.Source__c }" id="source" required="true" >
+                            <apex:actionSupport event="onchange" rerender="reference"/>
+                        </apex:inputField>
+                    </apex:actionRegion>
+                </apex:pageBlockSectionItem>-->
+                <apex:outputField value="{! Payment__c.Source__c }" /><!--rendered="{! Payment__c.Draft__c == false && NOT(ISBLANK(Payment__c.Id)) }" />-->
+                    
+                <apex:inputField value="{! Payment__c.Amount__c }" required="true" rendered="{! Payment__c.Draft__c == true || ISBLANK(Payment__c.Id) }" />
+                <apex:outputField value="{! Payment__c.Amount__c }" rendered="{! Payment__c.Draft__c == false && NOT(ISBLANK(Payment__c.Id)) }" />
+                <apex:inputField value="{! Payment__c.Date__c }" required="true" rendered="{! Payment__c.Draft__c == true || ISBLANK(Payment__c.Id) }" />
+                <apex:outputField value="{! Payment__c.Date__c }" rendered="{! Payment__c.Draft__c == false && NOT(ISBLANK(Payment__c.Id)) }" />
+                <apex:inputField value="{! Payment__c.Description__c }" required="true"  />
+                <apex:outputField value="{! Payment__c.Reference__c }" rendered="{! Payment__c.Draft__c == false && NOT(ISBLANK(Payment__c.Id)) }" />
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+    
+    <apex:includeScript value="/support/console/20.0/integration.js"/>
+    <script type="text/javascript">
+        function testSetTabTitle() {
+            //Set the current tab's title
+            sforce.console.setTabTitle('New Payment');
+        }
+        var pageLoad = window.onload;
+        window.onload = function() {
+            if (pageLoad) {
+                pageLoad();
+            }
+            testSetTabTitle();
+        }
+        </script>
+    
+</apex:page>

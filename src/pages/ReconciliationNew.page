@@ -1,0 +1,20 @@
+<apex:page standardController="Reconciliation__c" extensions="ReconciliationController">
+    <apex:form >
+        <apex:pageBlock title="Reconciliation Details">
+                <apex:pageBlockButtons >
+                    <apex:commandButton value="Save" action="{! save }"/>
+                    <apex:commandButton value="Cancel" action="{! cancel }"/>
+                </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Reconciliation Details" columns="1">
+                <apex:inputField label="Account" value="{! Reconciliation__c.Account__c}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+    
+    <script type="text/javascript">
+        function reconcItemPopup() {
+            window.open("/apex/ReconciliationItem?accountId={! Reconciliation__c.Account__c }&reconciliationId={! Reconciliation__c.Id }", "_blank", "width=1000,height=580,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no", true);
+        }
+    </script>
+    
+</apex:page>

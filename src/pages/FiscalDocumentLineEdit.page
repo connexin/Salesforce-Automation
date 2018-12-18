@@ -1,0 +1,123 @@
+<apex:page standardController="Fiscal_Document_Line__c" extensions="FiscalDocumentLineController">
+    
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" />
+    
+    <script type="text/javascript"> 
+        function openLookup(baseURL, width, modified, searchParam) {
+            var originalbaseURL = baseURL;
+            var originalwidth = width;
+            var originalmodified = modified;
+            var originalsearchParam = searchParam;
+            
+            var lookupType = baseURL.substr(baseURL.length-3, 3);
+            if (modified == '1') baseURL = baseURL + searchParam;
+            
+            var isCustomLookup = false;
+            
+            // Following "01t" is the lookup type for Product object
+            if (lookupType == "01t") {
+                
+                var urlArr = baseURL.split("&");
+                var txtId = '';
+                if (urlArr.length > 2) {
+                    urlArr = urlArr[1].split('=');
+                    txtId = urlArr[1];
+                }
+                
+                // Following is the url of Custom Lookup page. You need to change that accordingly
+                baseURL = "/apex/CustomProductLookup?txt=" + txtId;
+                
+                // Following is the id of apex:form control "form". You need to change that accordingly
+                baseURL = baseURL + "&frm=" + escapeUTF("{!$Component.myForm}");
+                if (modified == '1') {
+                    baseURL = baseURL + "&lksearch=" + searchParam;
+                }
+                
+                baseURL = baseURL + "&priceBookId={! pricebook }";
+                
+                // Following is the ID of inputField that is the lookup to be customized as custom lookup
+                if (txtId.indexOf('product') > -1 ) {
+                    isCustomLookup = true;
+                }
+            }
+        
+        if (isCustomLookup == true) {
+            openPopup(baseURL, "lookup", 350, 480, "width="+width+",height=480,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no", true);
+        } else {
+            if (modified == '1') originalbaseURL = originalbaseURL + originalsearchParam;
+            openPopup(originalbaseURL, "lookup", 350, 480, "width="+originalwidth+",height=480,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no", true);
+        }
+    }
+    </script>
+    
+    <apex:sectionHeader title="Fiscal Document Line" subtitle="{! Fiscal_Document_Line__c.Name }" help=""/>
+    
+    <apex:form id="form" >
+        <apex:pageBlock title="Fiscal Document Line Details" mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{! save }"/>
+                <apex:commandButton value="Cancel" action="{! cancel }"/>
+            </apex:pageBlockButtons>
+            <apex:pageMessages />
+            
+            <apex:pageBlockSection columns="1">
+                <apex:inputField value="{! fiscal_document_line.Fiscal_Document__c }" rendered="{! Fiscal_Document_Line__c.Fiscal_Document__c == null || Fiscal_Document_Line__c.Id != null }"/>
+                <apex:inputField id="product" value="{! fiscal_document_line.Product__c }" required="false">
+                    <apex:actionSupport event="onchange" action="{! selectProduct }" rerender="description,unit_price,nominal_code,net_subtotal,tax_subtotal,subtotal" />
+                </apex:inputField>
+                <apex:inputField id="description" value="{! fiscal_document_line.Description__c }" />
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{! $ObjectType.Fiscal_Document_Line__c.Fields.Amount__c.Label }" />
+                    <apex:inputField id="unit_price" value="{! fiscal_document_line.Amount__c }" >
+                        <apex:actionSupport event="onchange" action="{! calculateSubtotals }" rerender="subtotal,tax_subtotal,net_subtotal" />
+                    </apex:inputField>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{! $ObjectType.Fiscal_Document_Line__c.Fields.Quantity__c.Label }" />
+                    <apex:inputField value="{! fiscal_document_line.Quantity__c }" >
+                        <apex:actionSupport event="onchange" action="{! calculateSubtotals }" rerender="subtotal,tax_subtotal,net_subtotal" />
+                    </apex:inputField>
+                </apex:pageBlockSectionItem>
+                <apex:inputField id="nominal_code" value="{! fiscal_document_line.Nominal_Code__c }" />
+                <apex:inputField value="{! fiscal_document_line.Tax__c }" >
+                    <apex:actionSupport event="onchange" action="{! calculateSubtotals }" rerender="subtotal,tax_subtotal,net_subtotal,vat_applied" />
+                </apex:inputField>
+                <apex:outputText id="net_subtotal" value="£{0, number, ###,###,##0.00}" label="{! $ObjectType.Fiscal_Document_Line__c.Fields.Net_Subtotal__c.Label }" >
+                    <apex:param value="{! net_subtotal }" />
+                </apex:outputText>
+                <apex:outputText id="tax_subtotal" value="£{0, number, ###,###,##0.00}" label="{! $ObjectType.Fiscal_Document_Line__c.Fields.Tax_Subtotal__c.Label }" >
+                    <apex:param value="{! tax_subtotal }" />
+                </apex:outputText>
+                <apex:outputText id="subtotal" value="£{0, number, ###,###,##0.00}" label="{! $ObjectType.Fiscal_Document_Line__c.Fields.Subtotal__c.Label }" >
+                    <apex:param value="{! subtotal }" />
+                </apex:outputText>
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:form>
+    
+    <script type="text/javascript">
+    $j = jQuery.noConflict();
+    
+    $j(document).ready(function(){
+        
+    });
+    
+    </script>
+    
+    <apex:includeScript value="/support/console/20.0/integration.js"/>
+    <script type="text/javascript">
+        function testSetTabTitle() {
+            //Set the current tab's title
+            sforce.console.setTabTitle('Sales Invoice: {! Fiscal_Document_Line__c.Name }');
+        }
+        var pageLoad = window.onload;
+        window.onload = function() {
+            if (pageLoad) {
+                pageLoad();
+            }
+            testSetTabTitle();
+        }
+    </script>
+    
+</apex:page>

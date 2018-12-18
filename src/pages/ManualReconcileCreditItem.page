@@ -1,0 +1,65 @@
+<apex:page Controller="ManualReconciliationController">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageMessages ></apex:pageMessages>
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{! selectCredit }" title="Next" value="Next" rendered="{! NOT(creditsisempty) }"/>
+                <apex:commandButton action="{! cancel }" title="Cancel" value="Cancel"/>
+            </apex:pageBlockButtons>
+            <apex:outputText value="No Credits items to reconcile" rendered="{! creditsisempty }"></apex:outputText>
+            <apex:pageBlockTable value="{! credits }" var="creditKey" rendered="{! NOT(creditsisempty) }" id="creditstable" >
+                
+                <apex:column headerValue="Select" style="background-color:{! if(selectedItems[creditKey],'#e7ffd3','white') }">
+                    <apex:inputCheckbox value="{! selectedItems[creditKey] }">
+                        <apex:actionSupport event="onchange" reRender="creditstable"/>
+                    </apex:inputCheckbox>
+                </apex:column>
+                
+                <apex:column headerValue="Date" style="background-color:{! if(selectedItems[creditKey],'#e7ffd3','white') }">
+                    <apex:actionSupport event="onclick" action="{! toggleSelection }" reRender="creditstable">
+                        <apex:param name="selectedId" value="{! creditKey }" assignTo="{! clickedItem }"/>
+                    </apex:actionSupport>
+                    <apex:outputText value="{0,date,dd' 'MMM' - 'yyyy}">
+                        <apex:param value="{! credits[creditKey].sortDate }"/>
+                    </apex:outputText>
+                </apex:column>
+                
+                <apex:column headerValue="Type" style="background-color:{! if(selectedItems[creditKey],'#e7ffd3','white') }">
+                    <apex:actionSupport event="onclick" action="{! toggleSelection }" reRender="creditstable">
+                        <apex:param name="selectedId" value="{! creditKey }" assignTo="{! clickedItem }"/>
+                    </apex:actionSupport>
+                    <apex:outputText value="{! credits[creditKey].objectType }" />
+                </apex:column>
+                
+                <apex:column headerValue="Reference" style="background-color:{! if(selectedItems[creditKey],'#e7ffd3','white') }">
+                    <apex:actionSupport event="onclick" action="{! toggleSelection }" reRender="creditstable">
+                        <apex:param name="selectedId" value="{! creditKey }" assignTo="{! clickedItem }"/>
+                    </apex:actionSupport>
+                    <apex:outputText value="{! credits[creditKey].reference }"/>
+                </apex:column>
+                
+                <apex:column headerValue="Status" style="background-color:{! if(selectedItems[creditKey],'#e7ffd3','white') }">
+                    <apex:actionSupport event="onclick" action="{! toggleSelection }" reRender="creditstable">
+                        <apex:param name="selectedId" value="{! creditKey }" assignTo="{! clickedItem }"/>
+                    </apex:actionSupport>
+                    <apex:outputText value="{! credits[creditKey].status}"/>
+                </apex:column>
+                
+                <apex:column headerValue="Allocated Amount" style="background-color:{! if(selectedItems[creditKey],'#e7ffd3','white') }">
+                    <apex:actionSupport event="onclick" action="{! toggleSelection }" reRender="creditstable">
+                        <apex:param name="selectedId" value="{! creditKey }" assignTo="{! clickedItem }"/>
+                    </apex:actionSupport>
+                    <apex:outputText value="{! credits[creditKey].amount_allocated }"/>
+                </apex:column>
+                
+                <apex:column headerValue="Amount to Reconcile" style="color:red;background-color:{! if(selectedItems[creditKey],'#e7ffd3','white') }">
+                    <apex:actionSupport event="onclick" action="{! toggleSelection }" reRender="creditstable">
+                        <apex:param name="selectedId" value="{! creditKey }" assignTo="{! clickedItem }"/>
+                    </apex:actionSupport>
+                    <apex:outputText value="{! credits[creditKey].credit_amount }"/>
+                </apex:column>
+                
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
