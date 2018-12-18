@@ -1,6 +1,6 @@
 trigger insertActilitySubscriber on LoRaWAN_Tenancy__c (after insert, after update) {
 
-	String accessToken = ThingParkREST.authorise();        	
+	String accessToken = ThingParkREST.authorise();
 
     if (Trigger.isInsert) {
         System.debug('isInsert :' + Trigger.isInsert);
@@ -9,7 +9,7 @@ trigger insertActilitySubscriber on LoRaWAN_Tenancy__c (after insert, after upda
         for (LoRaWAN_Tenancy__c item: trigger.new) {        	
 			HttpResponse result = ThingParkREST.addTenancy(accessToken, item);
 
-        	HttpResponse result = ThingParkREST.getTenancy(accessToken, item);            
+        	HttpResponse result2 = ThingParkREST.getTenancy(accessToken, item);            
             }
         }
         
@@ -20,7 +20,7 @@ trigger insertActilitySubscriber on LoRaWAN_Tenancy__c (after insert, after upda
         for (LoRaWAN_Tenancy__c item: trigger.new) {
 			HttpResponse result = ThingParkREST.updateTenancy(accessToken, item);
 
-        	HttpResponse result = ThingParkREST.getTenancy(accessToken, item);
+        	HttpResponse result2 = ThingParkREST.getTenancy(accessToken, item);
             }
         }
 
