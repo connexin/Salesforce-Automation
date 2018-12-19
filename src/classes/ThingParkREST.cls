@@ -3,73 +3,72 @@ public class ThingParkREST {
 	private static final String endpoint = 'https://dx-api.thingpark.com';
 	private static final String testAccessToken = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJWRU5ET1I6NTI5Il0sImV4cCI6MTU0NTc0MTA2MiwianRpIjoiMjFhY2RhMjMtMTg1YS00MjgzLTk0MjMtNTYyZmVkYmFjMzU0IiwiY2xpZW50X2lkIjoiY29ubmV4aW4tYXBpL3NhbGVzZm9yY2UtYWN0aWxpdHktYXBpQGNvbm5leGluLmNvLnVrIn0.ioTcTbUnkhYYV7RxmWQy9qXNyXB85hSeoYhfKP3TFoFyw_ZSnJYA1ws4y1fUUYmRdS8MKSTsOW0P3oe1LCQRBg';
 
-    public static String authorise() {
+    private static String authorise() {
     	// makeDxGetRequest()
     	return 'ACCESS_TOKEN';
     }
 
-    public static HttpResponse getTenancy(final String accessToken, final LoRaWAN_Tenancy__c item) {
+    public static HttpResponse getTenancy(final LoRaWAN_Tenancy__c item) {
     	// prepare service url
     	String serviceUrl = ThingParkREST.endpoint;
 
     	// prepare json
     	String json = makeJsonForItem(item);
 
-    	return ThingParkREST.makeDxGetRequest(serviceUrl, accessToken);
-    }
-
-    public static HttpResponse addTenancy(final String accessToken, final LoRaWAN_Tenancy__c item) {
-    	// prepare service url
-    	String serviceUrl = ThingParkREST.endpoint;
-
-    	// prepare json
-    	String json = makeJsonForItem(item);
-
-		return ThingParkREST.makeDxPostRequest(serviceUrl, accessToken, json);
+    	return ThingParkREST.makeDxGetRequest(authorise(), serviceUrl);
     }
     
-    public static HttpResponse updateTenancy(final String accessToken, final LoRaWAN_Tenancy__c item) {
+    public static HttpResponse addTenancy(final LoRaWAN_Tenancy__c item) {
+    	// prepare service url
+    	String serviceUrl = ThingParkREST.endpoint;
+        
+    	// prepare json
+    	String json = makeJsonForItem(item);
+
+		return ThingParkREST.makeDxPostRequest(authorise(), serviceUrl, json);
+    }
+
+    public static HttpResponse updateTenancy(final LoRaWAN_Tenancy__c item) {
     	// prepare service url
     	String serviceUrl = ThingParkREST.endpoint;
 
     	// prepare json
     	String json = makeJsonForItem(item);
 
-    	return ThingParkREST.makeDxPutRequest(serviceUrl, accessToken, json);
+    	return ThingParkREST.makeDxPutRequest(authorise(), serviceUrl, json);
 	}
 
-    public static HttpResponse getOrder(final String accessToken, final LoRaWAN_Package__c item) {
+    public static HttpResponse getOrder(final LoRaWAN_Package__c item) {
     	// prepare service url
     	String serviceUrl = ThingParkREST.endpoint;
 
     	// prepare json
     	String json = makeJsonForItem(item);
 
-    	return ThingParkREST.makeDxGetRequest(serviceUrl, accessToken);
+    	return ThingParkREST.makeDxGetRequest(authorise(), serviceUrl);
     }
 
-    public static HttpResponse addOrder(final String accessToken, final LoRaWAN_Package__c item) {
+    public static HttpResponse addOrder(final LoRaWAN_Package__c item) {
     	// prepare service url
     	String serviceUrl = ThingParkREST.endpoint;
 
     	// prepare json
     	String json = makeJsonForItem(item);
 
-    	return ThingParkREST.makeDxPostRequest(serviceUrl, accessToken, json);
-    }
-    
-    public static HttpResponse updateOrder(final String accessToken, final LoRaWAN_Package__c item) {
-    	// prepare service url
-    	String serviceUrl = ThingParkREST.endpoint;
-
-    	// prepare json
-    	String json = makeJsonForItem(item);
-
-    	return ThingParkREST.makeDxPutRequest(serviceUrl, accessToken, json);
+    	return ThingParkREST.makeDxPostRequest(authorise(), serviceUrl, json);
     }
     
+    public static HttpResponse updateOrder(final LoRaWAN_Package__c item) {
+    	// prepare service url
+    	String serviceUrl = ThingParkREST.endpoint;
 
-    public static HttpResponse makeDxGetRequest(final String serviceUrl, final String accessToken) {
+    	// prepare json
+    	String json = makeJsonForItem(item);
+
+    	return ThingParkREST.makeDxPutRequest(authorise(), serviceUrl, json);
+    }
+
+    private static HttpResponse makeDxGetRequest(final String accessToken, final String serviceUrl) {
         Http http = new Http();
         HttpRequest get_request = new HttpRequest();
         get_request.setEndpoint(endpoint);
@@ -92,7 +91,7 @@ public class ThingParkREST {
         return get_response;
     }
     
-    public static HttpResponse makeDxPostRequest(final String serviceUrl, final String accessToken, final String json) {    	
+    private static HttpResponse makeDxPostRequest(final String accessToken,final String serviceUrl, final String json) {
         Http http = new Http();        
 		HttpRequest post_request = new HttpRequest();
 		post_request.setEndpoint(endpoint);
@@ -112,7 +111,7 @@ public class ThingParkREST {
         return post_response;
     }
     
-    public static HttpResponse makeDxPutRequest(final String serviceUrl, final String accessToken, final String json ) {    	
+    private static HttpResponse makeDxPutRequest(final String accessToken,final String serviceUrl, final String json) {
         Http http = new Http();        
 		HttpRequest post_request = new HttpRequest();
 		post_request.setEndpoint(endpoint);
@@ -132,7 +131,7 @@ public class ThingParkREST {
         return post_response;
     }
 
-	public static String makeJsonForItem(final LoRaWAN_Tenancy__c item) {
+	private static String makeJsonForItem(final LoRaWAN_Tenancy__c item) {
     	// Available fields:
         // 	Account__c
         // 	Actility_Subscriber_ID__c
@@ -144,7 +143,7 @@ public class ThingParkREST {
 		return 'JSON[]';
 	}
 
-    public static void logTenancy(final LoRaWAN_Tenancy__c item) {
+    private static void logTenancy(final LoRaWAN_Tenancy__c item) {
         System.debug(
         	'Account__c : ' + item.Account__c + '\n' +
         	'Actility_Subscriber_ID__c : ' + item.Actility_Subscriber_ID__c + '\n' +
@@ -155,7 +154,7 @@ public class ThingParkREST {
         	'Total_Devices__c : ' + item.Total_Devices__c);
     }
 
-	public static String makeJsonForItem(LoRaWAN_Package__c item) {
+	private static String makeJsonForItem(LoRaWAN_Package__c item) {
 		// Available fields:        	
 		// 	Actility_Subscription_ID__c,
 		// 	LoRaWAN_Tenancy__c,
@@ -173,7 +172,7 @@ public class ThingParkREST {
 		return 'JSON[]';
 	}
 
-    public static void logPackage(final LoRaWAN_Package__c item) {
+    private static void logPackage(final LoRaWAN_Package__c item) {
         System.debug(
         	'Actility_Subscription_ID__c :' + item.Actility_Subscription_ID__c + '\n' +
         	'Device_Rate_after_commitment_end__c :' + item.Device_Rate_after_commitment_end__c+ '\n' +
