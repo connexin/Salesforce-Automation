@@ -1,27 +1,14 @@
-trigger insertActilitySubscriber on LoRaWAN_Tenancy__c (after insert, after update) {
-
-	String accessToken = ThingParkREST.authorise();
-
+// to be replaced by : actilitySubscriberForTenancy
+trigger insertActilitySubscriber on LoRaWAN_Tenancy__c (after insert) {
     if (Trigger.isInsert) {
-        System.debug('isInsert :' + Trigger.isInsert);
+        System.debug('insertActilitySubscriber.isInsert :' + Trigger.isInsert);
 
-        // Should only be one of these:
+        // Shouldn't there only be one of these?
+        // TODO: assert size is one?
         for (LoRaWAN_Tenancy__c item: trigger.new) {        	
-			HttpResponse result = ThingParkREST.addTenancy(accessToken, item);
-
-        	HttpResponse result2 = ThingParkREST.getTenancy(accessToken, item);            
+			ThingParkREST.addTenancy(item);
+        	ThingParkREST.getTenancy(item);
+        	// add the subscriberID to this record.        	
             }
         }
-        
-    if (Trigger.isUpdate) {
-        System.debug('isUpdate :' + Trigger.isUpdate);
-
-        // Should only be one of these:
-        for (LoRaWAN_Tenancy__c item: trigger.new) {
-			HttpResponse result = ThingParkREST.updateTenancy(accessToken, item);
-
-        	HttpResponse result2 = ThingParkREST.getTenancy(accessToken, item);
-            }
-        }
-
-}
+	}
