@@ -8,64 +8,76 @@ public class ThingParkREST {
     	return 'ACCESS_TOKEN';
     }
 
-    public static HttpResponse getTenancy(final LoRaWAN_Tenancy__c item) {
-    	// prepare service url
-    	String serviceUrl = ThingParkREST.endpoint;
-
-    	// prepare json
-    	String json = makeJsonForItem(item);
-
-    	return ThingParkREST.makeDxGetRequest(authorise(), serviceUrl);
-    }
-    
-    public static HttpResponse addTenancy(final LoRaWAN_Tenancy__c item) {
+    public static Boolean addTenancy(final LoRaWAN_Tenancy__c item) {
     	// prepare service url
     	String serviceUrl = ThingParkREST.endpoint;
         
     	// prepare json
-    	String json = makeJsonForItem(item);
+    	String json = makeJsonForTenancy(item);
 
-		return ThingParkREST.makeDxPostRequest(authorise(), serviceUrl, json);
+		HttpResponse response = ThingParkREST.makeDxPostRequest(authorise(), serviceUrl, json);
+
+		return response.getStatusCode() == 200;
     }
 
-    public static HttpResponse updateTenancy(final LoRaWAN_Tenancy__c item) {
+    public static Boolean getTenancy(final LoRaWAN_Tenancy__c item) {
     	// prepare service url
     	String serviceUrl = ThingParkREST.endpoint;
 
     	// prepare json
-    	String json = makeJsonForItem(item);
+    	String json = makeJsonForTenancy(item);
 
-    	return ThingParkREST.makeDxPutRequest(authorise(), serviceUrl, json);
-	}
-
-    public static HttpResponse getOrder(final LoRaWAN_Package__c item) {
-    	// prepare service url
-    	String serviceUrl = ThingParkREST.endpoint;
-
-    	// prepare json
-    	String json = makeJsonForItem(item);
-
-    	return ThingParkREST.makeDxGetRequest(authorise(), serviceUrl);
-    }
-
-    public static HttpResponse addOrder(final LoRaWAN_Package__c item) {
-    	// prepare service url
-    	String serviceUrl = ThingParkREST.endpoint;
-
-    	// prepare json
-    	String json = makeJsonForItem(item);
-
-    	return ThingParkREST.makeDxPostRequest(authorise(), serviceUrl, json);
+    	HttpResponse response = ThingParkREST.makeDxGetRequest(authorise(), serviceUrl);
+        
+		return response.getStatusCode() == 200;
     }
     
-    public static HttpResponse updateOrder(final LoRaWAN_Package__c item) {
+    public static Boolean updateTenancy(final LoRaWAN_Tenancy__c item) {
     	// prepare service url
     	String serviceUrl = ThingParkREST.endpoint;
 
     	// prepare json
-    	String json = makeJsonForItem(item);
+    	String json = makeJsonForTenancy(item);
 
-    	return ThingParkREST.makeDxPutRequest(authorise(), serviceUrl, json);
+    	HttpResponse response = ThingParkREST.makeDxPutRequest(authorise(), serviceUrl, json);
+
+		return response.getStatusCode() == 200;
+	}
+
+    public static Boolean addOrder(final LoRaWAN_Package__c item) {
+    	// prepare service url
+    	String serviceUrl = ThingParkREST.endpoint;
+
+    	// prepare json
+    	String json = makeJsonForOrder(item);
+
+    	HttpResponse response = ThingParkREST.makeDxPostRequest(authorise(), serviceUrl, json);
+        
+		return response.getStatusCode() == 200;
+    }
+    
+    public static Boolean getOrder(final LoRaWAN_Package__c item) {
+    	// prepare service url
+    	String serviceUrl = ThingParkREST.endpoint;
+
+    	// prepare json
+    	String json = makeJsonForOrder(item);
+
+    	HttpResponse response =  ThingParkREST.makeDxGetRequest(authorise(), serviceUrl);
+        
+		return response.getStatusCode() == 200;
+    }
+    
+    public static Boolean updateOrder(final LoRaWAN_Package__c item) {
+    	// prepare service url
+    	String serviceUrl = ThingParkREST.endpoint;
+
+    	// prepare json
+    	String json = makeJsonForOrder(item);
+
+    	HttpResponse response =  ThingParkREST.makeDxPutRequest(authorise(), serviceUrl, json);
+        
+		return response.getStatusCode() == 200;
     }
 
     private static HttpResponse makeDxGetRequest(final String accessToken, final String serviceUrl) {
@@ -74,24 +86,17 @@ public class ThingParkREST {
         get_request.setEndpoint(endpoint);
         get_request.setMethod('GET');
         
-        HttpResponse get_response = http.send(get_request);
+        HttpResponse response = http.send(get_request);
         
-        if (get_response.getStatusCode() == 200) {
-            // Deserializes the JSON string into collections of primitive data types.
-            Map<String, Object> json = (Map<String, Object>) JSON.deserializeUntyped(get_response.getBody());
-			System.debug(json);
+        System.assert(response.getStatusCode() == 200);
+       
+		Map<String, Object> json = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
+		System.debug(json);
 
-            // Cast the values in json as a list
-            List<Object> items = (List<Object>) json.get('');
-            System.debug('Received the following json:');
-            for (Object item: items) {
-                System.debug(item);
-            }
-        }
-        return get_response;
+        return response;
     }
     
-    private static HttpResponse makeDxPostRequest(final String accessToken,final String serviceUrl, final String json) {
+    private static HttpResponse makeDxPostRequest(final String accessToken, final String serviceUrl, final String json) {
         Http http = new Http();        
 		HttpRequest post_request = new HttpRequest();
 		post_request.setEndpoint(endpoint);
@@ -100,18 +105,14 @@ public class ThingParkREST {
 		post_request.setHeader('Authorization', 'Bearer '+ accessToken);
 		post_request.setBody(json);
 
-		HttpResponse post_response = http.send(post_request);
-		
-		if (post_response.getStatusCode() != 201) {
-			System.debug('The status code returned was not expected: ' +
-				post_response.getStatusCode() + ' ' + post_response.getStatus());
-		} else {
-			System.debug(post_response.getBody());
-		}
-        return post_response;
+		HttpResponse response = http.send(post_request);
+
+        System.assert(response.getStatusCode() == 200);
+
+        return response;
     }
     
-    private static HttpResponse makeDxPutRequest(final String accessToken,final String serviceUrl, final String json) {
+    private static HttpResponse makeDxPutRequest(final String accessToken, final String serviceUrl, final String json) {
         Http http = new Http();        
 		HttpRequest post_request = new HttpRequest();
 		post_request.setEndpoint(endpoint);
@@ -120,18 +121,24 @@ public class ThingParkREST {
 		post_request.setHeader('Authorization', 'Bearer '+ accessToken);
 		post_request.setBody('{"name":"foobar"}');
 
-		HttpResponse post_response = http.send(post_request);
+		HttpResponse response = http.send(post_request);
 
-		// Parse the JSON response
-		if (post_response.getStatusCode() != 201) {
-			System.debug('The status code returned was not expected: ' + post_response.getStatusCode() + ' ' + post_response.getStatus());
-		} else {
-			System.debug(post_response.getBody());
-		}
-        return post_response;
+        System.assert(response.getStatusCode() == 200);
+
+        return response;
     }
 
-	private static String makeJsonForItem(final LoRaWAN_Tenancy__c item) {
+    private static Map<String, Object> jsonFromResponse(final HttpResponse response) {
+        System.assert(response.getStatusCode() == 200);
+        Map<String, Object> json = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
+		return json;
+    }
+
+    private static void logJson(final Map<String, Object> json) {
+        System.debug(json);
+    }
+
+	private static String makeJsonForTenancy(final LoRaWAN_Tenancy__c item) {
     	// Available fields:
         // 	Account__c
         // 	Actility_Subscriber_ID__c
@@ -145,21 +152,21 @@ public class ThingParkREST {
 
     private static void logTenancy(final LoRaWAN_Tenancy__c item) {
         System.debug(
-        	'Account__c : ' + item.Account__c + '\n' +
-        	'Actility_Subscriber_ID__c : ' + item.Actility_Subscriber_ID__c + '\n' +
-        	'Daily_Max_Average__c : ' + item.Daily_Max_Average__c + '\n' +
-        	'Id : ' + item.Id + '\n' +
-        	'Name : ' + item.Name + '\n' +
-        	'Overage_Rate__c : ' + item.Overage_Rate__c + '\n' +
-        	'Total_Devices__c : ' + item.Total_Devices__c);
+        	'Id : ' 						+ item.Id + '\n' +
+        	'Name : ' 						+ item.Name + '\n' +
+        	'Account__c : ' 				+ item.Account__c + '\n' +
+        	'Actility_Subscriber_ID__c : '	+ item.Actility_Subscriber_ID__c + '\n' +
+        	'Daily_Max_Average__c : '		+ item.Daily_Max_Average__c + '\n' +
+        	'Total_Devices__c : ' 			+ item.Total_Devices__c + '\n' +
+        	'Overage_Rate__c : ' 			+ item.Overage_Rate__c);
     }
 
-	private static String makeJsonForItem(LoRaWAN_Package__c item) {
+	private static String makeJsonForOrder(final LoRaWAN_Package__c item) {
 		// Available fields:        	
-		// 	Actility_Subscription_ID__c,
-		// 	LoRaWAN_Tenancy__c,
 		// 	Id,
 		// 	Name,
+		// 	Actility_Subscription_ID__c,
+		// 	LoRaWAN_Tenancy__c,
 		// 	Start_Date__c,
 		// 	Term__c
 		// 	End_Date__c,
@@ -174,19 +181,19 @@ public class ThingParkREST {
 
     private static void logPackage(final LoRaWAN_Package__c item) {
         System.debug(
-        	'Actility_Subscription_ID__c :' + item.Actility_Subscription_ID__c + '\n' +
+            'Id :' 									+ item.Id + '\n' +
+            'Name :' 								+ item.Name + '\n' +
+        	'Actility_Subscription_ID__c :'			+ item.Actility_Subscription_ID__c + '\n' +
+            'LoRaWAN_Tenancy__c :' 					+ item.LoRaWAN_Tenancy__c+ '\n' +
+            'Start_Date__c :' 						+ item.Start_Date__c+ '\n' +
+            'Term__c :' 							+ item.Term__c+ '\n' +
+            'End_Date__c :' 						+ item.End_Date__c+ '\n' +
+            'Quantity_Of_Devices__c :' 				+ item.Quantity_Of_Devices__c+ '\n' +
+            'Device_Rate__c :' 						+ item.Device_Rate__c + '\n' +
         	'Device_Rate_after_commitment_end__c :' + item.Device_Rate_after_commitment_end__c+ '\n' +
-            'Device_Rate__c :' + item.Device_Rate__c + '\n' +
-            'End_Date__c :' + item.End_Date__c+ '\n' +
-            'Id :' + item.Id + '\n' +
-            'is_Active__c :' + item.is_Active__c+ '\n' +
-            'is_Cancelled__c :' + item.is_Cancelled__c+ '\n' +
-            'LoRaWAN_Tenancy__c :' + item.LoRaWAN_Tenancy__c+ '\n' +
-            'Name :' + item.Name + '\n' +
-            'Quantity_Of_Devices__c :' + item.Quantity_Of_Devices__c+ '\n' +
-            'Start_Date__c :' + item.Start_Date__c+ '\n' +
-            'Status__c : ' + item.Status__c+ '\n' +
-            'Term__c :' + item.Term__c);
+            'Status__c : ' 							+ item.Status__c+ '\n' +
+            'is_Active__c :' 						+ item.is_Active__c+ '\n' +
+            'is_Cancelled__c :' 					+ item.is_Cancelled__c);
     }
         
 }

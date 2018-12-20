@@ -4,8 +4,7 @@
 		Test.startTest();
 		ThingParkDxRestMock mock = createMock();
 
-        HttpResponse result = ThingParkREST.addTenancy(new LoRaWAN_Tenancy__c());
-		System.assertEquals(201, result.getStatusCode(), 'Expected 201 status code.');
+        System.assert(ThingParkREST.addTenancy(new LoRaWAN_Tenancy__c()));
 
 		Test.stopTest();
     }
@@ -14,8 +13,7 @@
 		Test.startTest();
 		ThingParkDxRestMock mock = createMock();
 
-        HttpResponse result = ThingParkREST.getTenancy(new LoRaWAN_Tenancy__c());
-        System.assertEquals(200, result.getStatusCode(), 'Expected 200 status code.');
+        System.assert(ThingParkREST.getTenancy(new LoRaWAN_Tenancy__c()));
 
 		Test.stopTest();
     }
@@ -24,8 +22,7 @@
 		Test.startTest();
 		ThingParkDxRestMock mock = createMock();
 
-        HttpResponse result = ThingParkREST.updateTenancy(new LoRaWAN_Tenancy__c());
-        System.assertEquals(200, result.getStatusCode(), 'Expected 200 status code.');
+        System.assert(ThingParkREST.updateTenancy(new LoRaWAN_Tenancy__c()));
 
 		Test.stopTest();
     }
@@ -34,8 +31,7 @@
 		Test.startTest();
 		ThingParkDxRestMock mock = createMock();
 
-        HttpResponse result = ThingParkREST.addOrder(new LoRaWAN_Package__c());
-		System.assertEquals(201, result.getStatusCode(), 'Expected 201 status code.');
+        System.assert(ThingParkREST.addOrder(new LoRaWAN_Package__c()));
 
 		Test.stopTest();
     }
@@ -44,8 +40,7 @@
 		Test.startTest();
 		ThingParkDxRestMock mock = createMock();
 
-        HttpResponse result = ThingParkREST.getOrder(new LoRaWAN_Package__c());
-        System.assertEquals(200, result.getStatusCode(), 'Expected 200 status code.');
+        System.assert(ThingParkREST.getOrder(new LoRaWAN_Package__c()));
 
 		Test.stopTest();
     }
@@ -54,8 +49,7 @@
 		Test.startTest();
 		ThingParkDxRestMock mock = createMock();
 
-        HttpResponse result = ThingParkREST.updateOrder(new LoRaWAN_Package__c());
-        System.assertEquals(200, result.getStatusCode(), 'Expected 200 status code.');
+        System.assert(ThingParkREST.updateOrder(new LoRaWAN_Package__c()));
 
 		Test.stopTest();
     }
