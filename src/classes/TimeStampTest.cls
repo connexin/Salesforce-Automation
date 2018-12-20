@@ -22,21 +22,71 @@
 @isTest private class TimeStampTest {
 
     @isTest static void testSanity() {
-		System.debug('Date.iso : ' + Datetime.now().format('YYYY-MM-dd\'T\'HH:mm:ss'));
+		System.debug('Date.iso : ' + Datetime.now().format('YYYY-MM-dd\'T\'HH:mm:ss:SSSXXX'));
 		System.debug('Date.time : ' + Datetime.now().format('HH:mm:ss'));
 		System.debug('Date.today : ' + Datetime.now().format('YYYY-MM-dd'));
     }
 
-    @isTest public static void testDateTimeStamp() {
-    	System.assert(Validator.isIsoDate(TimeStamp.date()));
+    @isTest public static void testTimeStampDate() {
+		String timeStamp = TimeStamp.date();
+        Boolean result = Validator.isIsoDate(timeStamp);
+    	System.assert(result, timeStamp);
     }
 
-    @isTest public static void testTimeTimeStamp() {
-    	System.assert(Validator.is24HourClock(TimeStamp.time()));
+    @isTest public static void testTimeStampTime() {
+		String timeStamp = TimeStamp.time();
+        Boolean result = Validator.is24HourClock(timeStamp);
+    	System.assert(result, timeStamp);
     }
 
-    @isTest public static void testIsoTimeStamp() {
-    	System.assert(Validator.isIso(TimeStamp.iso()));
+    @isTest public static void testTimeStampTimeStamp() {
+		String timeStamp = TimeStamp.timeStamp();
+		System.assert(String.isNotEmpty(timeStamp), timeStamp);
+        System.debug('timeStamp = ' + timeStamp);
+        // Boolean result = Validator.isIso(timeStamp);
+    	// System.assert(result, timeStamp);
+    	// System.assert(Validator.isIso(TimeStamp.timeStamp()));
+    }
+    
+    @isTest public static void testTimeStampIso() {
+		String timeStamp = TimeStamp.iso();
+		System.assert(String.isNotEmpty(timeStamp), timeStamp);        
+        System.debug('timeStamp = ' + timeStamp);
+    }
+
+    @isTest public static void testTimeStampIsoDate() {
+		String timeStamp = TimeStamp.isoDate();
+		System.assert(String.isNotEmpty(timeStamp), timeStamp);        
+        System.debug('isoDate = ' + timeStamp);
+        // System.assert(Validator.isIsoDate(TimeStamp.isoDate()));
+    }
+
+    @isTest public static void testTimeStampIsoTime() {
+		String timeStamp = TimeStamp.isoTime();
+		System.assert(String.isNotEmpty(timeStamp), timeStamp);        
+        System.debug('isoTime = ' + timeStamp);
+    	// System.assert(Validator.isIsoTime(TimeStamp.isoTime()));
+    }
+
+    @isTest public static void testTimeStampUkDate() {
+		String timeStamp = TimeStamp.ukDate();
+		System.assert(String.isNotEmpty(timeStamp), timeStamp);        
+        System.debug('isoDate = ' + timeStamp);
+        // System.assert(Validator.isIsoDate(TimeStamp.isoDate()));
+    }
+
+    @isTest public static void testTimeStampUkShortDate() {
+		String timeStamp = TimeStamp.ukShortDate();
+		System.assert(String.isNotEmpty(timeStamp), timeStamp);        
+        System.debug('isoDate = ' + timeStamp);
+        // System.assert(Validator.isIsoDate(TimeStamp.isoDate()));
+    }
+
+    @isTest public static void testTimeStampUkTime() {
+		String timeStamp = TimeStamp.ukTime();
+		System.assert(String.isNotEmpty(timeStamp), timeStamp);        
+        System.debug('isoTime = ' + timeStamp);
+    	// System.assert(Validator.isIsoTime(TimeStamp.isoTime()));
     }
     
 }

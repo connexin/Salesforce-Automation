@@ -1,55 +1,62 @@
 public with sharing class Validator {
 
 	// Backslashes in the RegEx patterns must be escaped with double backslash for APEX.
-	static final String TIME_PATTERN_24 = '^(0[0-9]|1[0-9]|2[0-3])(\\:)(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9])(\\:)(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9])$';
-	static final String TIME_PATTERN_12 = '^$';
-	static final String YEAR_PATTERN = '((((19|20)(([02468][048])|([13579][26]))-02-29))|((20[0-9][0-9])|(19[0-9][0-9]))';
-	static final String MONTH_PATTERN = '((((0[1-9])|(1[0-2]))';
+	// the wrapRegEx function with add the ^ & $ for start and end of string.
+	static final String TIME_24_PATTERN = '(0[0-9]|1[0-9]|2[0-3])(\\:)(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9])(\\:)(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9])';
+	static final String TIME_12_PATTERN = '(1[0-2]|0?[1-9]):[0-5][0-9](:[0-5][0-9])?(\\s?(am|AM|pm|PM|))?';
 	static final String UK_DATE_PATTERN = '(((0[1-9]|(1|2)[0-9]|3[0-1])\\/(0(1|3|5|7|8)|1(0|2)))|((0[1-9]|(1|2)[0-9]|30)\\/(0(4|6|9)|11))|((0[1-9]|(1|2)[0-9])\\/02))\\/[0-9]{4}';
-	static final String DATE_PATTERN = '((0[1-9])|(1\\d)|(2[0-8])))|((((0[13578])|(1[02]))-31)|(((0[1,3-9])|(1[0-2]))-(29|30)))))';
-	static final String ISO_DATE_PATTERN = YEAR_PATTERN + '-' + MONTH_PATTERN + '-' + DATE_PATTERN;
-	static final String ISO_PATTERN = YEAR_PATTERN + '-' + MONTH_PATTERN + '-' + DATE_PATTERN + '[\\w|T]' + TIME_PATTERN_24;
-    static final String EMAIL_PATTERN = '\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}';	
+	static final String DATE_PATTERN = '((0[1-9])|(1\\d)|(2[0-8])))|((((0[13578])|(1[02]))-31)|(((0[1,3-9])|(1[0-2]))-(29|30)))))';    
+	static final String ISO_DATE_PATTERN = '(20\\d{2})-(\\d{2})-(\\d{2})';
+	static final String ISO_PATTERN = '(20\\d{2})-(\\d{2})-(\\d{2})[\\sT](\\d{2}):(\\d{2})(:\\d{2})?([:.]\\d{3})?([zZ+-]\\d{4})?';
+    static final String EMAIL_PATTERN = '[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})';
 
+    public static Boolean isParsable(final String candidate) {
+        try {
+            Datetime dt = DateTime.parse(candidate);
+            System.debug(candidate + ' is parsable to :' + dt);
+			return true;
+        } catch(TypeException expected) {
+            System.debug(candidate + ' is not parsable.');
+			return false;
+		}
+    }
+        
     public static Boolean is24HourClock(final String candidate) {
-		Pattern regEx = Pattern.compile(wrapRegEx(TIME_PATTERN_24));    	
-    	Matcher matcher = regEx.matcher(candidate);
-    	return matcher.matches();
+    	return isIsoTime(candidate);
     }
     
     public static Boolean is12HourClock(final String candidate) {
-		Pattern regEx = Pattern.compile(wrapRegEx(TIME_PATTERN_12));    	
-    	Matcher matcher = regEx.matcher(candidate);
-    	return matcher.matches();
+    	return withRegEx(TIME_12_PATTERN, candidate);
     }
 
     public static Boolean isIsoDate(final String candidate) {
-		Pattern regEx = Pattern.compile(wrapRegEx(ISO_DATE_PATTERN));    	
-    	Matcher matcher = regEx.matcher(candidate);
-    	return matcher.matches();
+    	return withRegEx(ISO_DATE_PATTERN, candidate);
+    }
+
+    public static Boolean isIsoTime(final String candidate) {
+    	return withRegEx(TIME_24_PATTERN, candidate);
     }
 
     public static Boolean isIso(final String candidate) {
-		Pattern regEx = Pattern.compile(wrapRegEx(ISO_PATTERN));    	
-    	Matcher matcher = regEx.matcher(candidate);
-    	return matcher.matches();
+    	return withRegEx(ISO_PATTERN, candidate);
     }
     
     public static Boolean isUkDate(final String candidate) {
-		Pattern regEx = Pattern.compile(wrapRegEx(UK_DATE_PATTERN));    	
-    	Matcher matcher = regEx.matcher(candidate);
-    	return matcher.matches();
+    	return withRegEx(UK_DATE_PATTERN, candidate);
     }
     
     public static Boolean isEmail(final String candidate) {
-    	String emailPattern = '^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$';
-		Pattern regEx = Pattern.compile(emailPattern);    	
+    	return withRegEx(EMAIL_PATTERN, candidate);
+    }
+    
+    public static Boolean withRegEx(final String regExStr, final String candidate) {
+		System.debug('regExStr : ' + regExStr);
+		System.debug('candidate : ' + candidate);
+		Pattern regEx = Pattern.compile(regExStr);
+        System.debug(regEx);
     	Matcher matcher = regEx.matcher(candidate);
+        System.debug(matcher);
     	return matcher.matches();
     }
 
-    public static String wrapRegEx(final String pattern) {
-    	return '^' + pattern + '$';
-    }
-    
 }

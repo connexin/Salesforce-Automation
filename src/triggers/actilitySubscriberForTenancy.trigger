@@ -5,10 +5,10 @@ trigger actilitySubscriberForTenancy on LoRaWAN_Tenancy__c (after insert, after 
 
         // Shouldn't there only be one of these?
         // TODO: assert size is one?
-        for (LoRaWAN_Tenancy__c item: trigger.new) {        	
-			ThingParkREST.addTenancy(item);
-        	ThingParkREST.getTenancy(item);
-        	// add the subscriberID to this record.        	
+        for (LoRaWAN_Tenancy__c item: trigger.new) {            
+            ThingParkREST.addTenancy(item);
+            ThingParkREST.getTenancy(item);
+            // add the subscriberID to this record.         
             }
         }
         
@@ -18,9 +18,9 @@ trigger actilitySubscriberForTenancy on LoRaWAN_Tenancy__c (after insert, after 
         // Shouldn't there only be one of these?
         // TODO: assert size is one?
         for (LoRaWAN_Tenancy__c item: trigger.new) {
-			ThingParkREST.updateTenancy(item);
-        	ThingParkREST.getTenancy(item);
-        	// update this record from response as necessary.        	
+            ThingParkREST.updateTenancy(item);
+            ThingParkREST.getTenancy(item);
+            // update this record from response as necessary.           
             }
         }
-	}
+    }
