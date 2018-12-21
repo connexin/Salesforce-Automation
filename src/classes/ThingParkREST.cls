@@ -13,12 +13,15 @@ public class ThingParkREST {
     	String serviceUrl = ThingParkREST.endpoint;
 
     	// prepare json
-    	String json = makeJsonForTenancy(item);
+    	String json = makeRequestJsonForTenancy(item);
     	System.debug(json);
 
 		HttpResponse response = ThingParkREST.makeDxPostRequest(authorise(), serviceUrl, json);
 
-		responseJson = jsonFromResponse(response);
+        System.assert(response.getStatusCode() == 200);
+
+        Map<String, Object> responseData = dataFromResponse(response);
+        System.debug(responseData);
 
 		return response.getStatusCode() == 200;
     }
@@ -28,12 +31,15 @@ public class ThingParkREST {
     	String serviceUrl = ThingParkREST.endpoint;
 
     	// prepare json
-    	String json = makeJsonForTenancy(item);
+    	String json = makeRequestJsonForTenancy(item);
     	System.debug(json);
 
     	HttpResponse response = ThingParkREST.makeDxGetRequest(authorise(), serviceUrl);
 
-		jsonFromResponse(response);
+        System.assert(response.getStatusCode() == 200);
+
+        Map<String, Object> responseData = dataFromResponse(response);
+        System.debug(responseData);
 
 		return response.getStatusCode() == 200;
     }
@@ -43,14 +49,31 @@ public class ThingParkREST {
     	String serviceUrl = ThingParkREST.endpoint;
 
     	// prepare json
-    	String json = makeJsonForTenancy(item);
+    	String json = makeRequestJsonForTenancy(item);
     	System.debug(json);
 
     	HttpResponse response = ThingParkREST.makeDxPutRequest(authorise(), serviceUrl, json);
 
-		jsonFromResponse(response);
+        System.assert(response.getStatusCode() == 200);
+
+        Map<String, Object> responseData = dataFromResponse(response);
+        System.debug(responseData);
 
 		return response.getStatusCode() == 200;
+	}
+
+	private static String makeRequestJsonForTenancy(final LoRaWAN_Tenancy__c item) {
+    	// Available fields:
+        // 	Account__c
+        // 	Actility_Subscriber_ID__c
+        // 	Id
+        //	Name
+        // 	Total_Devices__c
+        // 	Daily_Max_Average__c
+        // 	Overage_Rate__c
+		final String json = JSON.serialize(item);
+		System.debug(json);        
+		return json;
 	}
 
     public static Boolean addOrder(final LoRaWAN_Package__c item) {
@@ -63,7 +86,10 @@ public class ThingParkREST {
 
     	HttpResponse response = ThingParkREST.makeDxPostRequest(authorise(), serviceUrl, json);
 
-		jsonFromResponse(response);
+        System.assert(response.getStatusCode() == 200);
+
+        Map<String, Object> responseData = dataFromResponse(response);
+        System.debug(responseData);
 
 		return response.getStatusCode() == 200;
     }
@@ -78,7 +104,10 @@ public class ThingParkREST {
 
     	HttpResponse response =  ThingParkREST.makeDxGetRequest(authorise(), serviceUrl);
 
-		jsonFromResponse(response);
+        System.assert(response.getStatusCode() == 200);
+
+        Map<String, Object> responseData = dataFromResponse(response);
+        System.debug(responseData);
 
 		return response.getStatusCode() == 200;
     }
@@ -93,101 +122,12 @@ public class ThingParkREST {
 
     	HttpResponse response =  ThingParkREST.makeDxPutRequest(authorise(), serviceUrl, json);
 
-		jsonFromResponse(response);
+        System.assert(response.getStatusCode() == 200);
+
+        Map<String, Object> responseData = dataFromResponse(response);
+        System.debug(responseData);
 
 		return response.getStatusCode() == 200;
-    }
-
-    private static HttpResponse makeDxGetRequest(final String accessToken, final String serviceUrl) {
-        Http http = new Http();
-        HttpRequest get_request = new HttpRequest();
-        get_request.setEndpoint(endpoint);
-        get_request.setMethod('GET');
-
-        HttpResponse response = http.send(get_request);
-
-        System.assert(response.getStatusCode() == 200);
-
-		jsonFromResponse(response);
-
-        return response;
-    }
-    
-    private static HttpResponse makeDxPostRequest(final String accessToken, final String serviceUrl, final String json) {
-        Http http = new Http();        
-		HttpRequest post_request = new HttpRequest();
-		post_request.setEndpoint(endpoint);
-		post_request.setMethod('POST');
-		post_request.setHeader('Content-Type', 'application/json;charset=UTF-8');
-		post_request.setHeader('Authorization', 'Bearer '+ accessToken);
-		post_request.setBody(json);
-
-		HttpResponse response = http.send(post_request);
-
-		jsonFromResponse(response);
-
-        System.assert(response.getStatusCode() == 200);
-
-        return response;
-    }
-    
-    private static HttpResponse makeDxPutRequest(final String accessToken, final String serviceUrl, final String json) {
-        Http http = new Http();        
-		HttpRequest post_request = new HttpRequest();
-		post_request.setEndpoint(endpoint);
-		post_request.setMethod('PUT');
-		post_request.setHeader('Content-Type', 'application/json;charset=UTF-8');
-		post_request.setHeader('Authorization', 'Bearer '+ accessToken);
-		post_request.setBody('{"name":"foobar"}');
-
-		HttpResponse response = http.send(post_request);
-
-		jsonFromResponse(response);
-
-        System.assert(response.getStatusCode() == 200);
-
-        return response;
-    }
-
-    private static Map<String, Object> jsonFromResponse(final HttpResponse response) {
-        System.assert(response.getStatusCode() == 200);
-        
-        String body = response.getBody(); 
-		System.debug(body);        
-
-        Map<String, Object> json = (Map<String, Object>) JSON.deserializeUntyped(body);
-		System.debug(json);
-
-        List<String> records = (List<String>)JSON.deserialize(json, List<Account>.class);
-		System.debug(records);
-        
-		return json;
-    }
-
-	private static String makeJsonForTenancy(final LoRaWAN_Tenancy__c item) {
-    	// Available fields:
-        // 	Account__c
-        // 	Actility_Subscriber_ID__c
-        // 	Id
-        //	Name
-        // 	Total_Devices__c
-        // 	Daily_Max_Average__c
-        // 	Overage_Rate__c
-
-		final String json = JSON.serialize(item);
-		System.debug(json);        
-		return json;
-	}
-
-    private static void logTenancy(final LoRaWAN_Tenancy__c item) {
-        System.debug(
-        	'Id : ' 						+ item.Id + '\n' +
-        	'Name : ' 						+ item.Name + '\n' +
-        	'Account__c : ' 				+ item.Account__c + '\n' +
-        	'Actility_Subscriber_ID__c : '	+ item.Actility_Subscriber_ID__c + '\n' +
-        	'Daily_Max_Average__c : '		+ item.Daily_Max_Average__c + '\n' +
-        	'Total_Devices__c : ' 			+ item.Total_Devices__c + '\n' +
-        	'Overage_Rate__c : ' 			+ item.Overage_Rate__c);
     }
 
 	private static String makeJsonForOrder(final LoRaWAN_Package__c item) {
@@ -209,6 +149,84 @@ public class ThingParkREST {
 		System.debug(json);        
 		return json;
 	}
+
+    private static HttpResponse makeDxGetRequest(final String accessToken, final String serviceUrl) {
+        Http http = new Http();
+        HttpRequest get_request = new HttpRequest();
+        get_request.setEndpoint(endpoint);
+        get_request.setMethod('GET');
+
+        HttpResponse response = http.send(get_request);
+
+        System.assert(response.getStatusCode() == 200);
+
+        Map<String, Object> responseData = dataFromResponse(response);
+        System.debug(responseData);
+
+        return response;
+    }
+    
+    private static HttpResponse makeDxPostRequest(final String accessToken, final String serviceUrl, final String json) {
+        Http http = new Http();        
+		HttpRequest post_request = new HttpRequest();
+		post_request.setEndpoint(endpoint);
+		post_request.setMethod('POST');
+		post_request.setHeader('Content-Type', 'application/json;charset=UTF-8');
+		post_request.setHeader('Authorization', 'Bearer '+ accessToken);
+		post_request.setBody(json);
+
+		HttpResponse response = http.send(post_request);
+
+		System.assert(response.getStatusCode() == 200);
+
+        Map<String, Object> responseData = dataFromResponse(response);
+        System.debug(responseData);
+
+        return response;
+    }
+    
+    private static HttpResponse makeDxPutRequest(final String accessToken, final String serviceUrl, final String json) {
+        Http http = new Http();        
+		HttpRequest post_request = new HttpRequest();
+		post_request.setEndpoint(endpoint);
+		post_request.setMethod('PUT');
+		post_request.setHeader('Content-Type', 'application/json;charset=UTF-8');
+		post_request.setHeader('Authorization', 'Bearer '+ accessToken);
+		post_request.setBody('{"name":"foobar"}');
+
+		HttpResponse response = http.send(post_request);
+
+		System.assert(response.getStatusCode() == 200);
+        
+        Map<String, Object> responseData = dataFromResponse(response);
+        System.debug(responseData);
+
+        return response;
+    }
+
+    private static Map<String, Object> dataFromResponse(final HttpResponse response) {
+        System.assert(response.getStatusCode() == 200);
+        
+        String body = response.getBody(); 
+		System.debug(body);        
+
+        Map<String, Object> data = (Map<String, Object>) JSON.deserializeUntyped(body);
+		System.debug(data);
+
+		return data;
+    }
+
+    private static void logTenancy(final LoRaWAN_Tenancy__c item) {
+        System.debug(
+        	'Id : ' 						+ item.Id + '\n' +
+        	'Name : ' 						+ item.Name + '\n' +
+        	'Account__c : ' 				+ item.Account__c + '\n' +
+        	'Actility_Subscriber_ID__c : '	+ item.Actility_Subscriber_ID__c + '\n' +
+        	'Daily_Max_Average__c : '		+ item.Daily_Max_Average__c + '\n' +
+        	'Total_Devices__c : ' 			+ item.Total_Devices__c + '\n' +
+        	'Overage_Rate__c : ' 			+ item.Overage_Rate__c);
+    }
+
 
     private static void logPackage(final LoRaWAN_Package__c item) {
         System.debug(
