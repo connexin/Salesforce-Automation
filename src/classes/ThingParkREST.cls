@@ -11,11 +11,14 @@ public class ThingParkREST {
     public static Boolean addTenancy(final LoRaWAN_Tenancy__c item) {
     	// prepare service url
     	String serviceUrl = ThingParkREST.endpoint;
-        
+
     	// prepare json
     	String json = makeJsonForTenancy(item);
+    	System.debug(json);
 
 		HttpResponse response = ThingParkREST.makeDxPostRequest(authorise(), serviceUrl, json);
+
+		responseJson = jsonFromResponse(response);
 
 		return response.getStatusCode() == 200;
     }
@@ -26,9 +29,12 @@ public class ThingParkREST {
 
     	// prepare json
     	String json = makeJsonForTenancy(item);
+    	System.debug(json);
 
     	HttpResponse response = ThingParkREST.makeDxGetRequest(authorise(), serviceUrl);
-        
+
+		jsonFromResponse(response);
+
 		return response.getStatusCode() == 200;
     }
     
@@ -38,8 +44,11 @@ public class ThingParkREST {
 
     	// prepare json
     	String json = makeJsonForTenancy(item);
+    	System.debug(json);
 
     	HttpResponse response = ThingParkREST.makeDxPutRequest(authorise(), serviceUrl, json);
+
+		jsonFromResponse(response);
 
 		return response.getStatusCode() == 200;
 	}
@@ -50,9 +59,12 @@ public class ThingParkREST {
 
     	// prepare json
     	String json = makeJsonForOrder(item);
+    	System.debug(json);
 
     	HttpResponse response = ThingParkREST.makeDxPostRequest(authorise(), serviceUrl, json);
-        
+
+		jsonFromResponse(response);
+
 		return response.getStatusCode() == 200;
     }
     
@@ -62,9 +74,12 @@ public class ThingParkREST {
 
     	// prepare json
     	String json = makeJsonForOrder(item);
+    	System.debug(json);
 
     	HttpResponse response =  ThingParkREST.makeDxGetRequest(authorise(), serviceUrl);
-        
+
+		jsonFromResponse(response);
+
 		return response.getStatusCode() == 200;
     }
     
@@ -74,9 +89,12 @@ public class ThingParkREST {
 
     	// prepare json
     	String json = makeJsonForOrder(item);
+    	System.debug(json);
 
     	HttpResponse response =  ThingParkREST.makeDxPutRequest(authorise(), serviceUrl, json);
-        
+
+		jsonFromResponse(response);
+
 		return response.getStatusCode() == 200;
     }
 
@@ -85,13 +103,12 @@ public class ThingParkREST {
         HttpRequest get_request = new HttpRequest();
         get_request.setEndpoint(endpoint);
         get_request.setMethod('GET');
-        
+
         HttpResponse response = http.send(get_request);
-        
+
         System.assert(response.getStatusCode() == 200);
-       
-		Map<String, Object> json = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
-		System.debug(json);
+
+		jsonFromResponse(response);
 
         return response;
     }
@@ -106,6 +123,8 @@ public class ThingParkREST {
 		post_request.setBody(json);
 
 		HttpResponse response = http.send(post_request);
+
+		jsonFromResponse(response);
 
         System.assert(response.getStatusCode() == 200);
 
@@ -123,6 +142,8 @@ public class ThingParkREST {
 
 		HttpResponse response = http.send(post_request);
 
+		jsonFromResponse(response);
+
         System.assert(response.getStatusCode() == 200);
 
         return response;
@@ -130,12 +151,17 @@ public class ThingParkREST {
 
     private static Map<String, Object> jsonFromResponse(final HttpResponse response) {
         System.assert(response.getStatusCode() == 200);
-        Map<String, Object> json = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
-		return json;
-    }
+        
+        String body = response.getBody(); 
+		System.debug(body);        
 
-    private static void logJson(final Map<String, Object> json) {
-        System.debug(json);
+        Map<String, Object> json = (Map<String, Object>) JSON.deserializeUntyped(body);
+		System.debug(json);
+
+        List<String> records = (List<String>)JSON.deserialize(json, List<Account>.class);
+		System.debug(records);
+        
+		return json;
     }
 
 	private static String makeJsonForTenancy(final LoRaWAN_Tenancy__c item) {
@@ -147,7 +173,10 @@ public class ThingParkREST {
         // 	Total_Devices__c
         // 	Daily_Max_Average__c
         // 	Overage_Rate__c
-		return 'JSON[]';
+
+		final String json = JSON.serialize(item);
+		System.debug(json);        
+		return json;
 	}
 
     private static void logTenancy(final LoRaWAN_Tenancy__c item) {
@@ -176,7 +205,9 @@ public class ThingParkREST {
 		// 	Status__c,
 		// 	is_Active__c,
 		// 	is_Cancelled__c,
-		return 'JSON[]';
+		final String json = JSON.serialize(item);
+		System.debug(json);        
+		return json;
 	}
 
     private static void logPackage(final LoRaWAN_Package__c item) {
