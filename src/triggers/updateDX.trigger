@@ -1,3 +1,4 @@
+// TODO: Redundant, remove when appropriate.
 trigger updateDX on LoRaWAN_Subscriber__c (after insert, after update) {
 	
 	if (Trigger.isInsert) {

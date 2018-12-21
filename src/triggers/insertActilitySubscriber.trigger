@@ -1,4 +1,5 @@
-// to be replaced by : actilitySubscriberForTenancy
+// Redundant replaced by : actilitySubscriberForTenancy
+// TODO: Remove as appropriate.
 trigger insertActilitySubscriber on LoRaWAN_Tenancy__c (after insert) {
     if (Trigger.isInsert) {
         System.debug('insertActilitySubscriber.isInsert :' + Trigger.isInsert);

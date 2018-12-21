@@ -1,4 +1,5 @@
-// to be replaced by : actilityOrderForPackage
+// Redundant replaced by : actilityOrderForPackage
+// TODO: Remove as appropriate.
 trigger insertActilityOrder on LoRaWAN_Package__c (after insert) {
     if (Trigger.isInsert) {
 		System.debug('insertActilityOrder.isInsert:' + Trigger.isInsert);
