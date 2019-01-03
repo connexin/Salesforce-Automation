@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Represents a ThingPark Subscription.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Actility_Subscription_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Actility Subscription ID</label>
+        <length>9</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Device_Rate__c</fullName>
+        <externalId>false</externalId>
+        <label>Device Rate</label>
+        <precision>4</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Device_Rate_after_commitment_end__c</fullName>
+        <externalId>false</externalId>
+        <label>Device Rate after commitment end</label>
+        <precision>6</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>ADDMONTHS( Start_Date__c ,  Term__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>LoRaWAN_Tenancy__c</fullName>
+        <description>The Tenancy this Package is attached to.</description>
+        <externalId>false</externalId>
+        <label>LoRaWAN Tenancy</label>
+        <referenceTo>LoRaWAN_Tenancy__c</referenceTo>
+        <relationshipLabel>LoRaWAN Package</relationshipLabel>
+        <relationshipName>LoRaWAN_Package</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Quantity_Of_Devices__c</fullName>
+        <externalId>false</externalId>
+        <label>Quantity Of Devices</label>
+        <precision>4</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(is_Cancelled__c, &quot;Cancelled&quot;, IF(is_Active__c, &quot;Active&quot;, &quot;Draft&quot;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Term__c</fullName>
+        <description>length of the commitment in months.</description>
+        <externalId>false</externalId>
+        <label>Term</label>
+        <precision>3</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>is_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>The device is active.</description>
+        <externalId>false</externalId>
+        <label>Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>is_Cancelled__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Cancelled</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>LoRaWAN Package</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>LoRaWAN Package Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>LoRaWAN Package</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>After_End_Device_Rate_unchangable</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( ISCHANGED( Device_Rate_after_commitment_end__c ) , OR(is_Active__c, is_Cancelled__c))</errorConditionFormula>
+        <errorDisplayField>Device_Rate_after_commitment_end__c</errorDisplayField>
+        <errorMessage>Create a new Package, do not attempt to edit an existing package.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Device_Rate_unchangable</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( ISCHANGED( Device_Rate__c ) , OR(is_Active__c, is_Cancelled__c))</errorConditionFormula>
+        <errorDisplayField>Device_Rate__c</errorDisplayField>
+        <errorMessage>Create a new Package, do not attempt to edit an existing package.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prevent_Reverse_Activation</fullName>
+        <active>true</active>
+        <description>Prevents an Active Package being made inactive again, must be decommissioned.</description>
+        <errorConditionFormula>AND(is_Active__c == False, NOT(ISNEW()), ISCHANGED(is_Active__c))</errorConditionFormula>
+        <errorDisplayField>is_Active__c</errorDisplayField>
+        <errorMessage>Package must be made cancelled, should not be reverted to &apos;Draft&apos;.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prevent_Reverse_Cancellation</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(is_Cancelled__c == False, NOT(ISNEW()), ISCHANGED(is_Cancelled__c))</errorConditionFormula>
+        <errorDisplayField>is_Cancelled__c</errorDisplayField>
+        <errorMessage>You must create a new Package, you should not attempt to reverse previous cancellation.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Quantity_of_Devices_unchangable</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( ISCHANGED( Quantity_Of_Devices__c ) , OR(is_Active__c, is_Cancelled__c))</errorConditionFormula>
+        <errorDisplayField>Quantity_Of_Devices__c</errorDisplayField>
+        <errorMessage>Create a new Package, do not attempt to edit an existing package.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Start_Date_unchangable</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( ISCHANGED( Start_Date__c ) , OR(is_Active__c, is_Cancelled__c))</errorConditionFormula>
+        <errorDisplayField>Start_Date__c</errorDisplayField>
+        <errorMessage>Create a new Package, do not attempt to edit an existing package.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Term_unchangable</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( ISCHANGED( Term__c ) , OR(is_Active__c, is_Cancelled__c))</errorConditionFormula>
+        <errorDisplayField>Term__c</errorDisplayField>
+        <errorMessage>Create a new Package, do not attempt to edit an existing package.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

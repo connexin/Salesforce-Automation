@@ -1,5 +1,17 @@
 @isTest public class ThingParkTest {
 
+	@isTest static void testAuthorise() {
+		Test.startTest();
+
+		createMock();
+
+        final String accessToken = ThingParkREST.authorise();
+        System.debug('accessToken : ' + accessToken);
+        System.assertEquals('MOCK_ACCESS_TOKEN', accessToken, 'Unexpected Value for accessToken : ' + accessToken);
+
+		Test.stopTest();
+    }
+
 	@isTest static void testAddTenancy() {
 		Test.startTest();
 
@@ -86,5 +98,4 @@
 		Test.setMock(HttpCalloutMock.class, mock);
         return mock;
 	}
-    
 }

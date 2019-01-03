@@ -1,4 +1,41 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>ActilityUsageBilling</members>
+        <name>CustomApplication</name>
+    </types>
+    <types>
+        <members>ThingParkConfig</members>
+        <members>ThingParkConfigTest</members>
+        <members>ThingParkCreateOrderJson</members>
+        <members>ThingParkCreateSubscriberJson</members>
+        <members>ThingParkDevicesResponseJson</members>
+        <members>ThingParkDxRestMock</members>
+        <members>ThingParkOrdersResponseJson</members>
+        <members>ThingParkPackageDto</members>
+        <members>ThingParkREST</members>
+        <members>ThingParkSubscribersResponseJson</members>
+        <members>ThingParkTenancyDto</members>
+        <members>ThingParkTest</members>
+        <members>TimeStamp</members>
+        <members>TimeStampTest</members>
+        <members>Validator</members>
+        <members>ValidatorTest</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>Fiscal_Document__c</members>
+        <members>Fiscal_Document_Line__c</members>
+        <members>LoRaWAN_Package__c</members>
+        <members>LoRaWAN_Subscriber__c</members>
+        <members>LoRaWAN_Tenancy__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>actilityOrderForPackage</members>
+        <members>actilitySubscriberForTenancy</members>
+        <members>updateDX</members>
+        <name>ApexTrigger</name>
+    </types>
     <version>44.0</version>
 </Package>
