@@ -4,12 +4,12 @@ public class ThingParkConfig {
 
     public ThingParkConfig() {
         config = [SELECT API_Version__c, Client_ID__c, Client_Password__c, Client_Secret__c, Endpoint__c FROM ThingPark_REST_Config__mdt WHERE label = 'stable'];
-        System.debug('config : ' + config);
+        System.debug('ThingParkConfig : ' + config);
     }
     
     public ThingParkConfig(final String scope) {
         config = [SELECT API_Version__c, Client_ID__c, Client_Password__c, Client_Secret__c, Endpoint__c FROM ThingPark_REST_Config__mdt WHERE label = :scope];
-        System.debug('config : ' + config);
+        System.debug('ThingParkConfig : ' + config);
     }
     
     public static ThingParkConfig selectLatest() {

@@ -6,8 +6,7 @@
 		createMock();
 
         final String accessToken = ThingParkREST.authorise();
-        System.debug('accessToken : ' + accessToken);
-        System.assertEquals('MOCK_ACCESS_TOKEN', accessToken, 'Unexpected Value for accessToken : ' + accessToken);
+        System.assertEquals('MOCK_ACCESS_TOKEN', accessToken, 'Unexpected value for accessToken : ' + accessToken);
 
 		Test.stopTest();
     }
@@ -72,30 +71,11 @@
 		Test.stopTest();
     }
 
-	@isTest static void testThingParkHttpMock() {
-		createMock();
-
-        // Call method to test.
-        // This causes a fake response to be sent
-        // from the class that implements HttpCalloutMock. 
-        HttpRequest request = new HttpRequest();
-        request.setEndpoint('https://dx-api.thingpark.com');
-        request.setMethod('GET');
-        // request.setParameter();
-        Http http = new Http();
-        HttpResponse response = http.send(request);
-
-        // Verify response received contains fake values
-        System.assert(response.getHeader('Content-Type') == 'application/json');
-        String expectedBody = '{"ThingPark":"mock"}';
-        System.assertEquals(expectedBody, response.getBody());
-        System.assertEquals(200, response.getStatusCode());
-    }
-
     private static HttpCalloutMock createMock() {
 		// Create the mock response based on a static resource
         HttpCalloutMock mock = new ThingParkDxRestMock();
 		Test.setMock(HttpCalloutMock.class, mock);
+        
         return mock;
 	}
 }

@@ -2,42 +2,30 @@ public class ThingParkREST {
 
     private static ThingParkConfig config = new ThingParkConfig();
 
-    public static Boolean thingParkWithCallout(final LoRaWAN_Tenancy__c item) {
-		HttpRequest request = new HttpRequest();
-		request.setEndpoint('callout:thingpark/some_path');
-		request.setMethod('GET');
-		Http http = new Http();
-		HTTPResponse response = http.send(request);
-		System.debug(response.getBody());
-        return true;
-    }
-    
     public static String authorise() {
         // prepare authorisation uri for ThingPark
         String serviceUrl = ThingParkREST.makeUri('/admin/{version}/oauth/token');
-        System.debug('serviceUrl : ' + serviceUrl );
+        System.debug('ThingParkREST authorise : ' + serviceUrl );
 
 		String parameters = new QueryMaker()
             .add('grant_type=client_credentials')
             .add('client_id', config.clientId())
             .add('client_secret', config.clientSecret())
             .asString();
-        System.debug('REST parameters : ' + parameters );
+        System.debug('ThingParkREST authorise parameters : ' + parameters );
 
         Http http = new Http();
         HttpRequest get_request = new HttpRequest();
-        get_request.setEndpoint(serviceUrl+parameters);
+        String fullUrl = serviceUrl+parameters;
+        System.debug('ThingParkREST fullUrl : ' + fullUrl);
+
+        get_request.setEndpoint(fullUrl);
         get_request.setMethod('POST');
         get_request.setBody(parameters);
-        
-        HttpResponse response = http.send(get_request);
-        System.debug('response : ' + response);
 
-        Map<String, Object> responseData = dataFromResponse(response);
-        System.debug(responseData);
-        String accessToken = (String) responseData.get('access_token');
+        Map<String, Object> responseData = dataFromResponse(http.send(get_request));
 
-        return accessToken;
+        return (String) responseData.get('access_token');
     }
 
     public static Boolean addTenancy(final LoRaWAN_Tenancy__c item) {
@@ -165,6 +153,8 @@ public class ThingParkREST {
         HttpRequest get_request = new HttpRequest();
         get_request.setEndpoint(serviceUrl);
         get_request.setMethod('GET');
+        get_request.setHeader('Content-Type', 'application/json;charset=UTF-8');
+        get_request.setHeader('Authorization', 'Bearer '+ accessToken);
 
         HttpResponse response = http.send(get_request);
 
@@ -206,7 +196,7 @@ public class ThingParkREST {
         post_request.setMethod('PUT');
         post_request.setHeader('Content-Type', 'application/json;charset=UTF-8');
         post_request.setHeader('Authorization', 'Bearer '+ accessToken);
-        post_request.setBody('{"name":"foobar"}');
+        post_request.setBody(json);
 
         HttpResponse response = http.send(post_request);
 
@@ -228,4 +218,14 @@ public class ThingParkREST {
         return jsonData;
     }
 
+    public static Boolean thingParkWithCallout(final LoRaWAN_Tenancy__c item) {
+		HttpRequest request = new HttpRequest();
+		request.setEndpoint('callout:thingpark/some_path');
+		request.setMethod('GET');
+		Http http = new Http();
+		HTTPResponse response = http.send(request);
+		System.debug(response.getBody());
+        return true;
+    }
+    
 }
