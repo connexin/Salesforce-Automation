@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><collection xmlns:ns2="http://www.gamma.co.uk/mobile/api/domain"><ns2:validationError><errorCode>DATA_ONLY_INVALID_NETWORK_SERVICE</errorCode><message>Network services 'INTERNATIONAL_CALLING', 'PREMIUM_CONTENT' are not allowed on a data only service</message></ns2:validationError></collection>

@@ -1,5 +1,0 @@
-<apex:page contentType="text/csv#{! Fiscal_Document__c.Reference__c }.csv"
-           standardController="Fiscal_Document__c"
-           extensions="FiscalDocumentsController"
-           cache="true"
-           >"Description","Amount","Quantity","Tax Subtotal","Subtotal"<apex:outputText value="{!newLine}"/><apex:repeat value="{! Fiscal_Document__c.Fiscal_Document_Lines__r }" var="line" >"{! line.Description__c }","{! line.Amount__c }","{! line.Quantity__c }","{! line.Tax_Subtotal__c }","{! line.Subtotal__c }"<apex:outputText value="{!newLine}"/></apex:repeat></apex:page>
