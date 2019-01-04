@@ -28,94 +28,112 @@ public class ThingParkREST {
         return (String) responseData.get('access_token');
     }
 
-    public static Boolean addTenancy(final LoRaWAN_Tenancy__c item) {
+    // A Saleforce tenancy is a ThingPark Subscriber.
+    public static Boolean addTenancy(final LoRaWAN_Tenancy__c tenancy) {
         // prepare service url
         String serviceUrl = ThingParkREST.makeUri('/core/{version}/subscribers/');
 
         // prepare json
-        String json = makeRequestJsonForTenancy(item);
-        System.debug(json);
+        String newTenancyJson = makeRequestJsonForTenancy(tenancy);
+        System.debug(newTenancyJson);
 
-        Map<String, Object> responseData = ThingParkREST.makeDxPostRequest(serviceUrl, json);
+        Map<String, Object> responseData = ThingParkREST.makeDxPostRequest(serviceUrl, newTenancyJson);
+
+        // update LoRaWAN_Tenancy__c with Actility Subscriber Ref
 
         return true;
     }
 
-    public static Boolean getTenancy(final LoRaWAN_Tenancy__c item) {
+    public static Boolean getTenancy(final LoRaWAN_Tenancy__c tenancy) {
         // prepare service url
         String serviceUrl = ThingParkREST.makeUri('/core/{version}/subscribers/');
 
-        Map<String, Object> responseData = ThingParkREST.makeDxGetRequest(serviceUrl);
-
-        return true;
-    }
-    
-    public static Boolean updateTenancy(final LoRaWAN_Tenancy__c item) {
-        // prepare service url
-        String serviceUrl = ThingParkREST.makeUri('/core/{version}/subscribers/');
-
-        // prepare json
-        String json = makeRequestJsonForTenancy(item);
-        System.debug(json);
-
-        Map<String, Object> responseData = ThingParkREST.makeDxPutRequest(serviceUrl, json);
-
-        return true;
-    }
-
-    private static String makeRequestJsonForTenancy(final LoRaWAN_Tenancy__c item) {
-        // Available fields:
-        //  Account__c
-        //  Actility_Subscriber_ID__c
-        //  Id
-        //  Name
-        //  Total_Devices__c
-        //  Daily_Max_Average__c
-        //  Overage_Rate__c
-        // final String json = JSON.serialize(item);
-        final String json = '{"primaryUser": {"firstName": "Alice", "lastName": "Automation","email": "alice.automation@connexin.co.uk","organization": "Connexin Company UK","password": "DQ2sO83zXY"}}';
-        System.debug(json);
-        return json;
-    }
-
-    public static Boolean addOrder(final LoRaWAN_Package__c item) {
-        // prepare service url
-        String serviceUrl = ThingParkREST.makeUri('/core/{version}/orders/');
-
-        // prepare json
-        String json = makeJsonForOrder(item);
-        System.debug(json);
-
-        Map<String, Object> responseData = ThingParkREST.makeDxPostRequest(serviceUrl, json);
-
-        return true;
-    }
-    
-    public static Boolean getOrder(final LoRaWAN_Package__c item) {
-
-        final String accessToken = authorise();
+		// serviceUrl + tenancy.Actility_Subscriber_ID__c
         
+        Map<String, Object> responseData = ThingParkREST.makeDxGetRequest(serviceUrl);
+        System.debug('responseData : ' + responseData);
+
+        return true;
+    }
+
+    public static Boolean updateTenancy(final LoRaWAN_Tenancy__c tenancy) {
+        // prepare service url
+        String serviceUrl = ThingParkREST.makeUri('/core/{version}/subscribers/');
+
+        // prepare json
+        String newTenancyJson = makeRequestJsonForTenancy(tenancy);
+        System.debug(newTenancyJson);
+
+        Map<String, Object> responseData = ThingParkREST.makeDxPutRequest(serviceUrl, newTenancyJson);
+
+        return true;
+    }
+
+    // Available fields in LoRaWAN_Tenancy__c:
+    // 	Account__c
+    //  Actility_Subscriber_ID__c
+    //  Id
+    //  Name
+    //  Total_Devices__c
+    //  Daily_Max_Average__c
+    //  Overage_Rate__c
+    private static String makeRequestJsonForTenancy(final LoRaWAN_Tenancy__c item) {
+        System.debug('makeRequestJsonForTenancy : ' + item);
+
+        // Example json
+        // 	'{"primaryUser": {"firstName":"Alice", "lastName":"Tester","email":"alice.tester@connexin.co.uk", "organization":"Connexin Company UK", "password":"pa55w0rd"}}';
+        // Map<String, Object> jsonData = (Map<String, Object>) JSON.deserializeUntyped('{"primaryUser": {"firstName":"Alice", "lastName":"Tester","email":"alice.tester@connexin.co.uk", "organization":"Connexin Company UK", "password":"pa55w0rd"}}');
+        // System.debug('jsonData = ' + jsonData);
+
+        final String jsonForTenancy = JSON.serialize(item);
+        System.debug('jsonForTenancy : ' + jsonForTenancy);
+
+        Map<String, Object> jsonData = (Map<String, Object>) JSON.deserializeUntyped(jsonForTenancy);
+        System.debug('jsonData = ' + jsonData);
+
+        return jsonForTenancy;
+    }
+
+    public static Boolean addOrder(final LoRaWAN_Package__c order) {
+        // String orderRef = order...;
+
         // prepare service url
         String serviceUrl = ThingParkREST.makeUri('/core/{version}/orders/');
 
         // prepare json
-        String json = makeJsonForOrder(item);
-        System.debug(json);
+        String orderJson = makeJsonFor(order);
+        System.debug(orderJson);
 
-        Map<String, Object> responseData = ThingParkREST.makeDxGetRequest(serviceUrl);
+        Map<String, Object> responseData = ThingParkREST.makeDxPostRequest(serviceUrl, orderJson);
+        System.debug('responseData : ' + responseData);
 
         return true;
     }
     
-    public static Boolean updateOrder(final LoRaWAN_Package__c item) {
+    public static Boolean getOrder(final LoRaWAN_Package__c order) {
+        // String orderRef = order.Actility_Subscriber_ID__c;
+
+        // prepare service url
+        String serviceUrl = ThingParkREST.makeUri('/core/{version}/orders/');
+
+        Map<String, Object> responseData = ThingParkREST.makeDxGetRequest(serviceUrl);
+        System.debug('responseData : ' + responseData);
+
+        return true;
+    }
+    
+    public static Boolean updateOrder(final LoRaWAN_Package__c order) {
+		// String orderRef = order.Actility_Subscriber_ID__c;
+
         // prepare service url
         String serviceUrl = ThingParkREST.makeUri('/core/{version}/orders/');
 
         // prepare json
-        String json = makeJsonForOrder(item);
+        String json = makeJsonFor(order);
         System.debug(json);
 
         Map<String, Object> responseData = ThingParkREST.makeDxPutRequest(serviceUrl, json);
+        System.debug('responseData : ' + responseData);
 
         return true;
     }
@@ -123,27 +141,36 @@ public class ThingParkREST {
     private static String makeUri(final string resourceUri) {
         return config.endpoint() + resourceUri.replace('{version}', config.version());
     }
-    
-    private static String makeJsonForOrder(final LoRaWAN_Package__c item) {
-        // Available fields:            
-        //  Id,
-        //  Name,
-        //  Actility_Subscription_ID__c,
-        //  LoRaWAN_Tenancy__c,
-        //  Start_Date__c,
-        //  Term__c
-        //  End_Date__c,
-        //  Quantity_Of_Devices__c,            
-        //  Device_Rate__c,
-        //  Device_Rate_after_commitment_end__c,
-        //  Status__c,
-        //  is_Active__c,
-        //  is_Cancelled__c,
-        // final String json = JSON.serialize(item);
 
-        final String json = ' { "name":"New OTAA device", "EUI":"0018A20000000004", "activationType":"OTAA", "deviceProfileId":"ADRF/DemonstratorA.1_EU", "applicationEUI": "70B3D53260000003",  "applicationKey": "258DB54023EA74F0D55085F7351737D0"}';
-        System.debug(json);        
-        return json;
+    // Available fields in LoRaWAN_Package__c:
+    //  Id,
+    //  Name,
+    //  Actility_Subscription_ID__c,
+    //  LoRaWAN_Tenancy__c,
+    //  Start_Date__c,
+    //  Term__c
+    //  End_Date__c,
+    //  Quantity_Of_Devices__c,            
+    //  Device_Rate__c,
+    //  Device_Rate_after_commitment_end__c,
+    //  Status__c,
+    //  is_Active__c,
+    //  is_Cancelled__c,
+    private static String makeJsonFor(final LoRaWAN_Package__c order) {
+        System.debug('makeJsonFor : ' + order);
+
+        // Example Json
+        // '{ "id":"connexin-vdr/test-offer", "name":"Offer for testing",  "state":"TEST", "items": [{ "productId":"actility-sup/device-manager", "quantity":1 },{ "productId":"actility-sup/network-manager", "quantity":1 }]}';
+        // Map<String, Object> jsonData = (Map<String, Object>) JSON.deserializeUntyped('{"id":"connexin-vdr/test-offer", "name":"Offer for testing", "state":"TEST", "items": [{ "productId":"actility-sup/device-manager", "quantity":1 },{ "productId":"actility-sup/network-manager", "quantity":1 }]}');
+        // System.debug('jsonData = ' + jsonData);
+
+        final String jsonForOrder = JSON.serialize(order);
+        System.debug('jsonForOrder : ' + jsonForOrder);
+
+        Map<String, Object> jsonData = (Map<String, Object>) JSON.deserializeUntyped(jsonForOrder);
+        System.debug('jsonData = ' + jsonData);
+
+        return jsonForOrder;
     }
 
     private static Map<String, Object> makeDxGetRequest(final String serviceUrl) {
@@ -218,7 +245,7 @@ public class ThingParkREST {
         return jsonData;
     }
 
-    public static Boolean thingParkWithCallout(final LoRaWAN_Tenancy__c item) {
+    public static Boolean thingParkWithCallout() {
 		HttpRequest request = new HttpRequest();
 		request.setEndpoint('callout:thingpark/some_path');
 		request.setMethod('GET');
