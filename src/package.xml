@@ -21,11 +21,12 @@
         <members>TimeStampTest</members>
         <members>Validator</members>
         <members>ValidatorTest</members>
+        <members>QueryMaker</members>
+        <members>QueryMakerTest</members>
+        <members>ThingParkBillingService</members>
         <name>ApexClass</name>
     </types>
     <types>
-        <members>Fiscal_Document__c</members>
-        <members>Fiscal_Document_Line__c</members>
         <members>LoRaWAN_Package__c</members>
         <members>LoRaWAN_Subscriber__c</members>
         <members>LoRaWAN_Tenancy__c</members>
@@ -35,6 +36,8 @@
         <members>actilityOrderForPackage</members>
         <members>actilitySubscriberForTenancy</members>
         <members>updateDX</members>
+        <members>insertActilityOrder</members>
+        <members>insertActilitySubscriber</members>
         <name>ApexTrigger</name>
     </types>
     <version>44.0</version>
