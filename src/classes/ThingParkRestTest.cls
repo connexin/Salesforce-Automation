@@ -1,85 +1,84 @@
-@isTest public class ThingParkTest {
+@isTest public class ThingParkRestTest {
 
+    @isTest static void testAddTenancy() {
+        Test.startTest();
 
-	@isTest static void testAddTenancy() {
-		Test.startTest();
-
-		createMock();
+        createMock();
 
         // Example json
-        // 	'{"primaryUser": {"firstName":"Alice", "lastName":"Tester","email":"alice.tester@connexin.co.uk", "organization":"Connexin Company UK", "password":"pa55w0rd"}}';
+        //  '{"primaryUser": {"firstName":"Alice", "lastName":"Tester","email":"alice.tester@connexin.co.uk", "organization":"Connexin Company UK", "password":"pa55w0rd"}}';
         // Map<String, Object> jsonData = (Map<String, Object>) JSON.deserializeUntyped('{"primaryUser": {"firstName":"Alice", "lastName":"Tester","email":"alice.tester@connexin.co.uk", "organization":"Connexin Company UK", "password":"pa55w0rd"}}');
         // System.debug('jsonData = ' + jsonData);
 
-        ThingParkREST.addTenancy(new LoRaWAN_Tenancy__c());
+        ThingParkRest.addTenancy(new LoRaWAN_Tenancy__c());
 
-		Test.stopTest();
+        Test.stopTest();
     }
 
     @isTest static void testGetTenancy() {
-		Test.startTest();
+        Test.startTest();
 
-		createMock();
+        createMock();
 
-        ThingParkREST.getTenancy(new LoRaWAN_Tenancy__c());
+        ThingParkRest.getTenancy(new LoRaWAN_Tenancy__c());
 
-		Test.stopTest();
+        Test.stopTest();
     }
 
     @isTest static void testUpdateTenancy() {
-		Test.startTest();
+        Test.startTest();
 
-		createMock();
+        createMock();
 
         // Example json
-        // 	'{"primaryUser": {"firstName":"Alice", "lastName":"Tester","email":"alice.tester@connexin.co.uk", "organization":"Connexin Company UK", "password":"pa55w0rd"}}';
+        //  '{"primaryUser": {"firstName":"Alice", "lastName":"Tester","email":"alice.tester@connexin.co.uk", "organization":"Connexin Company UK", "password":"pa55w0rd"}}';
         // Map<String, Object> jsonData = (Map<String, Object>) JSON.deserializeUntyped('{"primaryUser": {"firstName":"Alice", "lastName":"Tester","email":"alice.tester@connexin.co.uk", "organization":"Connexin Company UK", "password":"pa55w0rd"}}');
         // System.debug('jsonData = ' + jsonData);
         
-        ThingParkREST.updateTenancy(new LoRaWAN_Tenancy__c());
+        ThingParkRest.updateTenancy(new LoRaWAN_Tenancy__c());
 
-		Test.stopTest();
+        Test.stopTest();
     }
 
-	@isTest static void testAddOrder() {
-		Test.startTest();
+    @isTest static void testAddOrder() {
+        Test.startTest();
 
-		createMock();
+        createMock();
 
         // Example Json
         // '{ "id":"connexin-vdr/test-offer", "name":"Offer for testing",  "state":"TEST", "items": [{ "productId":"actility-sup/device-manager", "quantity":1 },{ "productId":"actility-sup/network-manager", "quantity":1 }]}';
         // Map<String, Object> jsonData = (Map<String, Object>) JSON.deserializeUntyped('{"id":"connexin-vdr/test-offer", "name":"Offer for testing", "state":"TEST", "items": [{ "productId":"actility-sup/device-manager", "quantity":1 },{ "productId":"actility-sup/network-manager", "quantity":1 }]}');
         // System.debug('jsonData = ' + jsonData);
 
-        ThingParkREST.addOrder(new LoRaWAN_Package__c());
+        ThingParkRest.addOrder(new LoRaWAN_Package__c());
 
-		Test.stopTest();
+        Test.stopTest();
     }
 
     @isTest static void testGetOrder() {
-		Test.startTest();
+        Test.startTest();
 
-		createMock();
+        createMock();
 
-        ThingParkREST.getOrder(new LoRaWAN_Package__c());
+        ThingParkRest.getOrder(new LoRaWAN_Package__c());
 
-		Test.stopTest();
+        Test.stopTest();
     }
 
     @isTest static void testUpdateOrder() {
-		Test.startTest();
+        Test.startTest();
 
-		createMock();
+        createMock();
 
-        ThingParkREST.updateOrder(new LoRaWAN_Package__c());
+        ThingParkRest.updateOrder(new LoRaWAN_Package__c());
 
-		Test.stopTest();
+        Test.stopTest();
     }
 
     private static HttpCalloutMock createMock() {
-		// Create the mock response based on a static resource
+        // Create the mock response based on a static resource
         HttpCalloutMock mock = new ThingParkDxRestMock();
-		Test.setMock(HttpCalloutMock.class, mock);
+        Test.setMock(HttpCalloutMock.class, mock);
         return mock;
-	}
+    }
 }

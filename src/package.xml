@@ -5,25 +5,27 @@
         <name>CustomApplication</name>
     </types>
     <types>
+        <members>ThingParkBillingService</members>
         <members>ThingParkConfig</members>
         <members>ThingParkConfigTest</members>
+        <members>ThingParkRest</members>
+        <members>ThingParkRestTest</members>
         <members>ThingParkCreateOrderJson</members>
         <members>ThingParkCreateSubscriberJson</members>
         <members>ThingParkDevicesResponseJson</members>
-        <members>ThingParkDxRestMock</members>
         <members>ThingParkOrdersResponseJson</members>
         <members>ThingParkPackageDto</members>
-        <members>ThingParkREST</members>
         <members>ThingParkSubscribersResponseJson</members>
         <members>ThingParkTenancyDto</members>
-        <members>ThingParkTest</members>
+        <members>ThingParkDxRestMock</members>
+        <members>PasswordGenerator</members>
+        <members>PasswordGeneratorTest</members>        
+        <members>QueryMaker</members>
+        <members>QueryMakerTest</members>
         <members>TimeStamp</members>
         <members>TimeStampTest</members>
         <members>Validator</members>
         <members>ValidatorTest</members>
-        <members>QueryMaker</members>
-        <members>QueryMakerTest</members>
-        <members>ThingParkBillingService</members>
         <name>ApexClass</name>
     </types>
     <types>

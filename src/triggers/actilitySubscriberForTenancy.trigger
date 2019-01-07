@@ -6,10 +6,10 @@ trigger actilitySubscriberForTenancy on LoRaWAN_Tenancy__c (after insert, after 
         // Shouldn't there only be one of these?
         // TODO: assert size is one?
         for (LoRaWAN_Tenancy__c item: Trigger.New) {
-        	System.debug('item.Name : ' + item.Name);
-        	System.debug('item.Actility_Subscriber_ID__c : ' + item.Actility_Subscriber_ID__c);
-        	System.debug('item.Account__c :' + item.Account__c);
-            ThingParkREST.addTenancy(item);
+            System.debug('item.Name : ' + item.Name);
+            System.debug('item.Actility_Subscriber_ID__c : ' + item.Actility_Subscriber_ID__c);
+            System.debug('item.Account__c :' + item.Account__c);
+            ThingParkRest.addTenancy(item);
         }
     }
         
@@ -19,7 +19,7 @@ trigger actilitySubscriberForTenancy on LoRaWAN_Tenancy__c (after insert, after 
         // Shouldn't there only be one of these?
         // TODO: assert size is one?
         for (LoRaWAN_Tenancy__c item: Trigger.New) {
-            ThingParkREST.updateTenancy(item);
+            ThingParkRest.updateTenancy(item);
         }
     }
 }

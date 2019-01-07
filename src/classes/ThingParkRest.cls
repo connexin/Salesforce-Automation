@@ -1,13 +1,13 @@
-public class ThingParkREST {
+public class ThingParkRest {
 
-    private static ThingParkConfig config = new ThingParkConfig();
+    private static ThingParkRestConfig config = new ThingParkRestConfig();
 
     private static String authorise() {
         // prepare authorisation uri for ThingPark
         String serviceUrl = ThingParkREST.makeUri('/admin/{version}/oauth/token');
         System.debug('ThingParkREST authorise : ' + serviceUrl );
 
-		String parameters = new QueryMaker()
+        String parameters = new QueryMaker()
             .add('grant_type=client_credentials')
             .add('client_id', config.clientId())
             .add('client_secret', config.clientSecret())
@@ -34,7 +34,7 @@ public class ThingParkREST {
         String newTenancyJson = makeSubscriberJsonForTenancy(tenancy);
         System.debug('newTenancyJson : ' + newTenancyJson);
 
-		addTenancy(newTenancyJson);
+        addTenancy(newTenancyJson);
     }
     
     @future private static void addTenancy(String newTenancyJson) {
@@ -48,9 +48,9 @@ public class ThingParkREST {
     }
 
     public static void getTenancy(final LoRaWAN_Tenancy__c tenancy) {
-    	String subscriberId = tenancy.Actility_Subscriber_ID__c;
+        String subscriberId = tenancy.Actility_Subscriber_ID__c;
 
-    	getTenancy(subscriberId);
+        getTenancy(subscriberId);
     }
 
     @future private static void getTenancy(String subscriberId) {
@@ -66,7 +66,7 @@ public class ThingParkREST {
         String updateTenancyJson = makeSubscriberJsonForTenancy(tenancy);
         System.debug('updateTenancyJson : ' + updateTenancyJson);
 
-		updateTenancy(updateTenancyJson);
+        updateTenancy(updateTenancyJson);
     }
 
     @future private  static void updateTenancy(final String updateTenancyJson) {
@@ -78,7 +78,7 @@ public class ThingParkREST {
     }
 
     // Available fields in LoRaWAN_Tenancy__c:
-    // 	Account__c
+    //  Account__c
     //  Actility_Subscriber_ID__c
     //  Id
     //  Name
@@ -89,7 +89,7 @@ public class ThingParkREST {
         System.debug('makeRequestJsonForTenancy : ' + tenancy);
 
         // Example json
-        // 	'{"primaryUser": {"firstName":"Alice", "lastName":"Tester","email":"alice.tester@connexin.co.uk", "organization":"Connexin Company UK", "password":"pa55w0rd"}}';
+        //  '{"primaryUser": {"firstName":"Alice", "lastName":"Tester","email":"alice.tester@connexin.co.uk", "organization":"Connexin Company UK", "password":"pa55w0rd"}}';
         // Map<String, Object> jsonData = (Map<String, Object>) JSON.deserializeUntyped('{"primaryUser": {"firstName":"Alice", "lastName":"Tester","email":"alice.tester@connexin.co.uk", "organization":"Connexin Company UK", "password":"pa55w0rd"}}');
         // System.debug('jsonData = ' + jsonData);
 
@@ -107,7 +107,7 @@ public class ThingParkREST {
         String newOrderJson = makeOrderJsonForPackage(pckg);
         System.debug(newOrderJson);
 
-		addOrder(newOrderJson);
+        addOrder(newOrderJson);
     }
 
     @future private static void addOrder(final String newOrderJson) {
@@ -121,7 +121,7 @@ public class ThingParkREST {
     public static void getOrder(final LoRaWAN_Package__c pckg) {
         String orderRef = pckg.Actility_Subscription_ID__c;
 
-		getOrder(orderRef);
+        getOrder(orderRef);
     }
 
     @future private static void getOrder(final String orderRef) {
@@ -194,7 +194,7 @@ public class ThingParkREST {
         HttpResponse response = http.send(request);
 
         System.assertEquals(200, response.getStatusCode());
-		System.assertEquals('application/json;charset=UTF-8',
+        System.assertEquals('application/json;charset=UTF-8',
                             response.getHeader('Content-Type'),
                             'Unexpected Content-Type value :' + response.getHeader('Content-Type'));
 
@@ -215,7 +215,7 @@ public class ThingParkREST {
         HttpResponse response = http.send(request);
 
         System.assertEquals(201, response.getStatusCode());
-		System.assertEquals('application/json;charset=UTF-8',
+        System.assertEquals('application/json;charset=UTF-8',
                             response.getHeader('Content-Type'),
                             'Unexpected Content-Type value :' + response.getHeader('Content-Type'));
 
@@ -236,7 +236,7 @@ public class ThingParkREST {
         HttpResponse response = http.send(request);
 
         System.assertEquals(200, response.getStatusCode());
-		System.assertEquals('application/json;charset=UTF-8',
+        System.assertEquals('application/json;charset=UTF-8',
                             response.getHeader('Content-Type'),
                             'Unexpected Content-Type value :' + response.getHeader('Content-Type'));
 
@@ -254,12 +254,12 @@ public class ThingParkREST {
     }
 
     public static Boolean thingParkWithCallout() {
-		HttpRequest request = new HttpRequest();
-		request.setEndpoint('callout:thingpark/some_path');
-		request.setMethod('GET');
-		Http http = new Http();
-		HTTPResponse response = http.send(request);
-		System.debug(response.getBody());
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint('callout:thingpark/some_path');
+        request.setMethod('GET');
+        Http http = new Http();
+        HTTPResponse response = http.send(request);
+        System.debug(response.getBody());
         return true;
     }
     
