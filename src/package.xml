@@ -35,9 +35,6 @@
     <types>
         <members>actilityOrderForPackage</members>
         <members>actilitySubscriberForTenancy</members>
-        <members>updateDX</members>
-        <members>insertActilityOrder</members>
-        <members>insertActilitySubscriber</members>
         <name>ApexTrigger</name>
     </types>
     <version>44.0</version>
