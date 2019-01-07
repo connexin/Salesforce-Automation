@@ -15,15 +15,15 @@ public class ThingParkREST {
         System.debug('ThingParkREST authorise parameters : ' + parameters );
 
         Http http = new Http();
-        HttpRequest get_request = new HttpRequest();
+        HttpRequest request = new HttpRequest();
         String fullUrl = serviceUrl+parameters;
         System.debug('ThingParkREST fullUrl : ' + fullUrl);
 
-        get_request.setEndpoint(fullUrl);
-        get_request.setMethod('POST');
-        get_request.setBody(parameters);
+        request.setEndpoint(fullUrl);
+        request.setMethod('POST');
+        request.setBody(parameters);
 
-        Map<String, Object> responseData = dataFromResponse(http.send(get_request));
+        Map<String, Object> responseData = dataFromResponse(http.send(request));
 
         return (String) responseData.get('access_token');
     }
@@ -177,13 +177,13 @@ public class ThingParkREST {
         final String accessToken = authorise();
 
         Http http = new Http();
-        HttpRequest get_request = new HttpRequest();
-        get_request.setEndpoint(serviceUrl);
-        get_request.setMethod('GET');
-        get_request.setHeader('Content-Type', 'application/json;charset=UTF-8');
-        get_request.setHeader('Authorization', 'Bearer '+ accessToken);
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(serviceUrl);
+        request.setMethod('GET');
+        request.setHeader('Content-Type', 'application/json;charset=UTF-8');
+        request.setHeader('Authorization', 'Bearer ' + accessToken);
 
-        HttpResponse response = http.send(get_request);
+        HttpResponse response = http.send(request);
 
         System.assertEquals(200, response.getStatusCode());
 		System.assertEquals('application/json;charset=UTF-8',
@@ -197,14 +197,14 @@ public class ThingParkREST {
         final String accessToken = authorise();
 
         Http http = new Http();        
-        HttpRequest post_request = new HttpRequest();
-        post_request.setEndpoint(serviceUrl);
-        post_request.setMethod('POST');
-        post_request.setHeader('Content-Type', 'application/json;charset=UTF-8');
-        post_request.setHeader('Authorization', 'Bearer '+ accessToken);
-        post_request.setBody(json);
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(serviceUrl);
+        request.setMethod('POST');
+        request.setHeader('Content-Type', 'application/json;charset=UTF-8');
+        request.setHeader('Authorization', 'Bearer ' + accessToken);
+        request.setBody(json);
 
-        HttpResponse response = http.send(post_request);
+        HttpResponse response = http.send(request);
 
         System.assertEquals(201, response.getStatusCode());
 		System.assertEquals('application/json;charset=UTF-8',
@@ -218,14 +218,14 @@ public class ThingParkREST {
         final String accessToken = authorise();
         
         Http http = new Http();        
-        HttpRequest post_request = new HttpRequest();
-        post_request.setEndpoint(serviceUrl);
-        post_request.setMethod('PUT');
-        post_request.setHeader('Content-Type', 'application/json;charset=UTF-8');
-        post_request.setHeader('Authorization', 'Bearer '+ accessToken);
-        post_request.setBody(json);
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(serviceUrl);
+        request.setMethod('PUT');
+        request.setHeader('Content-Type', 'application/json;charset=UTF-8');
+        request.setHeader('Authorization', 'Bearer ' + accessToken);
+        request.setBody(json);
 
-        HttpResponse response = http.send(post_request);
+        HttpResponse response = http.send(request);
 
         System.assertEquals(200, response.getStatusCode());
 		System.assertEquals('application/json;charset=UTF-8',

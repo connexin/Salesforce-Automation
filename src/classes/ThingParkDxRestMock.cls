@@ -14,9 +14,7 @@ global class ThingParkDxRestMock implements HttpCalloutMock {
             return authorise(request);
         } else {
             String authorization = request.getHeader('Authorization');
-            System.debug('Authorization : ' + authorization);
-            System.assertEquals(expectedAuthorization, 
-                                request.getHeader('Authorization'), 
+            System.assertEquals(expectedAuthorization, authorization, 
                                 'Expected ' + expectedAuthorization + ' but was : ' + authorization);
 
             if (isSubscribersRequest(request.getEndpoint())) {
@@ -41,9 +39,7 @@ global class ThingParkDxRestMock implements HttpCalloutMock {
         // if request.getEndpoint includes /admin/{version}/oauth/token
 		String regEx = '\\/admin\\/[\\w\\d\\/]+\\/oauth\\/token';
 		Pattern oauthUriPattern = Pattern.compile(regEx);
-		System.debug(oauthUriPattern);
 		Matcher oauthUriMatcher = oauthUriPattern.matcher(requestEndpoint);
-		System.debug(oauthUriMatcher);
 		Boolean result = oauthUriMatcher.find();
         System.debug('isAuthorisationRequest : ' + requestEndpoint + ' is ' + result);
         return result;

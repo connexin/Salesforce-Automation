@@ -21,12 +21,6 @@
  */
 @isTest private class TimeStampTest {
 
-    @isTest static void testSanity() {
-		System.debug('Date.iso : ' + Datetime.now().format('YYYY-MM-dd\'T\'HH:mm:ss:SSSXXX'));
-		System.debug('Date.time : ' + Datetime.now().format('HH:mm:ss'));
-		System.debug('Date.today : ' + Datetime.now().format('YYYY-MM-dd'));
-    }
-
     @isTest public static void testTimeStampDate() {
 		String timeStamp = TimeStamp.date();
         Boolean result = Validator.isIsoDate(timeStamp);
