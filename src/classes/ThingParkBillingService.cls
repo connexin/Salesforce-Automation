@@ -21,4 +21,16 @@ global with sharing class ThingParkBillingService {
         insert subscriber;
         return subscriber.Id;
     }
+
+    @HttpDelete
+    global static void doDelete() {
+        RestRequest request = RestContext.request;
+        RestResponse response = RestContext.response;
+        Integer idStart = request.requestURI.lastIndexOf('/')+1;
+        String id = request.requestURI.substring(idStart);
+        LoRaWAN_Subscriber__c subscriber = [SELECT Id, Name FROM LoRaWAN_Subscriber__c WHERE Id = :id];
+        System.debug('delete : ' + subscriber);
+        // delete subscriber;
+    }
+    
 }

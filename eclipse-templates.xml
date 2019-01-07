@@ -21,7 +21,7 @@
  */
 @isTest private class ${class_name} {
 
-    @isTest static void testMethod void test${class_name}() {
+    @isTest static void test${class_name}() {
         Test.startTest();
         ${cursor}
         Test.stopTest();

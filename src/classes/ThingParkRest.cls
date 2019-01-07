@@ -37,7 +37,8 @@ public class ThingParkRest {
         addTenancy(newTenancyJson);
     }
     
-    @future private static void addTenancy(String newTenancyJson) {
+    @Future(callout=true)
+    private static void addTenancy(String newTenancyJson) {
         // prepare service url
         String serviceUrl = ThingParkREST.makeUri('/core/{version}/subscribers/');
 
@@ -53,7 +54,8 @@ public class ThingParkRest {
         getTenancy(subscriberId);
     }
 
-    @future private static void getTenancy(String subscriberId) {
+    @Future(callout=true)
+    private static void getTenancy(String subscriberId) {
         // prepare service url
         String serviceUrl = ThingParkREST.makeUri('/core/{version}/subscribers/');
 
@@ -69,7 +71,8 @@ public class ThingParkRest {
         updateTenancy(updateTenancyJson);
     }
 
-    @future private  static void updateTenancy(final String updateTenancyJson) {
+    @Future(callout=true)
+	private static void updateTenancy(final String updateTenancyJson) {
         // prepare service url
         String serviceUrl = ThingParkREST.makeUri('/core/{version}/subscribers/');
 
@@ -105,12 +108,13 @@ public class ThingParkRest {
     public static void addOrder(final LoRaWAN_Package__c pckg) {
         // prepare json
         String newOrderJson = makeOrderJsonForPackage(pckg);
-        System.debug(newOrderJson);
+        System.debug('newOrderJson : ' + newOrderJson);
 
         addOrder(newOrderJson);
     }
 
-    @future private static void addOrder(final String newOrderJson) {
+	@Future(callout=true)
+    private static void addOrder(final String newOrderJson) {
         // prepare service url
         String serviceUrl = ThingParkREST.makeUri('/core/{version}/orders/');
 
@@ -124,7 +128,8 @@ public class ThingParkRest {
         getOrder(orderRef);
     }
 
-    @future private static void getOrder(final String orderRef) {
+	@Future(callout=true)
+    private static void getOrder(final String orderRef) {
         // prepare service url
         String serviceUrl = ThingParkREST.makeUri('/core/{version}/orders/');
 
@@ -135,10 +140,13 @@ public class ThingParkRest {
     public static void updateOrder(final LoRaWAN_Package__c pckg) {
         // prepare json
         String updateOrderJson = makeOrderJsonForPackage(pckg);
-        System.debug(updateOrderJson);
+        System.debug('updateOrderJson : ' + updateOrderJson);
+
+        updateOrder(updateOrderJson);
     }
 
-    @future private static void updateOrder(final String updateOrderJson) {
+	@Future(callout=true)
+    private static void updateOrder(final String updateOrderJson) {
         // prepare service url
         String serviceUrl = ThingParkREST.makeUri('/core/{version}/orders/');
 
@@ -259,8 +267,7 @@ public class ThingParkRest {
         request.setMethod('GET');
         Http http = new Http();
         HTTPResponse response = http.send(request);
-        System.debug(response.getBody());
+        System.debug('response.getBody() : ' + response.getBody());
         return true;
     }
-    
 }

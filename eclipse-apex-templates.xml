@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="false" context="com.salesforce.ide.ui.editors.templates.contextType.apexClass" deleted="false" description="Create a new Apex class" enabled="true" id="com.salesforce.ide.ui.editor.templates.apex.class.default" name="New Apex Class">public with sharing class ${class_name} {
+    ${cursor}
+}</template></templates>
