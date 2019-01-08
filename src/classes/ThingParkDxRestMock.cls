@@ -60,7 +60,7 @@ global class ThingParkDxRestMock implements HttpCalloutMock {
 
         String clientId = pageRef.getParameters().get('client_id');
         System.debug('client_id : ' + clientId);
-        System.assertEquals('connexin-api/salesforce-actility', clientId, 'Unexpected clientId : ' + clientId);
+        System.assertEquals('connexin-api/salesforce-actility-api@connexin.co.uk', clientId, 'Unexpected clientId : ' + clientId);
 
         String clientSecret  = pageRef.getParameters().get('client_secret');
         System.debug('client_secret : ' + clientSecret);

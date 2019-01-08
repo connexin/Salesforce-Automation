@@ -1,5 +1,3 @@
-public class ThingParkCreateSubscriberJson {
-
 /**
     Subscriber {
         id (string, optional): Id of the subscriber. ,
@@ -12,6 +10,19 @@ public class ThingParkCreateSubscriberJson {
         externalId (string, optional): Third-party identifier of the subscriber. ,
         defaultISMBandIds (Array[string], optional): List of ids of the default ISM bands for the subscriber. ,
         primaryUser (User, optional): First user account created for the subscriber. Only returned upon subscriber creation.
-    } */
+    }
+*/
+public class ThingParkCreateSubscriberJson {
+    public String id;
+    public String name;
+    public String accountId;
+    public String actilitySubscriberId;
+    public Integer dailyMaxAverage;
+    public Integer totalDevices;
+    public Integer overageRate;
+    
+    public String toJson() {
+    	return JSON.serialize(this);
+	}    
 
 }

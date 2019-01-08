@@ -4,20 +4,20 @@ public class ThingParkRest {
 
     private static String authorise() {
         // prepare authorisation uri for ThingPark
-        String serviceUrl = ThingParkREST.makeUri('/admin/{version}/oauth/token');
-        System.debug('ThingParkREST authorise : ' + serviceUrl );
+        String serviceUrl = ThingParkRest.makeUri('/admin/{version}/oauth/token');
+        System.debug('ThingParkRest authorise : ' + serviceUrl );
 
         String parameters = new QueryMaker()
             .add('grant_type=client_credentials')
             .add('client_id', config.clientId())
             .add('client_secret', config.clientSecret())
             .asString();
-        System.debug('ThingParkREST authorise parameters : ' + parameters );
+        System.debug('ThingParkRest authorise parameters : ' + parameters );
 
         Http http = new Http();
         HttpRequest request = new HttpRequest();
         String fullUrl = serviceUrl+parameters;
-        System.debug('ThingParkREST fullUrl : ' + fullUrl);
+        System.debug('ThingParkRest fullUrl : ' + fullUrl);
 
         request.setEndpoint(fullUrl);
         request.setMethod('POST');
@@ -30,8 +30,10 @@ public class ThingParkRest {
 
     // A Saleforce tenancy is a ThingPark Subscriber.
     public static void addTenancy(final LoRaWAN_Tenancy__c tenancy) {
+        ThingParkSubscriberJson factory = new ThingParkSubscriberJson(config.subscriberJsonTemplate());
+
         // prepare json
-        String newTenancyJson = makeSubscriberJsonForTenancy(tenancy);
+        String newTenancyJson = factory.jsonFrom(tenancy);
         System.debug('newTenancyJson : ' + newTenancyJson);
 
         addTenancy(newTenancyJson);
@@ -40,9 +42,9 @@ public class ThingParkRest {
     @Future(callout=true)
     private static void addTenancy(String newTenancyJson) {
         // prepare service url
-        String serviceUrl = ThingParkREST.makeUri('/core/{version}/subscribers/');
+        String serviceUrl = ThingParkRest.makeUri('/core/{version}/subscribers/');
 
-        Map<String, Object> responseData = ThingParkREST.makeDxPostRequest(serviceUrl, newTenancyJson);
+        Map<String, Object> responseData = ThingParkRest.makeDxPostRequest(serviceUrl, newTenancyJson);
         System.debug('responseData : ' + responseData);
 
         // update LoRaWAN_Tenancy__c with Actility Subscriber Ref
@@ -57,15 +59,17 @@ public class ThingParkRest {
     @Future(callout=true)
     private static void getTenancy(String subscriberId) {
         // prepare service url
-        String serviceUrl = ThingParkREST.makeUri('/core/{version}/subscribers/');
+        String serviceUrl = ThingParkRest.makeUri('/core/{version}/subscribers/');
 
-        Map<String, Object> responseData = ThingParkREST.makeDxGetRequest(serviceUrl + subscriberId);
+        Map<String, Object> responseData = ThingParkRest.makeDxGetRequest(serviceUrl + subscriberId);
         System.debug('responseData : ' + responseData);
     }
 
     public static void updateTenancy(final LoRaWAN_Tenancy__c tenancy) {
+         ThingParkSubscriberJson factory = new ThingParkSubscriberJson(config.subscriberJsonTemplate());
+
         // prepare json
-        String updateTenancyJson = makeSubscriberJsonForTenancy(tenancy);
+        String updateTenancyJson = factory.jsonFrom(tenancy);
         System.debug('updateTenancyJson : ' + updateTenancyJson);
 
         updateTenancy(updateTenancyJson);
@@ -74,40 +78,17 @@ public class ThingParkRest {
     @Future(callout=true)
 	private static void updateTenancy(final String updateTenancyJson) {
         // prepare service url
-        String serviceUrl = ThingParkREST.makeUri('/core/{version}/subscribers/');
+        String serviceUrl = ThingParkRest.makeUri('/core/{version}/subscribers/');
 
-        Map<String, Object> responseData = ThingParkREST.makeDxPutRequest(serviceUrl, updateTenancyJson);
+        Map<String, Object> responseData = ThingParkRest.makeDxPutRequest(serviceUrl, updateTenancyJson);
         System.debug('responseData : ' + responseData);
     }
 
-    // Available fields in LoRaWAN_Tenancy__c:
-    //  Account__c
-    //  Actility_Subscriber_ID__c
-    //  Id
-    //  Name
-    //  Total_Devices__c
-    //  Daily_Max_Average__c
-    //  Overage_Rate__c
-    private static String makeSubscriberJsonForTenancy(final LoRaWAN_Tenancy__c tenancy) {
-        System.debug('makeRequestJsonForTenancy : ' + tenancy);
+    public static void addOrder(final LoRaWAN_Package__c pckage) {
+         ThingParkOrderJson factory = new ThingParkOrderJson(config.orderJsonTemplate());
 
-        // Example json
-        //  '{"primaryUser": {"firstName":"Alice", "lastName":"Tester","email":"alice.tester@connexin.co.uk", "organization":"Connexin Company UK", "password":"pa55w0rd"}}';
-        // Map<String, Object> jsonData = (Map<String, Object>) JSON.deserializeUntyped('{"primaryUser": {"firstName":"Alice", "lastName":"Tester","email":"alice.tester@connexin.co.uk", "organization":"Connexin Company UK", "password":"pa55w0rd"}}');
-        // System.debug('jsonData = ' + jsonData);
-
-        final String jsonForTenancy = JSON.serialize(tenancy);
-        System.debug('jsonForTenancy : ' + jsonForTenancy);
-
-        Map<String, Object> jsonData = (Map<String, Object>) JSON.deserializeUntyped(jsonForTenancy);
-        System.debug('jsonData = ' + jsonData);
-
-        return jsonForTenancy;
-    }
-
-    public static void addOrder(final LoRaWAN_Package__c pckg) {
         // prepare json
-        String newOrderJson = makeOrderJsonForPackage(pckg);
+        String newOrderJson = factory.jsonFrom(pckage);
         System.debug('newOrderJson : ' + newOrderJson);
 
         addOrder(newOrderJson);
@@ -116,9 +97,9 @@ public class ThingParkRest {
 	@Future(callout=true)
     private static void addOrder(final String newOrderJson) {
         // prepare service url
-        String serviceUrl = ThingParkREST.makeUri('/core/{version}/orders/');
+        String serviceUrl = ThingParkRest.makeUri('/core/{version}/orders/');
 
-        Map<String, Object> responseData = ThingParkREST.makeDxPostRequest(serviceUrl, newOrderJson);
+        Map<String, Object> responseData = ThingParkRest.makeDxPostRequest(serviceUrl, newOrderJson);
         System.debug('responseData : ' + responseData);
     }
     
@@ -131,62 +112,37 @@ public class ThingParkRest {
 	@Future(callout=true)
     private static void getOrder(final String orderRef) {
         // prepare service url
-        String serviceUrl = ThingParkREST.makeUri('/core/{version}/orders/');
+        String serviceUrl = ThingParkRest.makeUri('/core/{version}/orders/');
 
-        Map<String, Object> responseData = ThingParkREST.makeDxGetRequest(serviceUrl + orderRef);
+        Map<String, Object> responseData = ThingParkRest.makeDxGetRequest(serviceUrl + orderRef);
         System.debug('responseData : ' + responseData);
     }
 
-    public static void updateOrder(final LoRaWAN_Package__c pckg) {
+    public static void updateOrder(final LoRaWAN_Package__c pckage) {
+        ThingParkOrderJson factory = new ThingParkOrderJson(config.orderJsonTemplate());
+        
         // prepare json
-        String updateOrderJson = makeOrderJsonForPackage(pckg);
+        String updateOrderJson = factory.jsonFrom(pckage);
         System.debug('updateOrderJson : ' + updateOrderJson);
-
+        
         updateOrder(updateOrderJson);
     }
 
 	@Future(callout=true)
     private static void updateOrder(final String updateOrderJson) {
         // prepare service url
-        String serviceUrl = ThingParkREST.makeUri('/core/{version}/orders/');
+        String serviceUrl = ThingParkRest.makeUri('/core/{version}/orders/');
 
-        Map<String, Object> responseData = ThingParkREST.makeDxPutRequest(serviceUrl, updateOrderJson);
+        Map<String, Object> responseData = ThingParkRest.makeDxPutRequest(serviceUrl, updateOrderJson);
         System.debug('responseData : ' + responseData);
     }
 
-    // Available fields in LoRaWAN_Package__c:
-    //  Id,
-    //  Name,
-    //  Actility_Subscription_ID__c,
-    //  LoRaWAN_Tenancy__c,
-    //  Start_Date__c,
-    //  Term__c
-    //  End_Date__c,
-    //  Quantity_Of_Devices__c,            
-    //  Device_Rate__c,
-    //  Device_Rate_after_commitment_end__c,
-    //  Status__c,
-    //  is_Active__c,
-    //  is_Cancelled__c,
-    private static String makeOrderJsonForPackage(final LoRaWAN_Package__c pckg) {
-        System.debug('makeJsonFor : ' + pckg);
+    private static String makeUri(final string uriTemplate) {
+    	final String resourceUri = uriTemplate.replace('{version}', config.version());
+    	final String targetUri = config.endpoint() + resourceUri;
+    	System.debug('targetUri : ' + targetUri);
 
-        // Example Json
-        // '{ "id":"connexin-vdr/test-offer", "name":"Offer for testing",  "state":"TEST", "items": [{ "productId":"actility-sup/device-manager", "quantity":1 },{ "productId":"actility-sup/network-manager", "quantity":1 }]}';
-        // Map<String, Object> jsonData = (Map<String, Object>) JSON.deserializeUntyped('{"id":"connexin-vdr/test-offer", "name":"Offer for testing", "state":"TEST", "items": [{ "productId":"actility-sup/device-manager", "quantity":1 },{ "productId":"actility-sup/network-manager", "quantity":1 }]}');
-        // System.debug('jsonData = ' + jsonData);
-
-        final String jsonForOrder = JSON.serialize(pckg);
-        System.debug('jsonForOrder : ' + jsonForOrder);
-
-        Map<String, Object> jsonData = (Map<String, Object>) JSON.deserializeUntyped(jsonForOrder);
-        System.debug('jsonData = ' + jsonData);
-
-        return jsonForOrder;
-    }
-
-    private static String makeUri(final string resourceUri) {
-        return config.endpoint() + resourceUri.replace('{version}', config.version());
+        return targetUri;
     }
 
     private static Map<String, Object> makeDxGetRequest(final String serviceUrl) {
@@ -216,7 +172,7 @@ public class ThingParkRest {
         HttpRequest request = new HttpRequest();
         request.setEndpoint(serviceUrl);
         request.setMethod('POST');
-        request.setHeader('Content-Type', 'application/json;charset=UTF-8');
+        request.setHeader('Content-Type', 'application/x-www-form-urlencoded');
         request.setHeader('Authorization', 'Bearer ' + accessToken);
         request.setBody(json);
 
