@@ -1,7 +1,7 @@
 // create a subscriber in Actility ThingPark for a Salesforce Tenancy
 trigger actilitySubscriberForTenancy on LoRaWAN_Tenancy__c (after insert, after update) {
 
-	System.debug('actilitySubscriberForTenancy');    
+    System.debug('actilitySubscriberForTenancy');    
     
     if (Trigger.isInsert) {
         System.debug('insertActilitySubscriber.isInsert :' + Trigger.isInsert);
@@ -11,7 +11,8 @@ trigger actilitySubscriberForTenancy on LoRaWAN_Tenancy__c (after insert, after 
         for (LoRaWAN_Tenancy__c tenancy: Trigger.New) {
             System.debug('tenancy.Name : ' + tenancy.Name);
             System.debug('tenancy.Actility_Subscriber_ID__c : ' + tenancy.Actility_Subscriber_ID__c);
-            System.debug('tenancy.Account__c :' + tenancy.Account__c);
+            System.debug('tenancy.Account :' + tenancy.Account__c);
+            System.debug('tenancy.Account.Name : ' + tenancy.Account__r.Name);
             ThingParkRest.addTenancy(tenancy);
         }
     }
@@ -25,6 +26,7 @@ trigger actilitySubscriberForTenancy on LoRaWAN_Tenancy__c (after insert, after 
             System.debug('tenancy.Name : ' + tenancy.Name);
             System.debug('tenancy.Actility_Subscriber_ID__c : ' + tenancy.Actility_Subscriber_ID__c);
             System.debug('tenancy.Account__c :' + tenancy.Account__c);            
+            System.debug('tenancy.Account.Name : ' + tenancy.Account__r.Name);
             ThingParkRest.updateTenancy(tenancy);
         }
     }
