@@ -62,7 +62,7 @@
 
     private static HttpCalloutMock createMock() {
         // Create the mock response based on a static resource
-        HttpCalloutMock mock = new ThingParkDxRestMock();
+        HttpCalloutMock mock = new ThingParkRestMock();
         Test.setMock(HttpCalloutMock.class, mock);
         return mock;
     }

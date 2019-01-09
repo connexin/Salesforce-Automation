@@ -157,7 +157,7 @@ public class ThingParkRest {
 
         HttpResponse response = http.send(request);
 
-        System.assertEquals(200, response.getStatusCode());
+        System.assertEquals(200, response.getStatusCode(), 'Expected Status : 200 but was :' + response.getStatusCode() + response.getBody());
         System.assertEquals('application/json;charset=UTF-8',
                             response.getHeader('Content-Type'),
                             'Unexpected Content-Type value :' + response.getHeader('Content-Type'));
@@ -178,7 +178,7 @@ public class ThingParkRest {
 
         HttpResponse response = http.send(request);
 
-        System.assertEquals(201, response.getStatusCode());
+        System.assertEquals(201, response.getStatusCode(), 'Expected Status : 201 but was :' + response.getStatusCode() + response.getBody());
         System.assertEquals('application/json;charset=UTF-8',
                             response.getHeader('Content-Type'),
                             'Unexpected Content-Type value :' + response.getHeader('Content-Type'));
@@ -199,7 +199,7 @@ public class ThingParkRest {
 
         HttpResponse response = http.send(request);
 
-        System.assertEquals(200, response.getStatusCode());
+        System.assertEquals(200, response.getStatusCode(), 'Expected Status : 200 but was :' + response.getStatusCode() + response.getBody());
         System.assertEquals('application/json;charset=UTF-8',
                             response.getHeader('Content-Type'),
                             'Unexpected Content-Type value :' + response.getHeader('Content-Type'));
