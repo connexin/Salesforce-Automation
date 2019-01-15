@@ -1,30 +1,30 @@
 @isTest public class ExpectedDataManagerTest extends AbstractThingParkTestCase {
 
 	@isTest static void testGivenTestPriceBook() {
-        assertNotNull(ExpectedDataManager.givenTestPriceBook());
+        assertNotNull(new ExpectedDataManager().givenTestPriceBook());
     }
 
 	@isTest static void testGivenTestProduct() {
-        assertNotNull(ExpectedDataManager.givenTestProduct());
+        assertNotNull(new ExpectedDataManager().givenTestProduct());
     }
     
 	@isTest static void testGivenThingParkProduct() {
-        assertNotNull(ExpectedDataManager.givenThingParkProducts());
+        assertNotNull(new ExpectedDataManager().givenThingParkProducts());
     }
 
 	@isTest static void testGivenThingParkCustomer() {
-        assertNotNull(ExpectedDataManager.givenThingParkCustomer());
+        assertNotNull(new ExpectedDataManager().givenThingParkCustomer());
     }
 
 	@isTest static void testGivenThingParkTennancy() {
-        assertNotNull(ExpectedDataManager.givenThingParkTennancy());
+        assertNotNull(new ExpectedDataManager().givenThingParkTenancy());
     }
 
 	@isTest static void testGivenThingParkPackage() {
-        assertNotNull(ExpectedDataManager.givenThingParkPackage());
+        assertNotNull(new ExpectedDataManager().givenThingParkPackage());
     }
 
 	@isTest static void testGivenInvoiceTaxRate() {
-        assertNotNull(ExpectedDataManager.givenInvoiceVatRate());
+        assertNotNull(new ExpectedDataManager().givenInvoiceVatRate());
     }
 }

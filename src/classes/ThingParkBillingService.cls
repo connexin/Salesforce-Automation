@@ -1,6 +1,6 @@
 @RestResource(urlMapping='/ThingParkBilling/*')
 global with sharing class ThingParkBillingService {
-
+    
     @HttpGet
     global static LoRaWAN_Subscriber__c doGet() {
         RestRequest request = RestContext.request;
@@ -11,17 +11,17 @@ global with sharing class ThingParkBillingService {
         System.debug('get : ' + subscriber);
         return subscriber;
     }
-
+    
     @HttpPost
     global static String doPost(String name) {
         System.debug('create : ' + name);
         LoRaWAN_Subscriber__c subscriber = new LoRaWAN_Subscriber__c();
-		// Name, Device_Rate__c, Account__c, Message_Rate__c, Commitment__c, Overage_Rate__c, Fair_Usage_Limit__c
+        // Name, Device_Rate__c, Account__c, Message_Rate__c, Commitment__c, Overage_Rate__c, Fair_Usage_Limit__c
         subscriber.Name = name;
         insert subscriber;
         return subscriber.Id;
     }
-
+    
     @HttpDelete
     global static void doDelete() {
         RestRequest request = RestContext.request;
@@ -32,5 +32,4 @@ global with sharing class ThingParkBillingService {
         System.debug('delete : ' + subscriber);
         // delete subscriber;
     }
-    
 }
