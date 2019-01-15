@@ -19,7 +19,7 @@
  *
  * See the Apex Language Reference for more information about Testing and Code Coverage.
  */
-@isTest private class TimeStampTest {
+@isTest private class TimeStampTest extends AbstractTestCase {
 
     @isTest public static void testTimeStampDate() {
 		String timeStamp = TimeStamp.date();

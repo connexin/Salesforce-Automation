@@ -8,6 +8,7 @@ trigger actilitySubscriberForTenancy on LoRaWAN_Tenancy__c (after insert, after 
 
         // Shouldn't there only be one of these?
         // TODO: assert size is one?
+        System.debug('Trigger.New : ' + Trigger.New);
         for (LoRaWAN_Tenancy__c tenancy: Trigger.New) {
             System.debug('tenancy.Name : ' + tenancy.Name);
             System.debug('tenancy.Actility_Subscriber_ID__c : ' + tenancy.Actility_Subscriber_ID__c);
@@ -22,6 +23,7 @@ trigger actilitySubscriberForTenancy on LoRaWAN_Tenancy__c (after insert, after 
 
         // Shouldn't there only be one of these?
         // TODO: assert size is one?
+        System.debug('Trigger.New : ' + Trigger.New);
         for (LoRaWAN_Tenancy__c tenancy: Trigger.New) {
             System.debug('tenancy.Name : ' + tenancy.Name);
             System.debug('tenancy.Actility_Subscriber_ID__c : ' + tenancy.Actility_Subscriber_ID__c);

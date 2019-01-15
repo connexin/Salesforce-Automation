@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>FiscalDocumentLineEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>FiscalDocumentLineEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>false</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>ATOM_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>ATOM Id</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Amount_Value__c</fullName>
+        <externalId>false</externalId>
+        <formula>Amount__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Amount</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>6</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <length>255</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Fiscal_Document_Draft__c</fullName>
+        <externalId>false</externalId>
+        <formula>Fiscal_Document__r.Draft__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Fiscal Document Draft</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Fiscal_Document__c</fullName>
+        <externalId>false</externalId>
+        <label>Fiscal Document</label>
+        <referenceTo>Fiscal_Document__c</referenceTo>
+        <relationshipLabel>Fiscal Document Lines</relationshipLabel>
+        <relationshipName>Fiscal_Document_Lines</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Net_Subtotal_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Net Subtotal</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Net_Subtotal__c</fullName>
+        <externalId>false</externalId>
+        <formula>Subtotal__c - Tax_Subtotal__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Net Subtotal</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Nominal_Code__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Nominal Code</label>
+        <referenceTo>Nominal_Code__c</referenceTo>
+        <relationshipLabel>Fiscal Document Lines</relationshipLabel>
+        <relationshipName>Fiscal_Document_Lines</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Product__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Product</label>
+        <referenceTo>Product2</referenceTo>
+        <relationshipLabel>Fiscal Document Lines</relationshipLabel>
+        <relationshipName>Fiscal_Document_Lines</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Quantity__c</fullName>
+        <defaultValue>1</defaultValue>
+        <externalId>false</externalId>
+        <label>Quantity</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Subtotal_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Subtotal</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Subtotal__c</fullName>
+        <externalId>false</externalId>
+        <formula>Amount__c * (1 + Tax_Rate__c) * Quantity__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Subtotal</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Tax_Rate__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax Rate</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Tax_Subtotal_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax Subtotal</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Tax_Subtotal__c</fullName>
+        <externalId>false</externalId>
+        <formula>Amount__c * Tax_Rate__c * Quantity__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Tax Subtotal</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Tax__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Tax</label>
+        <referenceTo>Tax__c</referenceTo>
+        <relationshipLabel>Fiscal Document Lines</relationshipLabel>
+        <relationshipName>Fiscal_Document_Lines</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <label>Fiscal Document Line</label>
+    <nameField>
+        <displayFormat>{0}</displayFormat>
+        <label>Id</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Fiscal Document Lines</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Protect_Non_Draft_Amount</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(ISCHANGED( Amount__c) ,  Fiscal_Document_Draft__c  == False)</errorConditionFormula>
+        <errorDisplayField>Amount__c</errorDisplayField>
+        <errorMessage>Amount cannot be changed on a Fiscal Document Line where the Fiscal Document is not in Draft</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Protect_Non_Draft_Description</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(ISCHANGED( Description__c) ,  Fiscal_Document_Draft__c  == False)</errorConditionFormula>
+        <errorDisplayField>Description__c</errorDisplayField>
+        <errorMessage>Description cannot be changed on a Fiscal Document Line where the Fiscal Document is not in Draft</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Protect_Non_Draft_Quantity</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(ISCHANGED( Quantity__c) ,  Fiscal_Document_Draft__c  == False)</errorConditionFormula>
+        <errorDisplayField>Quantity__c</errorDisplayField>
+        <errorMessage>Quantity cannot be changed on a Fiscal Document Line where the Fiscal Document is not in Draft</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Protect_Non_Draft_Tax</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(ISCHANGED( Tax_Rate__c) ,  Fiscal_Document_Draft__c  == False)</errorConditionFormula>
+        <errorDisplayField>Tax__c</errorDisplayField>
+        <errorMessage>Tax Code cannot be changed on a Fiscal Document Line where the Fiscal Document is not in Draft</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Protect_Quantity_Less_Equal_to_Zero</fullName>
+        <active>true</active>
+        <errorConditionFormula>Quantity__c   &lt;= 0</errorConditionFormula>
+        <errorMessage>Quantity cannot be less than or equal to zero</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

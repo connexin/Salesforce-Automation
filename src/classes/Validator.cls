@@ -9,6 +9,8 @@ public with sharing class Validator {
 	static final String ISO_DATE_PATTERN = '(20\\d{2})-(\\d{2})-(\\d{2})';
 	static final String ISO_PATTERN = '(20\\d{2})-(\\d{2})-(\\d{2})[\\sT](\\d{2}):(\\d{2})(:\\d{2})?([:.]\\d{3})?([zZ+-]\\d{4})?';
     static final String EMAIL_PATTERN = '[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})';
+    static final String URL_PATTERN = '(http(s)?://)?([\\w-]+\\.)+[\\w-]+(/[\\w- ;,./?%&=]*)?';
+    static final String IP4_PATTERN = '(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])';
 
     public static Boolean isParsable(final String candidate) {
         try {
@@ -47,6 +49,14 @@ public with sharing class Validator {
     
     public static Boolean isEmail(final String candidate) {
     	return withRegEx(EMAIL_PATTERN, candidate);
+    }
+
+    public static Boolean isUrl(final String candidate) {
+    	return withRegEx(URL_PATTERN, candidate);
+    }
+
+    public static Boolean isIp4(final String candidate) {
+    	return withRegEx(IP4_PATTERN, candidate);
     }
     
     public static Boolean withRegEx(final String regExStr, final String candidate) {

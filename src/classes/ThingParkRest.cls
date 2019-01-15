@@ -24,13 +24,15 @@ public class ThingParkRest {
         request.setBody(parameters);
 
         Map<String, Object> responseData = dataFromResponse(http.send(request));
-
-        return (String) responseData.get('access_token');
+		String accessToken = (String) responseData.get('access_token');
+        System.assert(accessToken.length()>0);
+        
+        return accessToken;
     }
 
     // A Saleforce tenancy is a ThingPark Subscriber.
     public static void addTenancy(final LoRaWAN_Tenancy__c tenancy) {
-        ThingParkSubscriberJson factory = new ThingParkSubscriberJson(config.subscriberJsonTemplate());
+        ThingParkSubscriberJson factory = new ThingParkSubscriberJson();
 
         // prepare json
         String newTenancyJson = factory.jsonFrom(tenancy);
@@ -66,7 +68,7 @@ public class ThingParkRest {
     }
 
     public static void updateTenancy(final LoRaWAN_Tenancy__c tenancy) {
-         ThingParkSubscriberJson factory = new ThingParkSubscriberJson(config.subscriberJsonTemplate());
+         ThingParkSubscriberJson factory = new ThingParkSubscriberJson();
 
         // prepare json
         String updateTenancyJson = factory.jsonFrom(tenancy);
@@ -85,7 +87,7 @@ public class ThingParkRest {
     }
 
     public static void addOrder(final LoRaWAN_Package__c pckage) {
-         ThingParkOrderJson factory = new ThingParkOrderJson(config.orderJsonTemplate());
+		ThingParkOrderJson factory = new ThingParkOrderJson();
 
         // prepare json
         String newOrderJson = factory.jsonFrom(pckage);
@@ -119,7 +121,7 @@ public class ThingParkRest {
     }
 
     public static void updateOrder(final LoRaWAN_Package__c pckage) {
-        ThingParkOrderJson factory = new ThingParkOrderJson(config.orderJsonTemplate());
+        ThingParkOrderJson factory = new ThingParkOrderJson();
         
         // prepare json
         String updateOrderJson = factory.jsonFrom(pckage);

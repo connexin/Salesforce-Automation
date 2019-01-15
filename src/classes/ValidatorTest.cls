@@ -15,11 +15,11 @@
  * 
  * The @isTest class annotation indicates this class only contains test
  * methods. Classes defined with the @isTest annotation do not count against
- * the organization size limit for all Apex scripts.
+ * the organization size limit for all Apex scripts.extends AbstractTestCase 
  *
  * See the Apex Language Reference for more information about Testing and Code Coverage.
  */
-@isTest private class ValidatorTest {
+@isTest private class ValidatorTest extends AbstractTestCase {
 
     @isTest public static void testIsParsable() {
         System.assert(Validator.isParsable(System.now().format()));        
@@ -33,10 +33,6 @@
         System.assert(Validator.withRegEx('a*b','aabb') == false);
     }
     
-    @isTest public static void testIs24HourClock() {
-		String timeStamp = TimeStamp.time();
-        Boolean result = Validator.is24HourClock(timeStamp);
-    	System.assert(result, timeStamp);
 		// 00:00:00
 		// 12:00
 		// 12:01:01
@@ -54,12 +50,12 @@
 		// 23:59:59
 		// 24:00:00
 		// 24:59:59    	
+    @isTest public static void testIs24HourClock() {
+		String timeStamp = TimeStamp.time();
+        Boolean result = Validator.is24HourClock(timeStamp);
+    	System.assert(result, timeStamp);
     }
 
-    @isTest public static void testIs12HourClock() {
-		String timeStamp = TimeStamp.ukTime();
-        Boolean result = Validator.is12HourClock(timeStamp);
-    	System.assert(result, timeStamp);
 		// 01:00
 		// 11:59
 		// 11:59 am
@@ -78,6 +74,10 @@
 		// 23:59:59
 		// 24:00:00
 		// 24:59:59
+    @isTest public static void testIs12HourClock() {
+		String timeStamp = TimeStamp.ukTime();
+        Boolean result = Validator.is12HourClock(timeStamp);
+    	System.assert(result, timeStamp);
     }
 
     @isTest public static void testIsIsoDate() {
@@ -107,16 +107,23 @@
     	// System.assert(Validator.isUkDate('32/12/2018') == false);
     }
 
-    @isTest public static void testIsEmail() {
-		String email = 'local-part@example.com';
-        Boolean result = Validator.isEmail(email);
-    	System.assert(result, email);
 		// somebody@conexin.co.uk
 		// local@example.com
 		// local@example.co.uk
 		// local-part@example.com
 		// local@example.com.foobar
 		// foobar@local@example.com    	
+    @isTest public static void testIsEmail() {
+		String email = 'local-part@example.com';
+        Boolean result = Validator.isEmail(email);
+    	System.assert(result, email);
+    }
+
+    @isTest public static void testIsUrl() {
+        String[] urls = new String[] {'http://connexin.co.uk', 'http://www.connexin.co.uk', 'www.example.net', 'example.com', 'example.net'};
+		for(String url : urls) {
+        	System.assert(Validator.isUrl(url),'Expected valid url, found ' + url);
+        }
     }
 
 }

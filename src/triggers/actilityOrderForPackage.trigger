@@ -8,6 +8,7 @@ trigger actilityOrderForPackage on LoRaWAN_Package__c (after insert, after updat
 
         // Shouldn't there only be one of these?
         // TODO: assert size is one?
+        System.debug('Trigger.New : ' + Trigger.New);
         for (LoRaWAN_Package__c pckge : Trigger.New) {
             System.debug('pckge.Name : ' + pckge.Name);           
             System.debug('pckge.Actility_Subscription_ID__c : ' + pckge.Actility_Subscription_ID__c);
@@ -21,6 +22,7 @@ trigger actilityOrderForPackage on LoRaWAN_Package__c (after insert, after updat
 
         // Shouldn't there only be one of these?
         // TODO: assert size is one?
+        System.debug('Trigger.New : ' + Trigger.New);
         for (LoRaWAN_Package__c pckge : Trigger.New) {
             ThingParkRest.updateOrder(pckge);
         }

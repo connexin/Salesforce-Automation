@@ -1,4 +1,4 @@
-@isTest public class ThingParkRestTest {
+@isTest public class ThingParkRestTest extends AbstractThingParkTestCase {
 
     @isTest static void testAddTenancy() {
         Test.startTest();
@@ -60,10 +60,4 @@
         Test.stopTest();
     }
 
-    private static HttpCalloutMock createMock() {
-        // Create the mock response based on a static resource
-        HttpCalloutMock mock = new ThingParkRestMock();
-        Test.setMock(HttpCalloutMock.class, mock);
-        return mock;
-    }
 }
