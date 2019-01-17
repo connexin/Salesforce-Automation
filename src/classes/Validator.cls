@@ -58,15 +58,14 @@ public with sharing class Validator {
     public static Boolean isIp4(final String candidate) {
     	return withRegEx(IP4_PATTERN, candidate);
     }
-    
-    public static Boolean withRegEx(final String regExStr, final String candidate) {
-		System.debug('regExStr : ' + regExStr);
-		System.debug('candidate : ' + candidate);
-		Pattern regEx = Pattern.compile(regExStr);
-        System.debug(regEx);
-    	Matcher matcher = regEx.matcher(candidate);
-        System.debug(matcher);
-    	return matcher.matches();
+
+    public static Boolean withRegEx(final String regExpStr, final String candidate) {
+		Pattern regExp = Pattern.compile(regExpStr);
+    	return withRegEx(regExp, candidate);
     }
 
+    public static Boolean withRegEx(final Pattern regExp, final String candidate) {
+    	Matcher matcher = regExp.matcher(candidate);
+    	return matcher.matches();
+    }
 }

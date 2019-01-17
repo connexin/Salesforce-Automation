@@ -1,31 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
-        <members>ActilityUsageBilling</members>
-        <name>CustomApplication</name>
-    </types>
-    <types>
-        <members>ThingParkBillingService</members>
-        <members>ThingParkConfig</members>
-        <members>ThingParkConfigTest</members>
-        <members>ThingParkRest</members>
-        <members>ThingParkRestTest</members>
-        <members>ThingParkCreateOrderJson</members>
-        <members>ThingParkCreateSubscriberJson</members>
-        <members>ThingParkDevicesResponseJson</members>
-        <members>ThingParkOrdersResponseJson</members>
-        <members>ThingParkPackageDto</members>
-        <members>ThingParkSubscribersResponseJson</members>
-        <members>ThingParkTenancyDto</members>
-        <members>ThingParkDxRestMock</members>
-        <members>PasswordGenerator</members>
-        <members>PasswordGeneratorTest</members>
-        <members>QueryMaker</members>
-        <members>QueryMakerTest</members>
-        <members>TimeStamp</members>
-        <members>TimeStampTest</members>
-        <members>Validator</members>
-        <members>ValidatorTest</members>
         <members>AbstractTestCase</members>
         <members>AbstractThingParkTestCase</members>
         <members>ActilityOrderForPackageTest</members>
@@ -35,40 +10,34 @@
         <members>ExpectedDataManagerTest</members>
         <members>LoggingRestMock</members>
         <members>LoggingRestMockTest</members>
+        <members>LorawanInvoiceService</members>
+        <members>LorawanPackageService</members>
+        <members>LorawanProductService</members>
+        <members>LorawanSubscriberService</members>
+        <members>LorawanTenancyService</members>
+        <members>QueryMaker</members>
+        <members>QueryMakerTest</members>
+        <members>RandomData</members>
+        <members>RandomDataTest</members>
         <members>ThingParkInvoice</members>
         <members>ThingParkInvoiceConfig</members>
         <members>ThingParkInvoiceTest</members>
         <members>ThingParkOrderJson</members>
         <members>ThingParkOrderJsonTest</members>
+        <members>ThingParkPackageDto</members>
+        <members>ThingParkRest</members>
         <members>ThingParkRestConfig</members>
         <members>ThingParkRestConfigTest</members>
         <members>ThingParkRestMock</members>
+        <members>ThingParkRestTest</members>
         <members>ThingParkSubscriberJson</members>
         <members>ThingParkSubscriberJsonTest</members>
-        <members>FiscalDocument</members>
-        <members>FiscalDocumentTestClass</members>
+        <members>ThingParkTenancyDto</members>
+        <members>TimeStamp</members>
+        <members>TimeStampTest</members>
+        <members>Validator</members>
+        <members>ValidatorTest</members>
         <name>ApexClass</name>
     </types>
-    <types>
-        <members>LoRaWAN_Package__c</members>
-        <members>LoRaWAN_Subscriber__c</members>
-        <members>LoRaWAN_Tenancy__c</members>
-        <members>Fiscal_Document__c</members>
-        <members>Fiscal_Document_Line__c</members>
-        <members>Pricebook2</members>
-        <members>Product2</members>
-        <members>Tax__c</members>
-        <name>CustomObject</name>
-    </types>
-    <types>
-        <members>actilityOrderForPackage</members>
-        <members>actilitySubscriberForTenancy</members>
-        <members>updateDX</members>
-        <name>ApexTrigger</name>
-    </types>
-    <types>
-        <members>*</members>
-        <name>ApexTestSuite</name>
-    </types>
-    <version>44.0</version>
+    <version>38.0</version>
 </Package>
