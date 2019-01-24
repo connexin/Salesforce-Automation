@@ -3,11 +3,17 @@ public class ThingParkRestConfig {
     private ThingPark_REST_Config__mdt config;
 
     public ThingParkRestConfig() {
-        config = [SELECT label, API_Version__c, Client_ID__c, Client_Password__c, Client_Secret__c, Endpoint__c, Subscriber_JSON__c, Order_JSON__c FROM ThingPark_REST_Config__mdt WHERE label = 'Current'];
+        config = [SELECT label, API_Version__c, Client_ID__c, Client_Password__c, Client_Secret__c, Endpoint__c, Subscriber_JSON__c, Order_JSON__c 
+                  FROM ThingPark_REST_Config__mdt 
+                  WHERE label = 'Current' 
+                  LIMIT 1];
     }
 
     public ThingParkRestConfig(final String scope) {
-        config = [SELECT label, API_Version__c, Client_ID__c, Client_Password__c, Client_Secret__c, Endpoint__c, Subscriber_JSON__c, Order_JSON__c FROM ThingPark_REST_Config__mdt WHERE label = :scope];
+        config = [SELECT label, API_Version__c, Client_ID__c, Client_Password__c, Client_Secret__c, Endpoint__c, Subscriber_JSON__c, Order_JSON__c 
+                  FROM ThingPark_REST_Config__mdt 
+                  WHERE label = :scope 
+                  LIMIT 1];
     }
 
     public static ThingParkRestConfig selectCurrent() {
@@ -22,6 +28,10 @@ public class ThingParkRestConfig {
         return new ThingParkRestConfig('Latest');
     }
 
+    public static ThingParkRestConfig selectScope(final String scopeLabel) {
+        return new ThingParkRestConfig(scopeLabel);
+    }
+    
     public String label() {
         return config.label;
     }

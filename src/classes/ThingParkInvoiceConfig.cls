@@ -1,13 +1,17 @@
 public class ThingParkInvoiceConfig {
 
-    private ThingPark_Invoice_Configuration__mdt config;
+    private ThingPark_Invoice_Configuration__mdt[] config = null;
 
 	private ThingParkInvoiceConfig() {
-        config = [SELECT label, Version__c FROM ThingPark_Invoice_Configuration__mdt WHERE label = 'Current'];
+        config = [SELECT label, Version__c FROM ThingPark_Invoice_Configuration__mdt 
+                  WHERE label = 'Current' 
+                  LIMIT 1];
     }
 
     private ThingParkInvoiceConfig(final String scope) {
-        config = [SELECT label, Version__c FROM ThingPark_Invoice_Configuration__mdt WHERE label = :scope];
+        config = [SELECT label, Version__c 
+                  FROM ThingPark_Invoice_Configuration__mdt 
+                  WHERE label = :scope LIMIT 1];
     }
 
     public static ThingParkInvoiceConfig selectCurrent() {

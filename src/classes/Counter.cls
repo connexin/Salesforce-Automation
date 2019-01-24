@@ -1,3 +1,1 @@
-public class Counter {
-    public static Integer counter {get { if(counter == null) counter = 0; counter++; return counter; } private set; }
-}
+public class Counter { public static Integer visits { get { if (visits == null) visits = 0; visits++; return visits; } private set; }}

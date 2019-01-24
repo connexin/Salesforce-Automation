@@ -2,7 +2,7 @@
 trigger actilitySubscriberForTenancy on LoRaWAN_Tenancy__c (after insert, after update) {
 
     System.debug('actilitySubscriberForTenancy');    
-    
+
     if (Trigger.isInsert) {
         System.debug('insertActilitySubscriber.isInsert :' + Trigger.isInsert);
 

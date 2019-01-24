@@ -1,6 +1,9 @@
 public class RandomData {
 
-    static String charSet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    private static String charSet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+	private static List<String> maleNames = new List<String>{ 'Oliver', 'Harry', 'George', 'Noah', 'Jack', 'Jacob', 'Leo', 'Oscar', 'Charlie', 'Muhammad', 'Bob', 'John', 'Mark', 'Craig', 'Dan', 'Frank' };
+	private static List<String> femaleNames = new List<String>{ 'Olivia', 'Amelia', 'Isla', 'Ava', 'Emily', 'Isabella', 'Mia', 'Poppy', 'Ellie', 'Ella', 'Lily', 'Alice', 'Carol', 'Eve', 'Sybil' };
+	private static List<String> surnames = new List<String>{ 'Smith', 'Jones', 'Williams', 'Davies', 'Taylor', 'Brown', 'Evans', 'Thomas', 'Wilson', 'Roberts', 'Wright', 'Hughes', 'Johnson', 'Clark', 'Walker', 'Turner', 'Morgan', 'Lewis', 'Martin', 'James', 'Lee' };
 
     // the Actility password policy requires two numeric digits
 	public static String actiltyPolicyPassword() {
@@ -29,5 +32,16 @@ public class RandomData {
 
     public static Integer randomNumber(Integer size) {
         return (math.random() * size).intValue();
+    }
+    
+    public static String randomForename() {
+		List<String> names = new List<String>{};
+		names.addAll(maleNames);
+		names.addAll(femaleNames);
+        return names.get(randomNumber(names.size()));
+    }
+
+    public static String randomSurname() {
+        return surnames.get(randomNumber(surnames.size()));
     }
 }

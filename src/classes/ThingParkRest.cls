@@ -12,12 +12,12 @@ public class ThingParkRest {
             .add('client_id', config.clientId())
             .add('client_secret', config.clientSecret())
             .asString();
-        System.debug('ThingParkRest authorise parameters : ' + parameters );
+        // System.debug('ThingParkRest authorise parameters : ' + parameters );
 
         Http http = new Http();
         HttpRequest request = new HttpRequest();
         String fullUrl = serviceUrl+parameters;
-        System.debug('ThingParkRest fullUrl : ' + fullUrl);
+        System.debug('ThingParkRest.authorise : ' + fullUrl);
 
         request.setEndpoint(fullUrl);
         request.setMethod('POST');
@@ -29,20 +29,11 @@ public class ThingParkRest {
         
         return accessToken;
     }
-
-    // A Saleforce tenancy is a ThingPark Subscriber.
-    public static void addTenancy(final LoRaWAN_Tenancy__c tenancy) {
-        ThingParkSubscriberJson factory = new ThingParkSubscriberJson();
-
-        // prepare json
-        String newTenancyJson = factory.jsonFrom(tenancy);
-        System.debug('newTenancyJson : ' + newTenancyJson);
-
-        addTenancy(newTenancyJson);
-    }
     
     @Future(callout=true)
-    private static void addTenancy(String newTenancyJson) {
+    public static void addTenancy(String newTenancyJson) {
+        System.debug('addTenancy : ' + newTenancyJson);
+        
         // prepare service url
         String serviceUrl = ThingParkRest.makeUri('/core/{version}/subscribers/');
 
@@ -52,14 +43,8 @@ public class ThingParkRest {
         // update LoRaWAN_Tenancy__c with Actility Subscriber Ref
     }
 
-    public static void getTenancy(final LoRaWAN_Tenancy__c tenancy) {
-        String subscriberId = tenancy.Actility_Subscriber_ID__c;
-
-        getTenancy(subscriberId);
-    }
-
     @Future(callout=true)
-    private static void getTenancy(String subscriberId) {
+    public static void getTenancy(String subscriberId) {
         // prepare service url
         String serviceUrl = ThingParkRest.makeUri('/core/{version}/subscribers/');
 
@@ -67,52 +52,30 @@ public class ThingParkRest {
         System.debug('responseData : ' + responseData);
     }
 
-    public static void updateTenancy(final LoRaWAN_Tenancy__c tenancy) {
-         ThingParkSubscriberJson factory = new ThingParkSubscriberJson();
-
-        // prepare json
-        String updateTenancyJson = factory.jsonFrom(tenancy);
-        System.debug('updateTenancyJson : ' + updateTenancyJson);
-
-        updateTenancy(updateTenancyJson);
-    }
-
     @Future(callout=true)
-	private static void updateTenancy(final String updateTenancyJson) {
+	public static void updateTenancy(final String updateTenancyJson) {
         // prepare service url
         String serviceUrl = ThingParkRest.makeUri('/core/{version}/subscribers/');
 
         Map<String, Object> responseData = ThingParkRest.makeDxPutRequest(serviceUrl, updateTenancyJson);
         System.debug('responseData : ' + responseData);
-    }
-
-    public static void addOrder(final LoRaWAN_Package__c pckage) {
-		ThingParkOrderJson factory = new ThingParkOrderJson();
-
-        // prepare json
-        String newOrderJson = factory.jsonFrom(pckage);
-        System.debug('newOrderJson : ' + newOrderJson);
-
-        addOrder(newOrderJson);
+        
+        // update LoRaWAN_Tenancy__c with Actility Subscriber Ref        
     }
 
 	@Future(callout=true)
-    private static void addOrder(final String newOrderJson) {
+    public static void addOrder(final String newOrderJson) {
         // prepare service url
         String serviceUrl = ThingParkRest.makeUri('/core/{version}/orders/');
 
         Map<String, Object> responseData = ThingParkRest.makeDxPostRequest(serviceUrl, newOrderJson);
         System.debug('responseData : ' + responseData);
+        
+        // update LoRaWAN_Package__c with Actility Ref        
     }
     
-    public static void getOrder(final LoRaWAN_Package__c pckg) {
-        String orderRef = pckg.Actility_Subscription_ID__c;
-
-        getOrder(orderRef);
-    }
-
 	@Future(callout=true)
-    private static void getOrder(final String orderRef) {
+    public static void getOrder(final String orderRef) {
         // prepare service url
         String serviceUrl = ThingParkRest.makeUri('/core/{version}/orders/');
 
@@ -120,23 +83,15 @@ public class ThingParkRest {
         System.debug('responseData : ' + responseData);
     }
 
-    public static void updateOrder(final LoRaWAN_Package__c pckage) {
-        ThingParkOrderJson factory = new ThingParkOrderJson();
-        
-        // prepare json
-        String updateOrderJson = factory.jsonFrom(pckage);
-        System.debug('updateOrderJson : ' + updateOrderJson);
-        
-        updateOrder(updateOrderJson);
-    }
-
 	@Future(callout=true)
-    private static void updateOrder(final String updateOrderJson) {
+    public static void updateOrder(final String updateOrderJson) {
         // prepare service url
         String serviceUrl = ThingParkRest.makeUri('/core/{version}/orders/');
 
         Map<String, Object> responseData = ThingParkRest.makeDxPutRequest(serviceUrl, updateOrderJson);
         System.debug('responseData : ' + responseData);
+
+        // update LoRaWAN_Package__c with Actility Ref
     }
 
     private static String makeUri(final string uriTemplate) {
@@ -176,11 +131,14 @@ public class ThingParkRest {
         request.setMethod('POST');
         request.setHeader('Content-Type', 'application/x-www-form-urlencoded');
         request.setHeader('Authorization', 'Bearer ' + accessToken);
+        System.debug('makeDxPostRequest : ' + json);
         request.setBody(json);
 
         HttpResponse response = http.send(request);
+        request.setBody('response : ' + response.getBody());
 
-        System.assertEquals(201, response.getStatusCode(), 'Expected Status : 201 but was :' + response.getStatusCode() + response.getBody());
+        System.assertEquals(201, response.getStatusCode(), 'Expected Status : 201 but was :' + response.getStatusCode());
+        
         System.assertEquals('application/json;charset=UTF-8',
                             response.getHeader('Content-Type'),
                             'Unexpected Content-Type value :' + response.getHeader('Content-Type'));

@@ -4,10 +4,20 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
     public Product2 testProduct;
     public List<Product2> lorawanProducts;
     public Account account;
+    public Contact primaryContact;
+    public Contact altContact;
     public LoRaWAN_Tenancy__c lorawanTenancy;
     public LoRaWAN_Package__c lorawanPackage;
     public Tax__c vatRate;
     public RecordType invoiceRecordType;
+
+	public User givenTestUser() {
+        // Given Test User
+		User testUser = [SELECT name, Id  FROM user LIMIT 1];
+		assertNotNull(testUser, 'Expected user to be available for test.');
+        System.debug('Running as : ' + testUser);
+        return testUser;
+    }
     
     // Given Pricebook2 with LoRaWAN products
     public Pricebook2 givenTestPriceBook() {
@@ -16,9 +26,8 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
                 Name = 'Test Pricebook',
                 IsActive = true);
             insert pricebook;
-            
-            System.debug('Pricebook2 : ' + pricebook);
         }
+        System.debug('Given pricebook : ' + pricebook);
         return pricebook;
     }
     
@@ -31,9 +40,8 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
                 Description = 'Test Product ' + Timestamp.timestamp(),
                 IsActive = true);
             insert testProduct;
-            
-            System.debug('Product2 : ' + testProduct);
         }
+        System.debug('Given testProduct : ' + testProduct);
         return testProduct;
     }
     
@@ -45,42 +53,46 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
     public List<Product2> givenThingParkProducts() {
         if (lorawanProducts == null) {
             lorawanProducts = new List<Product2>();
-            Product2 testLorawan00Product = new Product2(
+            Product2 testLorawanProduct00 = new Product2(
                 Name = 'LoRaWan 0', 
                 ProductCode = 'LORAWAN00',
                 Description = 'LoRaWan without commitment. ' + Timestamp.timestamp(),
                 Family = 'LoRaWAN',
                 IsActive = true);
-            insert testLorawan00Product;
-            lorawanProducts.add(testLorawan00Product);
+            insert testLorawanProduct00;
+            lorawanProducts.add(testLorawanProduct00);
+        	System.debug('Given testLorawanProduct : ' + testLorawanProduct00);
             
-            Product2 testLorawan01Product = new Product2(
+            Product2 testLorawanProduct01 = new Product2(
                 Name = 'LoRaWan 1', 
                 ProductCode = 'LORAWAN01',
                 Description = 'LoRaWan 1 year commitment. ' + Timestamp.timestamp(),
                 Family = 'LoRaWAN',
                 IsActive = true);
-            insert testLorawan01Product;
-            lorawanProducts.add(testLorawan01Product);
+            insert testLorawanProduct01;
+            lorawanProducts.add(testLorawanProduct01);
+        	System.debug('Given testLorawanProduct : ' + testLorawanProduct01);
             
-            Product2 testLorawan03Product = new Product2(
+            Product2 testLorawanProduct03 = new Product2(
                 Name = 'LoRaWan 3',
                 ProductCode = 'LORAWAN03',
                 Description = 'LoRaWan 3 year commitment.'  + Timestamp.timestamp(),
                 Family = 'LoRaWAN',
                 IsActive = true);
-            insert testLorawan03Product;
-            lorawanProducts.add(testLorawan03Product);
+            insert testLorawanProduct03;
+            lorawanProducts.add(testLorawanProduct03);
+        	System.debug('Given testLorawanProduct : ' + testLorawanProduct03);
             
-            Product2 testLorawan05Product = new Product2(
+            Product2 testLorawanProduct05 = new Product2(
                 Name = 'LoRaWan 5',
                 ProductCode = 'LORAWAN05',
                 Description = 'LoRaWan 5 year commitment.'  + Timestamp.timestamp(),
                 Family = 'LoRaWAN',
                 IsActive = true);
-            insert testLorawan05Product;
-            lorawanProducts.add(testLorawan05Product);
-            
+            insert testLorawanProduct05;
+            lorawanProducts.add(testLorawanProduct05);
+        	System.debug('Given testLorawanProduct : ' + testLorawanProduct05);
+
             Product2 testLorawanOverage = new Product2(
                 Name = 'LoRaWan Overage', 
                 ProductCode = 'LORAWAN99',
@@ -89,37 +101,68 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
                 IsActive = true);
             insert testLorawanOverage;
             lorawanProducts.add(testLorawanOverage);
-            System.debug('lorawanProducts : ' + lorawanProducts);
+        	System.debug('Given testLorawanProduct : ' + testLorawanOverage);
         }
         return lorawanProducts;
     }
-    
+
     public Account givenThingParkCustomer() {
         if (account == null) {
             account = new Account(Name='LoRaWAN Test Customer ' + Timestamp.timestamp());
             insert account;
-            
-            System.debug('Account : ' + account);
         }
+		System.debug('Given account : ' + account);
         return account;
     }
+
+    public Contact givenCustomerContacts() {
+        if (account == null) {
+            givenThingParkCustomer();
+        }
+
+        if (primaryContact == null) {
+            String firstName = RandomData.randomForename();
+            String surname = RandomData.randomSurname();
     
-    public LoRaWAN_Tenancy__c givenThingParkTenancy() {
-        return givenThingParkTenancyFor(givenThingParkCustomer());
+            primaryContact = new Contact(accountId = account.Id, 
+                                         firstName = firstName, 
+                                         lastname = surname, 
+                                         email = firstName + '.' + surname + '@example.com' );
+            insert primaryContact;
+            System.debug('Given primary Contact : ' + primaryContact);
+        }
+
+		if (altContact == null) {        
+            String altFirstName = RandomData.randomForename();
+            String altSurname = RandomData.randomSurname();
+            altContact = new Contact(accountId = account.Id, 
+                                            firstName = altFirstName, 
+                                            lastname = altSurname,
+                                            email = altFirstName + '.' + altSurname + '@example.com' );
+            insert altContact;
+            System.debug('Given alternate altContact : ' + altContact);
+            }
+        
+        return primaryContact;
     }
-    
-    public LoRaWAN_Tenancy__c givenThingParkTenancyFor(final Account account) {
+
+    public LoRaWAN_Tenancy__c givenThingParkTenancy() {
+        return givenThingParkTenancyFor(givenCustomerContacts());
+    }
+
+    public LoRaWAN_Tenancy__c givenThingParkTenancyFor(final Contact contact) {
         if (lorawanTenancy == null) {
+			// Mock Actility because of trigger on LoRaWAN_Tenancy__c
             createMock();
-            
+
             lorawanTenancy = new LoRaWAN_Tenancy__c();
-            lorawanTenancy.Account__c = account.Id;
+            lorawanTenancy.Account__c = account.id;
+            lorawanTenancy.Contact__c = contact.id;
             lorawanTenancy.Name = 'Test-Tenancy ' + Timestamp.timeStamp();
             lorawanTenancy.Daily_Max_Average__c = 99;
             lorawanTenancy.Overage_Rate__c = 0.15;
             insert lorawanTenancy;
-            
-            System.debug('LoRaWAN_Tenancy__c : ' + lorawanTenancy);
+            System.debug('Given lorawanTenancy : ' + lorawanTenancy);
         }
         return lorawanTenancy;
     }
@@ -130,6 +173,7 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
     
     public LoRaWAN_Package__c givenThingParkPackageFor(final LoRaWAN_Tenancy__c tenancy) {
         if (lorawanPackage == null) {
+			// Mock Actility because of trigger on LoRaWAN_Package__c
             createMock();
             
             lorawanPackage = new LoRaWAN_Package__c();
@@ -142,26 +186,24 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
             lorawanPackage.Term__c = 12;
             lorawanPackage.Quantity_Of_Devices__c = 99;
             insert lorawanPackage;
-            
-            System.debug('LoRaWAN_Package__c : ' + lorawanPackage);
+            System.debug('Given lorawanPackage : ' + lorawanPackage);
         }
         return lorawanPackage;
     }
-    
+
     public Tax__c givenInvoiceVatRate() {
         if (vatRate == null) {
             vatRate = new Tax__c(Name = 'VAT Rate (Test)', Rate__c = 20 );
             insert vatRate;
-            
-            System.debug('vatRate : ' + vatRate);
+            System.debug('Given vatRate : ' + vatRate);
         }
         return vatRate;
     }
-    
+
     public RecordType givenInvoiceRecordType() {
         if (invoiceRecordType == null) {
             invoiceRecordType = [SELECT Id FROM RecordType WHERE SobjectType = 'Fiscal_Document__c' AND DeveloperName = 'sales_invoice'];
-            System.debug('invoiceRecordType : ' + invoiceRecordType);
+            System.debug('Given invoiceRecordType : ' + invoiceRecordType);
         }
         return invoiceRecordType;
     }
