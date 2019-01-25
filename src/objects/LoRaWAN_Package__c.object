@@ -228,5 +228,4 @@
         <errorDisplayField>Term__c</errorDisplayField>
         <errorMessage>Create a new Package, do not attempt to edit an existing package.</errorMessage>
     </validationRules>
-    <visibility>Public</visibility>
 </CustomObject>

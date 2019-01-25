@@ -3,14 +3,14 @@
     @isTest static void testThingParkSubscriberJson() {
         Test.startTest();
 
-        // Given a Json template for a ThingPark Subscriber        
+        // Given a Json template for a ThingPark Subscriber
         ThingParkSubscriberJson instance = new ThingParkSubscriberJson();
         assertNotNull(instance);
-        
-        // When the values are replaced        
+
+        // When the values are replaced
         instance.firstName = '***firstName***';
         instance.lastName = '***lastName***';
-        instance.email = '***emai@example.com***';
+        instance.email = '***email@example.com***';
         instance.organization = '***organization***';
         instance.password = '***password***';
 
@@ -27,10 +27,14 @@
         Test.startTest();
 
         // Given a Json template for a ThingPark Order        
-        ThingParkSubscriberJson instance = new ThingParkSubscriberJson('FirstName', 'LastName', 'test@example.com', 'Test Org', 'password');
+        ThingParkSubscriberJson instance = new ThingParkSubscriberJson('###firstName###', 
+                                                                       '###lastName###', 
+                                                                       '###email@example.com###', 
+                                                                       '###organization###', 
+                                                                       '###password###');
         assertNotNull(instance);
         
-        // When the values are replaced        
+        // When the values are replaced
         final String jsonStr = instance.toJson();
 		assertNotNull(jsonStr);
 

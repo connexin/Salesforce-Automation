@@ -76,6 +76,28 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Contact__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <description>Actility Primary User for Tenancy</description>
+        <externalId>false</externalId>
+        <label>Primary Contact</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Contact.AccountId</field>
+                <operation>equals</operation>
+                <valueField>$Source.Account__c</valueField>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>LoRaWAN Tenancies</relationshipLabel>
+        <relationshipName>LoRaWAN_Tenancies</relationshipName>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Daily_Max_Average__c</fullName>
         <defaultValue>60</defaultValue>
         <description>The maximum number of message per day averaged over the month.</description>
@@ -124,5 +146,4 @@
     <pluralLabel>LoRaWAN Tenancies</pluralLabel>
     <searchLayouts/>
     <sharingModel>ReadWrite</sharingModel>
-    <visibility>Public</visibility>
 </CustomObject>

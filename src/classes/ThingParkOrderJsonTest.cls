@@ -24,7 +24,7 @@
         Test.startTest();
 
         // Given a Json template for a ThingPark Order
-        ThingParkOrderJson instance = new ThingParkOrderJson('foo', 'bar');
+        ThingParkOrderJson instance = new ThingParkOrderJson('###foo###', '###bar###');
         assertNotNull(instance);
 
         // When the values are replaced        

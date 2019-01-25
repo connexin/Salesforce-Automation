@@ -456,5 +456,4 @@
         <errorDisplayField>Reference__c</errorDisplayField>
         <errorMessage>Reference cannot be blank</errorMessage>
     </validationRules>
-    <visibility>Public</visibility>
 </CustomObject>

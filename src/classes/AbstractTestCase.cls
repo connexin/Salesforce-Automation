@@ -106,7 +106,7 @@ public virtual class AbstractTestCase {
         JSON.createParser(jsonStr);
 		Map<String, Object> jsonData = (Map<String, Object>) JSON.deserializeUntyped(jsonStr);
 		assertNotNull(jsonData);
-        System.debug('jsonData : ' + jsonData);
+        System.debug('verifyJson : ' + jsonData);
         return true;
     }    
 

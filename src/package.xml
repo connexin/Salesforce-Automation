@@ -37,7 +37,34 @@
         <members>TimeStampTest</members>
         <members>Validator</members>
         <members>ValidatorTest</members>
+        <members>AbstractJsonTemplate</members>
+        <members>CounterTest</members>
+        <members>FiscalDocument</members>
+        <members>FiscalDocumentTestClass</members>
+        <members>MockTestCase</members>
+        <members>Status</members>
+        <members>StatusTest</members>
         <name>ApexClass</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ApexTestSuite</name>
+    </types>
+    <types>
+        <members>actilityOrderForPackage</members>
+        <members>actilitySubscriberForTenancy</members>
+        <name>ApexTrigger</name>
+    </types>
+    <types>
+        <members>LoRaWAN_Package__c</members>
+        <members>LoRaWAN_Tenancy__c</members>
+        <members>Fiscal_Document__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>ThingPark_Billing_App</members>
+        <members>ThingPark_Setup</members>
+        <name>CustomApplication</name>
     </types>
     <version>38.0</version>
 </Package>

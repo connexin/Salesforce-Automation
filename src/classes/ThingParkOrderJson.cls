@@ -26,8 +26,8 @@ public class ThingParkOrderJson extends AbstractJsonTemplate {
     public String toJson() {
         jsonTemplate = config.orderJsonTemplate();
         
-        replace('${offerId}', offerId);
-        replace('${subscriberId}', subscriberId);
+        replace('${offerId}', with(offerId));
+        replace('${subscriberId}', with(subscriberId));
         
         return jsonTemplate;
     }

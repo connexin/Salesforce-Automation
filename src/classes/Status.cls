@@ -1,0 +1,1 @@
+public enum Status { PENDING, SKIPPED, DRAFT, READY, FAILED }
