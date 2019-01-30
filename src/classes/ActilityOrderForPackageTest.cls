@@ -14,18 +14,20 @@
             // implies expectedData.givenThingParkCustomer();
             expectedData.givenInvoiceVatRate();
             expectedData.givenInvoiceRecordType();
-            System.debug('***** expectedData : ' + expectedData);
+            System.debug('Given the expected test data : ' + expectedData);
             
-            LoRaWAN_Package__c order = new LoRaWAN_Package__c();
-            order.LoRaWAN_Tenancy__c = expectedData.lorawanTenancy.Id;
-            order.Actility_Subscription_ID__c = expectedData.lorawanTenancy.Actility_Subscriber_ID__c;
-            order.Name = 'Test-Package' + Timestamp.timeStamp();
-            order.Device_Rate__c = 0.05;
-            order.Device_Rate_after_commitment_end__c = 0.10;
-            order.Start_Date__c = System.today();
-            order.Term__c = 12;
-            order.Quantity_Of_Devices__c = 10;
-            insert order;            
+            LoRaWAN_Package__c lorawanPackage = new LoRaWAN_Package__c();
+            lorawanPackage.LoRaWAN_Tenancy__c = expectedData.lorawanTenancy.Id;
+            lorawanPackage.Actility_Subscription_ID__c = expectedData.lorawanTenancy.Actility_Subscriber_ID__c;
+            lorawanPackage.Name = 'Test-Package' + Timestamp.timeStamp();
+            lorawanPackage.Device_Rate__c = 0.05;
+            lorawanPackage.Device_Rate_after_commitment_end__c = 0.10;
+            lorawanPackage.Start_Date__c = System.today();
+            lorawanPackage.Term__c = 12;
+            lorawanPackage.Quantity_Of_Devices__c = 10;
+            insert lorawanPackage;
+            System.debug('Order created: ' + lorawanPackage);
+            // @todo check actililty subscriber ID
         }
         Test.stopTest();
     }
@@ -42,7 +44,7 @@
             // implies expectedData.givenThingParkCustomer();
             expectedData.givenInvoiceVatRate();
             expectedData.givenInvoiceRecordType();
-            System.debug('***** expectedData : ' + expectedData);
+            System.debug('Given the expected test data : ' + expectedData);
             
             assertNotNull(createMock());
 
@@ -56,6 +58,8 @@
             lorawanPackage.Term__c = 60;
             lorawanPackage.Quantity_Of_Devices__c = 99;
             update lorawanPackage;
+            System.debug('package updated: ' + lorawanPackage);
+            // @todo check actililty subscriber ID
         }
         Test.stopTest();
     }    

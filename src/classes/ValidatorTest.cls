@@ -22,108 +22,112 @@
 @isTest private class ValidatorTest extends AbstractTestCase {
 
     @isTest public static void testIsParsable() {
-        System.assert(Validator.isParsable(System.now().format()));        
-        System.assert(Validator.isParsable(TimeStamp.fromPattern('dd/MM/YYYY HH:mm')));
-        System.assert(Validator.isParsable('') == false);
-        System.assert(Validator.isParsable('aabb') == false);
-    }
-    
-    @isTest public static void testWithRegEx() {
-        System.assert(Validator.withRegEx('a*b','aaab'));
-        System.assert(Validator.withRegEx('a*b','aabb') == false);
-    }
-    
-		// 00:00:00
-		// 12:00
-		// 12:01:01
-		// 12:00:00
-		// 00:00:60
-		// 12:00:60
-		// 00:59:59
-		// 12:59:59
-		// 00:60:59
-		// 00:60:59
-		// 12:60:60
-		// 00:60:60
-		// 01:00:00
-		// 12:59:59
-		// 23:59:59
-		// 24:00:00
-		// 24:59:59    	
-    @isTest public static void testIs24HourClock() {
-		String timeStamp = TimeStamp.time();
-        Boolean result = Validator.is24HourClock(timeStamp);
-    	System.assert(result, timeStamp);
+        assertTrue(Validator.isParsable(System.now().format()));
+        assertTrue(Validator.isParsable(TimeStamp.fromPattern('dd/MM/YYYY HH:mm')));
+        assertFalse(Validator.isParsable(''));
+        assertFalse(Validator.isParsable('aabb'));
     }
 
-		// 01:00
-		// 11:59
-		// 11:59 am
-		// 11:59 pm
-		// 11:59:00 AM
-		// 11:59:00 PM
-		// 12:00:00
-		// 12:59:00
-		// 00:00:00
-		// 00:00:60
-		// 00:59:59
-		// 00:60:59
-		// 00:60:60
-		// 01:00:00
-		// 12:59:59
-		// 23:59:59
-		// 24:00:00
-		// 24:59:59
+    @isTest public static void testWithRegEx() {
+        assertTrue(Validator.withRegEx('a*b','aaab'));
+        assertFalse(Validator.withRegEx('a*b','aabb'));
+    }
+
+    @isTest public static void testIs24HourClock() {
+		String timeStamp = TimeStamp.time();
+        assertTrue(Validator.is24HourClock(timeStamp), 'Invalid format :' + timeStamp);
+        String[] valid = new String[] { '',
+            '00:00:00','00:00:60','00:59:59','00:60:59','00:60:60',
+            '12:00','12:01:01','12:00:00','12:00:60','12:59:59',
+            '12:60:60','01:00:00','12:59:59','23:59:59','24:00:00','24:59:59'};
+    }
+
     @isTest public static void testIs12HourClock() {
 		String timeStamp = TimeStamp.ukTime();
-        Boolean result = Validator.is12HourClock(timeStamp);
-    	System.assert(result, timeStamp);
+        assertTrue(Validator.is12HourClock(timeStamp), 'Invalid format : ' + timeStamp);
+        String[] valid = new String[] { '', '01:00', '11:59', '11:59 am', '11:59 pm', '11:59:00 AM', 
+            '11:59:00 PM', '12:00:00', '12:59:00', '00:00:00', '00:00:60', '00:59:59', '00:60:59', 
+            '00:60:60', '01:00:00', '12:59:59', '23:59:59', '24:00:00', '24:59:59'};
     }
 
     @isTest public static void testIsIsoDate() {
 		String timeStamp = TimeStamp.isoDate();
-        Boolean result = Validator.isIsoDate(timeStamp);
-    	System.assert(result, timeStamp);
+        assertTrue(Validator.isIsoDate(timeStamp));
     }
 
 	@isTest public static void testIsIsoTime() {
 		String timeStamp = TimeStamp.isoTime();
-        Boolean result = Validator.isIsoTime(timeStamp);
-    	System.assert(result, timeStamp);
+        assertTrue(Validator.isIsoTime(timeStamp));
     }
 
     @isTest public static void testIsIso() {
         String isoDate = TimeStamp.iso();
-        Boolean result = Validator.isIso(isoDate);
-    	System.assert(result, isoDate);
+        assertTrue(Validator.isIso(isoDate));
     }
 
 	@isTest public static void testIsUkDate() {
-    	System.assert(Validator.isUkDate('10/08/1966'), '10/08/1966');
-    	System.assert(Validator.isUkDate('01/01/2018'), '01/01/2018');
-    	System.assert(Validator.isUkDate('31/12/2018'), '31/12/2018');
-    	// System.assert(Validator.isUkDate('00/00/2018') == false);
-    	// System.assert(Validator.isUkDate('29/03/2018') == false);
-    	// System.assert(Validator.isUkDate('32/12/2018') == false);
+    	assertTrue(Validator.isUkDate('10/08/1966'), '10/08/1966');
+    	assertTrue(Validator.isUkDate('01/01/2018'), '01/01/2018');
+    	assertTrue(Validator.isUkDate('31/12/2018'), '31/12/2018');
+    	assertTrue(Validator.isUkDate('29/03/2018'), '29/03/2018');
+    	assertFalse(Validator.isUkDate('00/00/2018'), '00/00/2018');
+    	assertFalse(Validator.isUkDate('32/12/2018'), '32/12/2018');
     }
 
-		// somebody@conexin.co.uk
-		// local@example.com
-		// local@example.co.uk
-		// local-part@example.com
-		// local@example.com.foobar
-		// foobar@local@example.com    	
     @isTest public static void testIsEmail() {
-		String email = 'local-part@example.com';
-        Boolean result = Validator.isEmail(email);
-    	System.assert(result, email);
-    }
-
-    @isTest public static void testIsUrl() {
-        String[] urls = new String[] {'http://connexin.co.uk', 'http://www.connexin.co.uk', 'www.example.net', 'example.com', 'example.net'};
-		for(String url : urls) {
-        	System.assert(Validator.isUrl(url),'Expected valid url, found ' + url);
+        Map<String, Boolean> emails = new map<String, Boolean> { 
+            'somebody@conexin.co.uk' => true,
+            'somebody@conexin.co.uk' => true,
+            'local@example.com' => true,
+            'local@example.co.uk' => true,
+            'local-part@example.com' => true,
+            'local@example.com.foobar' => true,
+            'foobar@local@example.com' => false };
+		for(String email : emails.keySet()) {
+            if (emails.get(email)) {
+				assertTrue(Validator.isEmail(email));
+            } else {
+				assertFalse(Validator.isEmail(email));
+            }
         }
     }
 
+    @isTest public static void testIsUrl() {
+        Map<String, Boolean> urls = new map<String, Boolean> {
+            'somebody@conexin.co.uk' => false,
+                'http://connexin.co.uk' => true,
+                'http://www.connexin.co.uk' => true,
+                'https://connexin.co.uk' => true,
+                'https://www.connexin.co.uk'  => true,
+                'example.com'  => true,
+                'example.net'  => true,
+                'www.example.com'  => true };                    
+		for(String url : urls.keySet()) {
+            if (urls.get(url)) {
+				assertTrue(Validator.isUrl(url), 'Expected true, but was false for : ' + url);
+            } else {
+				assertFalse(Validator.isUrl(url), 'Expected false but was true for : ' + url);
+            }
+        }
+    }
+
+	@isTest public static void testIsIp4() {
+        Map<String, Boolean> ips = new map<String, Boolean> {
+            '0.0.0.0' => true, 
+                '4.4.4.4' => true,
+                '127.0.0.1'=> true,
+                '10.0.0.0'=> true,
+                '172.16.0.0'=> true,
+                '192.16.0.0'=> true,
+                '255.255.255.255'=> true,
+                '256.256.256.256'=> false,
+                '255.255.255.999'=> false };
+		for(String ip : ips.keySet()) {
+            if (ips.get(ip)) {
+	        	assertTrue(Validator.isIp4(ip), 'Expected true, but was false for : ' + ip);
+            } else {
+	        	assertFalse(Validator.isIp4(ip), 'Expected false but was true for : ' + ip);
+            }
+        }
+    }
 }

@@ -32,6 +32,7 @@ public class ThingParkSubscriberJson extends AbstractJsonTemplate {
     public String lastName { get; set;}
     public String email { get; set;}
     public String organization { get; set;}
+    public String externalId { get; set;}
     public String password { get; set;}
 
     public ThingParkSubscriberJson() {
@@ -46,24 +47,35 @@ public class ThingParkSubscriberJson extends AbstractJsonTemplate {
                                    final String lastName,
                                    final String email,
                                    final String organization,
+                                   final String externalId,
                                    final String password) {
                                        this.config = ThingParkRestConfig.selectCurrent();
                                        this.firstName = firstName;
                                        this.lastName = lastName;
                                        this.email = email;
                                        this.organization = organization;
+                                       this.externalId = externalId;
                                        this.password = password;
                                    }
-    
+
     public String toJson() {
         jsonTemplate = config.subscriberJsonTemplate();
 
-        replace('${firstName}', firstName);
-        replace('${lastName}', lastName);
-        replace('${email}', email);
-        replace('${organization}', organization);
-        replace('${password}', password);
+        replace('${firstName}', with(firstName));
+        replace('${lastName}', with(lastName));
+        replace('${email}', with(email));
+        replace('${organization}', with(organization));
+        replace('${externalId}', with(externalId));
+        replace('${password}', with(password));
 
+        return jsonTemplate;
+    }
+    
+    public String verify() {
+        failOnError = false;
+        jsonTemplate = config.orderJsonTemplate();
+        System.debug('jsonTemplate before replacement : ' + jsonTemplate);
+        System.debug('jsonTemplate after replacement : ' + toJson());
         return jsonTemplate;
     }
 }

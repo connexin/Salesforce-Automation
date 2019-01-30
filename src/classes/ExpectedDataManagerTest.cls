@@ -1,18 +1,18 @@
 @isTest public class ExpectedDataManagerTest extends AbstractThingParkTestCase {
-    
+
     @isTest static void testGivenTestPriceBook() {
         ExpectedDataManager expectedDataManager = new ExpectedDataManager();
         assertNotNull(expectedDataManager);
-
+        
         PriceBook2 priceBook = expectedDataManager.givenTestPriceBook();
         assertNotNull(priceBook);
         System.debug('priceBook : ' + priceBook);
-
-		List<PriceBook2> actual = [SELECT Id, Name, Description, IsActive FROM Pricebook2 WHERE IsActive = true];
-		assertTrue(actual.size() == 1);
-
+        
+        List<PriceBook2> actual = [SELECT Id, Name, Description, IsActive FROM Pricebook2 WHERE IsActive = true];
+        assertTrue(actual.size() == 1);
+        
         System.debug('expectedDataManager : ' + expectedDataManager.priceBook);
-
+        
         assertNotNull(expectedDataManager.pricebook);
         System.debug('expectedDataManager.pricebook : ' + expectedDataManager.pricebook);
     }
@@ -23,9 +23,9 @@
         
         Product2 product = expectedDataManager.givenTestProduct();
         assertNotNull(product);
-        System.debug('product : ' + product);
+        System.debug('Given product : ' + product);
         System.debug('expectedDataManager : ' + expectedDataManager);
-
+        
         assertNotNull(expectedDataManager.testProduct);
         System.debug('expectedDataManager.testProduct : ' + expectedDataManager.testProduct);
     }
@@ -36,9 +36,9 @@
         
         Product2[] thingParkProducts = expectedDataManager.givenThingParkProducts();
         assertNotNull(thingParkProducts);
-        System.debug('thingParkProducts : ' + thingParkProducts);
+        System.debug('Given thingParkProducts : ' + thingParkProducts);
         System.debug('expectedDataManager : ' + expectedDataManager);
-
+        
         assertNotNull(expectedDataManager.lorawanProducts);
         System.debug('expectedDataManager.lorawanProducts : ' + expectedDataManager.lorawanProducts);
     }
@@ -49,9 +49,9 @@
         
         Account thingParkCustomer = expectedDataManager.givenThingParkCustomer();
         assertNotNull(thingParkCustomer);
-        System.debug('thingParkCustomer : ' + thingParkCustomer);        
+        System.debug('Given thingParkCustomer : ' + thingParkCustomer);        
         System.debug('expectedDataManager : ' + expectedDataManager);
-
+        
         assertNotNull(expectedDataManager.account);
         System.debug('expectedDataManager.account : ' + expectedDataManager.account);
     }
@@ -62,10 +62,11 @@
         
         Contact primaryContact = expectedDataManager.givenCustomerContacts();
         assertNotNull(primaryContact);
-        System.debug('primaryContact : ' + primaryContact);
-
+        System.debug('Given primaryContact : ' + primaryContact);
+        
         assertNotNull(expectedDataManager.primaryContact);
         System.debug('expectedDataManager.primaryContact : ' + expectedDataManager.primaryContact);
+        
         assertNotNull(expectedDataManager.altContact);
         System.debug('expectedDataManager.altContact : ' + expectedDataManager.altContact);
     }
@@ -76,8 +77,8 @@
         
         LoRaWAN_Tenancy__c tenancy = expectedDataManager.givenThingParkTenancy();
         assertNotNull(tenancy);
-        System.debug('tenancy : ' + tenancy);
-
+        System.debug('Given tenancy : ' + tenancy);
+        
         assertNotNull(expectedDataManager.lorawanTenancy);
         System.debug('expectedDataManager.lorawanTenancy : ' + expectedDataManager.lorawanTenancy);
     }
@@ -88,19 +89,19 @@
         
         LoRaWAN_Package__c pckge = expectedDataManager.givenThingParkPackage();
         assertNotNull(pckge);
-        System.debug('package : ' + pckge);
-
+        System.debug('Given package : ' + pckge);
+        
         assertNotNull(expectedDataManager.lorawanPackage);
         System.debug('expectedDataManager.lorawanPackage : ' + expectedDataManager.lorawanPackage);
     }
-
+    
     @isTest static void testGivenInvoiceTaxRate() {
         ExpectedDataManager expectedDataManager = new ExpectedDataManager();
         assertNotNull(expectedDataManager);
         
         Tax__c vatRate = expectedDataManager.givenInvoiceVatRate();
         assertNotNull(vatRate);
-        System.debug('vatRate : ' + vatRate);
+        System.debug('Given vatRate : ' + vatRate);
         
         assertNotNull(expectedDataManager.vatRate);        
         System.debug('expectedDataManager.vatRate : ' + expectedDataManager.vatRate);
@@ -109,10 +110,10 @@
     @isTest static void testGivenInvoiceRecordType() {
         ExpectedDataManager expectedDataManager = new ExpectedDataManager();
         assertNotNull(expectedDataManager);
-        
+
         RecordType recordType = expectedDataManager.givenInvoiceRecordType();
         assertNotNull(recordType);
-        System.debug('recordType : ' + recordType);
+        System.debug('Given recordType : ' + recordType);
 
         assertNotNull(expectedDataManager.invoiceRecordType);
         System.debug('expectedDataManager.invoiceRecordType : ' + expectedDataManager.invoiceRecordType);

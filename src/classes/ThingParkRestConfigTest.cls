@@ -3,7 +3,7 @@
     @isTest static void testCurrent() {
         Test.startTest();
 
-        ThingParkRestConfig config = new ThingParkRestConfig();
+        ThingParkRestConfig config = ThingParkRestConfig.selectCurrent();
         verifyExpected(config);
 
         Test.stopTest();
@@ -12,8 +12,8 @@
     @isTest static void testLatest() {
         Test.startTest();
 
-        ThingParkRestConfig config = ThingParkRestConfig.selectLatest();
-        verifyExpected(config);
+        ThingParkRestConfig latestConfig = ThingParkRestConfig.selectLatest();
+        verifyExpected(latestConfig);
 
         Test.stopTest();
     }
@@ -21,13 +21,22 @@
     @isTest static void testStable() {
         Test.startTest();
 
-        ThingParkRestConfig config = ThingParkRestConfig.selectLatest();
-        verifyExpected(config);
+        ThingParkRestConfig stableConfig = ThingParkRestConfig.selectStable();
+        verifyExpected(stableConfig);
 
         Test.stopTest();
     }
 
-    static void verifyExpected(final ThingParkRestConfig config) {
+    @isTest static void testMissing() {
+        Test.startTest();
+
+        ThingParkRestConfig missingConfig = ThingParkRestConfig.selectScope('Missing');
+        verifyExpected(missingConfig);
+
+        Test.stopTest();
+    }
+    
+    private static void verifyExpected(final ThingParkRestConfig config) {
         assertNotNull(config, 'Configuration not selected.');
         assertNotNull(config.label(), 'Expected configuration label.');
         assertNotNull(config.version(), 'Expected version identifier for the REST service.');
@@ -40,5 +49,4 @@
 		assertNotNull(config.asString());
         log(config);
     }
-
 }

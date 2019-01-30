@@ -11,17 +11,17 @@
             expectedData.givenThingParkProducts();
             expectedData.givenThingParkCustomer();
             expectedData.givenCustomerContacts();
-            System.debug('***** expectedData : ' + expectedData);
+            System.debug('Given the expected test data : ' + expectedData);
 
-            // When the Tenancy is created
-            LoRaWAN_Tenancy__c tenancy = new LoRaWAN_Tenancy__c();
-            tenancy.Account__c = expectedData.account.Id;
-            tenancy.Contact__c = expectedData.primaryContact.Id;
-            tenancy.Name = 'Test-' + Timestamp.timeStamp();
-            tenancy.Daily_Max_Average__c = 99;
-            tenancy.Overage_Rate__c = 0.05;
-            System.debug('create tenancy : ' + tenancy);
-            insert tenancy;
+            // When the Tenancy is created in salesforce
+            LoRaWAN_Tenancy__c lorawanTenancy = new LoRaWAN_Tenancy__c();
+            lorawanTenancy.Account__c = expectedData.account.Id;
+            lorawanTenancy.Contact__c = expectedData.primaryContact.Id;
+            lorawanTenancy.Name = 'Test-' + Timestamp.timeStamp();
+            lorawanTenancy.Daily_Max_Average__c = 99;
+            lorawanTenancy.Overage_Rate__c = 0.05;
+            insert lorawanTenancy;
+            System.debug('tenancy created : ' + lorawanTenancy);
         }
 	Test.stopTest();
     }
@@ -30,20 +30,21 @@
 		Test.startTest();
 
 		assertNotNull(createMock());
-        
+
 		ExpectedDataManager expectedData = new ExpectedDataManager();
         
         system.runAs(expectedData.givenTestUser()) {
+            // Given the expected data
             expectedData.givenThingParkProducts();
-            LoRaWAN_Tenancy__c testTenancy = expectedData.givenThingParkTenancy();
-            System.debug('***** expectedData : ' + expectedData);
+            LoRaWAN_Tenancy__c lorawanTenancy = expectedData.givenThingParkTenancy();
+            System.debug('Given the expected test data : ' + expectedData);
 
-            // When the Tenancy is updated
-            testTenancy.Name = 'Test-Update-' + Timestamp.timeStamp();
-            testTenancy.Daily_Max_Average__c = 999;
-            testTenancy.Overage_Rate__c = 0.10;
-            System.debug('update tenancy : ' + testTenancy);
-            update testTenancy;
+            // When the Tenancy is updated in salesforce
+            lorawanTenancy.Name = 'Test-Update-' + Timestamp.timeStamp();
+            lorawanTenancy.Daily_Max_Average__c = 999;
+            lorawanTenancy.Overage_Rate__c = 0.10;
+            update lorawanTenancy;
+            System.debug('tenancy updated: ' + lorawanTenancy);
 
  			Test.stopTest();
         }

@@ -4,7 +4,6 @@
     <testClassName>ActilitySubscriberForTenancyTest</testClassName>
     <testClassName>ExpectedDataManagerTest</testClassName>
     <testClassName>LoggingRestMockTest</testClassName>
-    <testClassName>ThingParkInvoiceTest</testClassName>
     <testClassName>ThingParkOrderJsonTest</testClassName>
     <testClassName>ThingParkRestConfigTest</testClassName>
     <testClassName>ThingParkRestTest</testClassName>

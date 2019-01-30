@@ -1,17 +1,26 @@
-public class ThingParkInvoiceConfig {
-
-    private ThingPark_Invoice_Configuration__mdt[] config = null;
+public class ThingParkInvoiceConfig implements ConfigurationInterface {
+    public class ConfigurationNotFoundException extends Exception {}
+    private ThingPark_Invoice_Configuration__mdt config;
 
 	private ThingParkInvoiceConfig() {
-        config = [SELECT label, Version__c FROM ThingPark_Invoice_Configuration__mdt 
-                  WHERE label = 'Current' 
-                  LIMIT 1];
+        this.config = getRow('Current');
     }
 
     private ThingParkInvoiceConfig(final String scope) {
-        config = [SELECT label, Version__c 
-                  FROM ThingPark_Invoice_Configuration__mdt 
-                  WHERE label = :scope LIMIT 1];
+        this.config = getRow(scope);
+    }
+    
+    private ThingPark_Invoice_Configuration__mdt getRow(final String scope) {
+        List<ThingPark_Invoice_Configuration__mdt> configRows = [
+            SELECT label, Version__c 
+            FROM ThingPark_Invoice_Configuration__mdt 
+            WHERE label = :scope LIMIT 1];
+
+        if (configRows.size() == 0) {
+            throw new ConfigurationNotFoundException('Configuration not found with label : ' + scope);
+        } else  {
+            return configRows.get(0);
+        }
     }
 
     public static ThingParkInvoiceConfig selectCurrent() {

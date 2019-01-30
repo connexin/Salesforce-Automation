@@ -53,6 +53,16 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <fields>
+        <fullName>Actility_Order_Ref__c</fullName>
+        <externalId>false</externalId>
+        <label>Actility Order Ref</label>
+        <length>60</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Actility_Subscription_ID__c</fullName>
         <externalId>false</externalId>
         <label>Actility Subscription ID</label>
@@ -105,6 +115,15 @@
         <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Push_to_Actility__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Push Package changes to Actility ThingPark</description>
+        <externalId>false</externalId>
+        <label>Push to Actility</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Quantity_Of_Devices__c</fullName>

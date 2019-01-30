@@ -15,7 +15,6 @@ public class ThingParkInvoice {
             Fiscal_Document__c invoice = new Fiscal_Document__c(
                 Account__c = accountId,
                 Description__c = description,
-                // Price_Book__c. = priceBookId,
                 RecordTypeId = recordType.Id,
                 Draft__c = true,
                 Dispute__c = false);
@@ -26,33 +25,33 @@ public class ThingParkInvoice {
         return null;
     }
     
-    public ThingParkInvoice addDeviceCharges(final String accountId, final String productId, final Decimal qty, final Decimal amount) {
+    public ThingParkInvoice addDeviceCharges(final String productId, final Decimal qty, final Decimal amount) {
         final String description = 'Devices';
         // @todo: look up product charges
-        return addLine(accountId, description, productId, qty, amount);
+        return addLine(description, productId, qty, amount);
     }
     
-    public ThingParkInvoice addServiceCharges(final String accountId, final String productId, final Decimal qty, final Decimal amount) {
+    public ThingParkInvoice addServiceCharges(final String productId, final Decimal qty, final Decimal amount) {
         final String description = 'Service';
         // @todo: look up product charges
-        return addLine(accountId, description, productId, qty, amount);
+        return addLine(description, productId, qty, amount);
     }
     
-    public ThingParkInvoice addOverageCharges(final String accountId, final String productId, final Decimal qty, final Decimal amount) {
+    public ThingParkInvoice addOverageCharges(final String productId, final Decimal qty, final Decimal amount) {
         final String description = 'Overage';
         // @todo: look up product charges
-        return addLine(accountId, description, productId, qty, amount);
+        return addLine(description, productId, qty, amount);
     }
     
-    public ThingParkInvoice addEndOfLineCharges(final String accountId, final String productId, final Decimal qty, final Decimal amount) {
+    public ThingParkInvoice addEndOfLifeCharges(final String productId, final Decimal qty, final Decimal amount) {
         final String description = 'Overage';
         // @todo: look up product charges
-        return addLine(accountId, description, productId, qty, amount);
+        return addLine(description, productId, qty, amount);
     }
     
-    private ThingParkInvoice addLine(final String accountId, final String description, final String productId, final Decimal qty, final Decimal amount) {
+    private ThingParkInvoice addLine(final String description, final String productId, final Decimal qty, final Decimal amount) {
         Fiscal_Document_Line__c invoiceLine = new Fiscal_Document_Line__c(
-            Fiscal_Document__c = invoice.Id,
+            Fiscal_Document__c = invoice.id,
             Description__c = description,
             Product__c = productId,
             Quantity__c = qty,

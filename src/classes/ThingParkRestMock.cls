@@ -1,7 +1,18 @@
 global class ThingParkRestMock implements HttpCalloutMock {
 
-    private String expectedAuthorization = 'Bearer MOCK_ACCESS_TOKEN';
+	private String expectedAuthorization = 'Bearer MOCK_ACCESS_TOKEN';
     private String expectedEndpoint = 'https://dx-api.thingpark.com';
+    private String authorisationMockResponse = '{"expires_in":99999,"client_id":"connexin-api/salesforce-actility-api@connexin.co.uk","token_type":"bearer","access_token":"MOCK_ACCESS_TOKEN"}';
+    private String authorisationMockErrorResponse =  '{...}';
+    private String subscriberMockResponse = '{ "id": "100030634", "ref": "88888", "name": "Alice Automation", "contactEmail": "alice.automation@connexin.co.uk","organization": "Hull Digital City", "primaryUser": { "id": "tpk-100036913", "ref": "36913", "firstName": "Alice", "lastName": "Tester", "email": "alice.test@connexin.co.uk", "organization": "Hull Digital City", "scopes": ["SUBSCRIBER:30634"]}}';
+    private String subscriberMockErrorResponse = '{ ... }';
+    private String orderMockResponse = '{"id":"200021233","ref":"44914","offerId":"connexin-vdr/test-offer","subscriberId":"100030634","state": "TEST"}';
+    private String orderMockErrorResponse = '{...}';
+    private String offerMockResponse  = '{"id":"connexin-vdr/test-offer","name":"Starter test offer","ref":"8404","state":"TEST","items":[{"productId":"actility-sup/device-manager","productType":"APPLICATION","quantity":1},{"productId":"actility-sup/network-manager","productType":"APPLICATION","quantity":1}]}';
+    private String offerMockErrorResponse = '{...}';
+    private String deviceMockResponse = '{"ref":"333580","name":"0018B20000001BF0","EUI":"0018B20000001BF0","networkAddress":"2FDB487E"},{"ref":"336532","name":"Waste Sensor #1","EUI":"70B3D53260000ED0","networkAddress":"60000ED0"},{"ref":"336538","name":"Waste Sensor #2","EUI":"70B3D53260000FA4","networkAddress":"60000FA4"},{"ref":"344170","name":"Bin Sensor #2","EUI":"70B3D5326000908D","networkAddress":"6000908D"},{"ref":"344173","name":"Bin Sensor #3","EUI":"70B3D53260009093","networkAddress":"60009093"},{"ref":"344176","name":"Bin Sensor #4","EUI":"70B3D53260009098","networkAddress":"60009098"},{"ref":"344221","name":"Bin Sensor #1","EUI":"70B3D53260009257","networkAddress":"60009257"},{"ref":"405868","name":"Brighter Bins Test Unit LEU66","EUI":"0004A30B0023AC69","networkAddress":"2E92DCF0"},{"ref":"405871","name":"Brighter Bins Test Unit LEU74","EUI":"0004A30B002402B4","networkAddress":"2F21DD81"},{"ref":"417649","name":"Workshop2","EUI":"0495956030101011","networkAddress":"2E2A04AE"},{"ref":"424903","name":"Pharox 166","EUI":"70B3D58627441AF0"},{"ref":"424909","name":"Pharox 167","EUI":"70B3D5862598382D"},{"ref":"600460","name":"Test Waste Sensor LEU68","EUI":"0004A30B0023FD08","networkAddress":"FC005F47"}';
+    private String deviceMockErrorResponse = '{...}';
+    
 
     // Implement this interface method
     global HTTPResponse respond(final HTTPRequest request) {
@@ -66,8 +77,7 @@ global class ThingParkRestMock implements HttpCalloutMock {
         System.debug('client_secret : ' + clientSecret);
         System.assert(clientSecret.isAlphanumeric(), 'Unexpected clientSecret : ' + clientSecret);
 
-        String jsonBody = '{"expires_in":99999,"client_id":"connexin-api/salesforce-actility-api@connexin.co.uk","token_type":"bearer","access_token":"MOCK_ACCESS_TOKEN"}';
-        response.setBody(jsonBody);
+        response.setBody(authorisationMockResponse);
         response.setStatusCode(200);
 
         return response;
@@ -102,10 +112,13 @@ global class ThingParkRestMock implements HttpCalloutMock {
 
         HttpResponse response = new HttpResponse();
         response.setHeader('Content-Type', 'application/json;charset=UTF-8');
-
-        String jsonBody = '{"primaryUser":{"firstName":"Alice","lastName":"Automation","email":"alice.automation@connexin.co.uk","organization":"Connexin Company UK","password":"DQ2sO83zXY"}}';
-        
-        response.setBody(jsonBody);
+        // {"primaryUser":{
+        // "firstName":"Alice",
+        // "lastName":"Automation",
+        // "email":"alice.automation@connexin.co.uk",
+        // "organization":"Connexin Company UK",
+        // "password":"mock-password"}}';
+        response.setBody(subscriberMockResponse);
         response.setStatusCode(200);
         return response;
     }
@@ -116,9 +129,7 @@ global class ThingParkRestMock implements HttpCalloutMock {
         HttpResponse response = new HttpResponse();
         response.setHeader('Content-Type', 'application/json;charset=UTF-8');
 
-        String jsonBody = '{"id":"100029494","ref":"29494","name":"Alice Tester-20194104.124148","contactEmail":"Alice.Tester-20194104.124148@connexin.co.uk","organization":"Connexin UK Ltd","primaryUser":{"id":"tpk-100035737","ref":"35737","firstName":"Alice","lastName":"Tester-20194104.124148","email":"Alice.Tester-20194104.124148@connexin.co.uk","organization":"Connexin UK Ltd","scopes":["SUBSCRIBER:29494"]}}';
-
-        response.setBody(jsonBody);
+        response.setBody(subscriberMockResponse);
         response.setStatusCode(201);
         return response;
     }
@@ -129,9 +140,7 @@ global class ThingParkRestMock implements HttpCalloutMock {
         HttpResponse response = new HttpResponse();
         response.setHeader('Content-Type', 'application/json;charset=UTF-8');
 
-        String jsonBody = '{"id":"100029494","ref":"29494","name":"Alice Tester-20194104.124148","contactEmail":"Alice.Tester-20194104.124148@connexin.co.uk","organization":"Connexin UK Ltd","primaryUser":{"id":"tpk-100035737","ref":"35737","firstName":"Alice","lastName":"Tester-20194104.124148","email":"Alice.Tester-20194104.124148@connexin.co.uk","organization":"Connexin UK Ltd","scopes":["SUBSCRIBER:29494"]}}';
-
-        response.setBody(jsonBody);
+        response.setBody(subscriberMockResponse);
         response.setStatusCode(200);
         return response;
     }
@@ -165,9 +174,8 @@ global class ThingParkRestMock implements HttpCalloutMock {
 
         HttpResponse response = new HttpResponse();
         response.setHeader('Content-Type', 'application/json;charset=UTF-8');
-        
-        String jsonBody = '{"id":"200021233","ref":"44914","offerId":"connexin-vdr/test-offer","subscriberId":"100029374","state": "COMPLETED"}';
-        response.setBody(jsonBody);
+
+        response.setBody(orderMockResponse);
         response.setStatusCode(200);
         return response;
     }
@@ -178,9 +186,7 @@ global class ThingParkRestMock implements HttpCalloutMock {
         HttpResponse response = new HttpResponse();
         response.setHeader('Content-Type', 'application/json;charset=UTF-8');
 
-        String jsonBody = '{"id":"200021240","ref":"44935","offerId":"connexin-vdr/test-offer","subscriberId":"100029374","state":"INIT"}';
-
-        response.setBody(jsonBody);
+        response.setBody(orderMockResponse);
         response.setStatusCode(201);
         return response;
     }
@@ -191,9 +197,7 @@ global class ThingParkRestMock implements HttpCalloutMock {
         HttpResponse response = new HttpResponse();
         response.setHeader('Content-Type', 'application/json;charset=UTF-8');
 
-        String jsonBody = '{"id":"200021240","ref":"44935","offerId":"connexin-vdr/test-offer","subscriberId":"100029374","state":"INIT"}';
-
-        response.setBody(jsonBody);
+        response.setBody(orderMockResponse);
         response.setStatusCode(200);
         return response;
     }
@@ -229,8 +233,7 @@ global class ThingParkRestMock implements HttpCalloutMock {
         HttpResponse response = new HttpResponse();
         response.setHeader('Content-Type', 'application/json;charset=UTF-8');
 
-        String jsonBody = '{"id":"connexin-vdr/test-offer","name":"Starter test offer","ref":"8404","state":"TEST","items":[{"productId":"actility-sup/device-manager","productType":"APPLICATION","quantity":1},{"productId":"actility-sup/network-manager","productType":"APPLICATION","quantity":1}]}';
-        response.setBody(jsonBody);
+        response.setBody(offerMockResponse);
         response.setStatusCode(200);
         return response;
     }
@@ -241,9 +244,7 @@ global class ThingParkRestMock implements HttpCalloutMock {
         HttpResponse response = new HttpResponse();
         response.setHeader('Content-Type', 'application/json;charset=UTF-8');
 
-        String jsonBody = '{"id":"connexin-vdr/test-offer","name":"Starter test offer","ref":"8491","state":"TEST","items":[{"productId":"actility-sup/device-manager","productType":"APPLICATION","quantity":1},{"productId":"actility-sup/network-manager","productType":"APPLICATION","quantity":1}]}';
-
-        response.setBody(jsonBody);
+        response.setBody(offerMockResponse);
         response.setStatusCode(201);
         return response;
     }
@@ -254,9 +255,7 @@ global class ThingParkRestMock implements HttpCalloutMock {
         HttpResponse response = new HttpResponse();
         response.setHeader('Content-Type', 'application/json;charset=UTF-8');
 
-        String jsonBody = '{"id":"connexin-vdr/test-offer","name":"Starter test offer","ref":"8491","state":"TEST","items":[{"productId":"actility-sup/device-manager","productType":"APPLICATION","quantity":1},{"productId":"actility-sup/network-manager","productType":"APPLICATION","quantity":1}]}';
-
-        response.setBody(jsonBody);
+        response.setBody(offerMockResponse);
         response.setStatusCode(200);
         return response;
     }
@@ -292,9 +291,7 @@ global class ThingParkRestMock implements HttpCalloutMock {
         HttpResponse response = new HttpResponse();
         response.setHeader('Content-Type', 'application/json;charset=UTF-8');
         
-        String jsonBody = '{"ref":"333580","name":"0018B20000001BF0","EUI":"0018B20000001BF0","networkAddress":"2FDB487E"},{"ref":"336532","name":"Waste Sensor #1","EUI":"70B3D53260000ED0","networkAddress":"60000ED0"},{"ref":"336538","name":"Waste Sensor #2","EUI":"70B3D53260000FA4","networkAddress":"60000FA4"},{"ref":"344170","name":"Bin Sensor #2","EUI":"70B3D5326000908D","networkAddress":"6000908D"},{"ref":"344173","name":"Bin Sensor #3","EUI":"70B3D53260009093","networkAddress":"60009093"},{"ref":"344176","name":"Bin Sensor #4","EUI":"70B3D53260009098","networkAddress":"60009098"},{"ref":"344221","name":"Bin Sensor #1","EUI":"70B3D53260009257","networkAddress":"60009257"},{"ref":"405868","name":"Brighter Bins Test Unit LEU66","EUI":"0004A30B0023AC69","networkAddress":"2E92DCF0"},{"ref":"405871","name":"Brighter Bins Test Unit LEU74","EUI":"0004A30B002402B4","networkAddress":"2F21DD81"},{"ref":"417649","name":"Workshop2","EUI":"0495956030101011","networkAddress":"2E2A04AE"},{"ref":"424903","name":"Pharox 166","EUI":"70B3D58627441AF0"},{"ref":"424909","name":"Pharox 167","EUI":"70B3D5862598382D"},{"ref":"600460","name":"Test Waste Sensor LEU68","EUI":"0004A30B0023FD08","networkAddress":"FC005F47"}';
-
-        response.setBody(jsonBody);
+        response.setBody(deviceMockResponse);
         response.setStatusCode(200);
         return response;
     }
@@ -305,9 +302,7 @@ global class ThingParkRestMock implements HttpCalloutMock {
         HttpResponse response = new HttpResponse();
         response.setHeader('Content-Type', 'application/json;charset=UTF-8');
         
-        String jsonBody = '{"ref":"333580","name":"0018B20000001BF0","EUI":"0018B20000001BF0","networkAddress":"2FDB487E"},{"ref":"336532","name":"Waste Sensor #1","EUI":"70B3D53260000ED0","networkAddress":"60000ED0"},{"ref":"336538","name":"Waste Sensor #2","EUI":"70B3D53260000FA4","networkAddress":"60000FA4"},{"ref":"344170","name":"Bin Sensor #2","EUI":"70B3D5326000908D","networkAddress":"6000908D"},{"ref":"344173","name":"Bin Sensor #3","EUI":"70B3D53260009093","networkAddress":"60009093"},{"ref":"344176","name":"Bin Sensor #4","EUI":"70B3D53260009098","networkAddress":"60009098"},{"ref":"344221","name":"Bin Sensor #1","EUI":"70B3D53260009257","networkAddress":"60009257"},{"ref":"405868","name":"Brighter Bins Test Unit LEU66","EUI":"0004A30B0023AC69","networkAddress":"2E92DCF0"},{"ref":"405871","name":"Brighter Bins Test Unit LEU74","EUI":"0004A30B002402B4","networkAddress":"2F21DD81"},{"ref":"417649","name":"Workshop2","EUI":"0495956030101011","networkAddress":"2E2A04AE"},{"ref":"424903","name":"Pharox 166","EUI":"70B3D58627441AF0"},{"ref":"424909","name":"Pharox 167","EUI":"70B3D5862598382D"},{"ref":"600460","name":"Test Waste Sensor LEU68","EUI":"0004A30B0023FD08","networkAddress":"FC005F47"}';
-
-        response.setBody(jsonBody);
+        response.setBody(deviceMockResponse);
 		response.setStatusCode(201);
         return response;
     }
@@ -318,18 +313,16 @@ global class ThingParkRestMock implements HttpCalloutMock {
         HttpResponse response = new HttpResponse();
         response.setHeader('Content-Type', 'application/json;charset=UTF-8');
         
-        String jsonBody = '{"ref":"333580","name":"0018B20000001BF0","EUI":"0018B20000001BF0","networkAddress":"2FDB487E"},{"ref":"336532","name":"Waste Sensor #1","EUI":"70B3D53260000ED0","networkAddress":"60000ED0"},{"ref":"336538","name":"Waste Sensor #2","EUI":"70B3D53260000FA4","networkAddress":"60000FA4"},{"ref":"344170","name":"Bin Sensor #2","EUI":"70B3D5326000908D","networkAddress":"6000908D"},{"ref":"344173","name":"Bin Sensor #3","EUI":"70B3D53260009093","networkAddress":"60009093"},{"ref":"344176","name":"Bin Sensor #4","EUI":"70B3D53260009098","networkAddress":"60009098"},{"ref":"344221","name":"Bin Sensor #1","EUI":"70B3D53260009257","networkAddress":"60009257"},{"ref":"405868","name":"Brighter Bins Test Unit LEU66","EUI":"0004A30B0023AC69","networkAddress":"2E92DCF0"},{"ref":"405871","name":"Brighter Bins Test Unit LEU74","EUI":"0004A30B002402B4","networkAddress":"2F21DD81"},{"ref":"417649","name":"Workshop2","EUI":"0495956030101011","networkAddress":"2E2A04AE"},{"ref":"424903","name":"Pharox 166","EUI":"70B3D58627441AF0"},{"ref":"424909","name":"Pharox 167","EUI":"70B3D5862598382D"},{"ref":"600460","name":"Test Waste Sensor LEU68","EUI":"0004A30B0023FD08","networkAddress":"FC005F47"}';
-
-        response.setBody(jsonBody);
+        response.setBody(deviceMockResponse);
 		response.setStatusCode(200);
         return response;
     }
     
 	public HttpResponse unsupportedRequest(final HTTPRequest request) {
-            System.debug('Unsupported Request : ' + request.getMethod() + ' ' + request.getEndpoint());
+            System.debug('Unsupported Request in Mock : ' + request.getMethod() + ' ' + request.getEndpoint());
 			HttpResponse response = new HttpResponse();
         	String errorBody = '{ "ThingParkRestMock":"mock",'
-                             + '"Error":"Unsupported Request",'
+                             + '"Error":"Unsupported Request in Mock",'
                              + '"Method":"' + request.getMethod() + '",'
                              + '"Method":"' + request.getEndpoint() + '" }';
             System.debug('errorBody : ' + errorBody);

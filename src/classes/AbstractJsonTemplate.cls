@@ -1,17 +1,42 @@
 public virtual class AbstractJsonTemplate {
-    
+    public class InvalidReplacementException extends Exception {}
     protected String jsonTemplate { get; set;}
+    protected Boolean failOnError = true;
     
     protected AbstractJsonTemplate replace(final String target, final String replacement) {
-        System.debug('target :' + target);
-        System.debug('replacement :' + replacement);
-        System.assert((target != null), 'replacement target cannot be null.');
-        System.assert((replacement != null), 'replacement value cannot be null for :' + target);
-        jsonTemplate = jsonTemplate.replace(target, replacement);
+        if (jsonTemplate == null) {
+			errorHandler('jsonTemplate is undefined');
+        } else {
+            if (target == null) {
+                final String message = 'target cannot be null for replacement ' + replacement + ' to be performed';
+				errorHandler(message);
+            } else {
+                if (replacement == null) {
+                    String message = 'replacement cannot be null for target :' + target ;
+					errorHandler(message);
+                } else {
+                    if (jsonTemplate.contains(target)) {
+                        jsonTemplate = jsonTemplate.replace(target, replacement);
+                    } else {
+                        String message = 'target :' + target + ' not found, replacement :' + replacement + ' cannot be perfomed.';
+                        errorHandler(message);
+                    }
+                }
+            }
+        }
         return this;
     }
-    
+
+	// simple helper for improved semantic    
     protected String with(final String withValue) {
         return withValue;
+    }
+    
+    protected void errorHandler(final String errorMessage) {
+		if (failOnError) {
+			throw new InvalidReplacementException(errorMessage);
+		} else {
+			System.debug('[WARNING] ' + errorMessage);
+		}
     }
 }

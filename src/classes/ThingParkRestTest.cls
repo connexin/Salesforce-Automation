@@ -8,17 +8,22 @@
         ExpectedDataManager expectedDataManager = new ExpectedDataManager();
         assumeNotNull(expectedDataManager.givenThingParkCustomer());
         assumeNotNull(expectedDataManager.givenThingParkTenancy());
-        System.debug('@@@lorawanTenancy : ' + expectedDataManager.primaryContact.FirstName);
-        System.debug('@@@lorawanTenancy : ' + expectedDataManager.primaryContact.LastName);
-        System.debug('@@@lorawanTenancy : ' + expectedDataManager.primaryContact.Email);
-        System.debug('@@@lorawanTenancy : ' + expectedDataManager.account.Name);
-
-        ThingParkSubscriberJson foo = new ThingParkSubscriberJson(expectedDataManager.primaryContact.FirstName,
-                                                                  expectedDataManager.primaryContact.LastName,
-                                                                  expectedDataManager.primaryContact.Email,
-                                                                  expectedDataManager.account.Name,
-                                                                  RandomData.actiltyPolicyPassword());
-        String subscriberJson = foo.toJson();
+        
+        System.debug('lorawanTenancy.primaryContact.FirstName : ' + expectedDataManager.primaryContact.FirstName);
+        System.debug('lorawanTenancy.primaryContact.LastName : ' + expectedDataManager.primaryContact.LastName);
+        System.debug('lorawanTenancy.primaryContact.Email : ' + expectedDataManager.primaryContact.Email);
+        System.debug('lorawanTenancy.account.Name : ' + expectedDataManager.account.Name);
+        System.debug('lorawanTenancy.account.Id : ' + expectedDataManager.account.Id);
+        
+        ThingParkSubscriberJson thingParkSubscriber = new ThingParkSubscriberJson(expectedDataManager.primaryContact.FirstName,
+                                                                                  expectedDataManager.primaryContact.LastName,
+                                                                                  expectedDataManager.primaryContact.Email,
+                                                                                  expectedDataManager.account.Name,
+                                                                                  expectedDataManager.account.Id,
+                                                                                  RandomData.actiltyPolicyPassword());
+        
+        System.debug('thingParkSubscriber : ' + thingParkSubscriber);
+        Final String subscriberJson = thingParkSubscriber.toJson();
         System.debug('testAddTenancy.subscriberJson : ' + subscriberJson);
         ThingParkRest.addTenancy(subscriberJson);
         
@@ -30,7 +35,7 @@
         
         assumeNotNull(createMock());
         
-        ThingParkRest.getTenancy('subscriberId');
+        ThingParkRest.getTenancy('88888');
         
         Test.stopTest();
     }
@@ -40,46 +45,53 @@
         
         assumeNotNull(createMock());
         
-        ThingParkRest.updateTenancy('subscriberId');
-        
+        ThingParkRest.updateTenancy('88888');
+
         Test.stopTest();
     }
     
     @isTest static void testAddOrder() {
         Test.startTest();
-        
-        assumeNotNull(createMock());
-        
-        ExpectedDataManager expectedDataManager = new ExpectedDataManager();
-        LoRaWAN_Package__c lorawanPackage = expectedDataManager.givenThingParkPackage();
-        assertNotNull(lorawanPackage);
-        System.debug('@@@lorawanPackage : ' + lorawanPackage);
 
-        String orderJson = new ThingParkOrderJson('offerId','subscriberId').toJson();
+        assumeNotNull(createMock());
+
+        ExpectedDataManager expectedDataManager = new ExpectedDataManager();
+        assumeNotNull(expectedDataManager.givenThingParkCustomer());
+        assumeNotNull(expectedDataManager.givenThingParkTenancy());
+        assumeNotNull(expectedDataManager.givenThingParkPackage());
+
+        System.debug('lorawanPackage : ' + expectedDataManager.lorawanPackage);
+        System.debug('lorawanPackage.Actility_Subscription_ID__c : ' + expectedDataManager.lorawanPackage.Actility_Subscription_ID__c);
+
+        ThingParkOrderJson thingParkOrder = new ThingParkOrderJson('connexin-vdr/test-offer', 
+                                                                   expectedDataManager.lorawanPackage.Actility_Subscription_ID__c);
+
+        System.debug('thingParkOrder : ' + thingParkOrder);
+        String orderJson = new ThingParkOrderJson().toJson();
         System.debug('testAddOrder.orderJson : ' + orderJson);
-        
+
         ThingParkRest.addOrder(orderJson);
-        
+
         Test.stopTest();
     }
-    
+
     @isTest static void testGetOrder() {
         Test.startTest();
-        
+
         assumeNotNull(createMock());
-        
-        ThingParkRest.getOrder('orderId');
-        
+
+        ThingParkRest.getOrder('connexin-vdr/test-offer');
+
         Test.stopTest();
     }
-    
+
     @isTest static void testUpdateOrder() {
         Test.startTest();
-        
+
         assumeNotNull(createMock());
-        
-        ThingParkRest.updateOrder('orderId');
-        
+
+        ThingParkRest.updateOrder('connexin-vdr/tpw-starter-kit');
+
         Test.stopTest();
     }
 }

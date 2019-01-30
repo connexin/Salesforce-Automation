@@ -18,6 +18,31 @@ global with sharing class LorawanInvoiceService {
         RestRequest request = RestContext.request;
         System.debug('request : ' + request);
         System.debug('request.requestURI : ' + request.requestURI);
+        System.debug('request.params : ' + request.params);
+
+		final String accountId = request.params.get('id');
+        final String description = '';
+        final String priceBookId = '';
+
+		ThingParkInvoice invoice = ThingParkInvoice.create(accountId, description, priceBookId);
+
+		final String productId = '';
+        final Decimal totalDevices = 100;
+        final Decimal deviceRate = 0.05;
+		invoice.addDeviceCharges(accountId, productId, totalDevices, deviceRate);
+
+        final Decimal qty = 60;
+        final Decimal rate = 0.01;
+		invoice.addServiceCharges(accountId, productId, qty, rate);
+
+        final Decimal dailyMaxAverage = 60;
+        final Decimal totalMsgs = 100;
+        final Decimal overageRate = 0.05;
+        final Decimal chargedMsgs = totalMsgs - dailyMaxAverage;
+		invoice.addOverageCharges(accountId, productId, chargedMsgs, overageRate);
+
+        final Decimal deviceRateAfterCommitment = 0.10;
+		invoice.addEndOfLifeCharges(accountId, productId, totalDevices, deviceRateAfterCommitment);
 
         // Integer idStart = request.requestURI.lastIndexOf('/')+1;
         // String id = request.requestURI.substring(idStart);
@@ -28,9 +53,10 @@ global with sharing class LorawanInvoiceService {
         // subscriber.Name = name;
         // insert subscriber;
         // return subscriber.Id;
+
         return name;
     }
-    
+
     @HttpDelete
     global static void doDelete() {
         RestRequest request = RestContext.request;

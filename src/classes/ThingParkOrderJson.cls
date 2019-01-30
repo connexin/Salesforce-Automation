@@ -15,20 +15,29 @@ public class ThingParkOrderJson extends AbstractJsonTemplate {
     public ThingParkOrderJson() {
         this.config = ThingParkRestConfig.selectCurrent();
     }
+    
+    public ThingParkOrderJson(String scopeLabel) {
+        this.config = ThingParkRestConfig.selectScope(scopeLabel);
+    }
 
     public ThingParkOrderJson(final String offerId, final String subscriberId) {
         this.config = ThingParkRestConfig.selectCurrent();
-        System.debug('config :' + this.config);
         this.offerId = offerId;
         this.subscriberId = subscriberId;
     }
 
     public String toJson() {
         jsonTemplate = config.orderJsonTemplate();
-        
         replace('${offerId}', with(offerId));
         replace('${subscriberId}', with(subscriberId));
-        
+        return jsonTemplate;
+    }
+
+    public String verify() {
+        failOnError = false;
+        jsonTemplate = config.orderJsonTemplate();
+        System.debug('jsonTemplate before replacement : ' + jsonTemplate);
+        System.debug('jsonTemplate after replacement : ' + toJson());
         return jsonTemplate;
     }
 }

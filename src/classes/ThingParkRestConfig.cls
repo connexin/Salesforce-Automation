@@ -1,33 +1,47 @@
-public class ThingParkRestConfig {
-
+public class ThingParkRestConfig implements ConfigurationInterface {
+    public class ConfigurationNotFoundException extends Exception {}
     private ThingPark_REST_Config__mdt config;
 
-    public ThingParkRestConfig() {
-        config = [SELECT label, API_Version__c, Client_ID__c, Client_Password__c, Client_Secret__c, Endpoint__c, Subscriber_JSON__c, Order_JSON__c 
-                  FROM ThingPark_REST_Config__mdt 
-                  WHERE label = 'Current' 
-                  LIMIT 1];
+    // Use the Current default configuration
+    private ThingParkRestConfig() {
+        this.config = getRow('Current');
     }
 
-    public ThingParkRestConfig(final String scope) {
-        config = [SELECT label, API_Version__c, Client_ID__c, Client_Password__c, Client_Secret__c, Endpoint__c, Subscriber_JSON__c, Order_JSON__c 
-                  FROM ThingPark_REST_Config__mdt 
-                  WHERE label = :scope 
-                  LIMIT 1];
+    // Use the named configuration
+    private ThingParkRestConfig(final String scope) {
+        this.config = getRow(scope);
     }
 
+    private ThingPark_REST_Config__mdt getRow(final String scope) {
+        List<ThingPark_REST_Config__mdt> configRows = [
+            SELECT label, API_Version__c, Client_ID__c, Client_Password__c, Client_Secret__c, Endpoint__c, Subscriber_JSON__c, Order_JSON__c 
+            FROM ThingPark_REST_Config__mdt 
+            WHERE label = :scope 
+            LIMIT 1];
+
+        if (configRows.size() == 0) {
+            throw new ConfigurationNotFoundException('Configuration not found with label : ' + scope);
+        } else  {
+            return configRows.get(0);
+        }
+    }
+
+    // factory method for current default configuration
     public static ThingParkRestConfig selectCurrent() {
         return new ThingParkRestConfig();
     }
-    
+
+    // factory method for last known stable configuration
     public static ThingParkRestConfig selectStable() {
         return new ThingParkRestConfig('Stable');
     }
 
+    // factory method for latest defined configuration
     public static ThingParkRestConfig selectLatest() {
         return new ThingParkRestConfig('Latest');
     }
 
+    // factory method for named configuration
     public static ThingParkRestConfig selectScope(final String scopeLabel) {
         return new ThingParkRestConfig(scopeLabel);
     }
