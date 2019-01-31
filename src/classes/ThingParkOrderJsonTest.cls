@@ -40,7 +40,7 @@
         Test.stopTest();
     }
 
-    @isTest static void testMakeThingParkOrderJsonNulNull() {
+    @isTest static void testMakeThingParkOrderJsonMissingValues() {
         Test.startTest();
 
         // Given a Json template for a ThingPark Order
@@ -60,6 +60,27 @@
 
         Test.stopTest();
     }
+
+	@isTest static void testMakeThingParkOrderJsonNullValues() {
+        Test.startTest();
+
+        // Given a Json template for a ThingPark Order
+        // And the values to be replaced are null.
+        ThingParkOrderJson instance = new ThingParkOrderJson(null, null);
+        assertNotNull(instance);
+
+        try {
+        	// When the json is generated
+            instance.toJson();
+            fail('Unexpected behaviour - fail');
+        } catch(Exception e) {
+            // Then the expected exception occurs.
+            System.debug('expected exception - unit test pass');
+        }
+
+        Test.stopTest();
+    }
+
     @isTest static void testThingParkOrderJsonVerify() {
         Test.startTest();
 

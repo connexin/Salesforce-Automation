@@ -17,7 +17,7 @@
 
         // When the json is generated
         final String jsonStr = instance.toJson();
-        
+
         // Then the Json is valid
 		assertNotNull(jsonStr);
         System.debug('jsonStr : ' + jsonStr);
@@ -58,7 +58,6 @@
         assertNotNull(instance);
 
         // And the values to be replaced are undefined.
-        
         try {
         	// When the json is generated
             instance.toJson();
@@ -90,5 +89,31 @@
         assertNotNull(new ThingParkSubscriberJson('Stable'));
 
         Test.stopTest();
+    }
+    
+    @isTest static void testThingParkSubscriberJsonReplacement() {
+        Test.startTest();
+
+        // Given a Json template for a ThingPark Subscriber
+        ThingParkSubscriberJson instance = new ThingParkSubscriberJson();
+        assertNotNull(instance);
+
+        // And the values to be replaced
+        instance.firstName = '***firstName***';
+        instance.lastName = '***lastName***';
+        instance.email = '***email@example.com***';
+        instance.organization = '***organization***';
+        instance.externalId = '***externalId***';
+        instance.password = '***password***';
+
+        // When the json is generated
+        final String jsonStr = instance.toJson();
+
+        // Then the Json is valid
+		assertNotNull(jsonStr);
+        System.debug('jsonStr : ' + jsonStr);
+        assertTrue(verifyJson(jsonStr));
+
+		Test.stopTest();
     }
 }

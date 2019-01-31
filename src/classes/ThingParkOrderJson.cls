@@ -8,9 +8,9 @@ state (string, optional): State of the order.
 }
 */
 public class ThingParkOrderJson extends AbstractJsonTemplate {
-    private ThingParkRestConfig config;
     public String offerId { get; set; }
     public String subscriberId { get; set; }
+    private ThingParkRestConfig config;
 
     public ThingParkOrderJson() {
         this.config = ThingParkRestConfig.selectCurrent();
@@ -28,6 +28,8 @@ public class ThingParkOrderJson extends AbstractJsonTemplate {
 
     public String toJson() {
         jsonTemplate = config.orderJsonTemplate();
+        System.debug('jsonTemplate.replace(${offerId}, offerId) : ' + offerId);
+        System.debug('jsonTemplate.replace(${offerId}).with(offerId) : ' + with(offerId));
         replace('${offerId}', with(offerId));
         replace('${subscriberId}', with(subscriberId));
         return jsonTemplate;

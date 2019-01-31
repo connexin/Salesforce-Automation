@@ -21,7 +21,7 @@ public with sharing class TimeStamp {
     }
     
     public static String timeStamp() {
-        return timeStamp('YYYY-MM-dd HH:mm:ss:SSS');
+        return timeStamp('YYYY-MM-dd_HH:mm:ss:SSS');
     }
     
     public static String timeStamp(String pattern) {

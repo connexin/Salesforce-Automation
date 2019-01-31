@@ -61,13 +61,13 @@
         assumeNotNull(expectedDataManager.givenThingParkPackage());
 
         System.debug('lorawanPackage : ' + expectedDataManager.lorawanPackage);
-        System.debug('lorawanPackage.Actility_Subscription_ID__c : ' + expectedDataManager.lorawanPackage.Actility_Subscription_ID__c);
+        final String subscriberId = expectedDataManager.lorawanPackage.Actility_Subscription_ID__c;
+        System.debug('lorawanPackage.subscriberId : ' + subscriberId);
 
-        ThingParkOrderJson thingParkOrder = new ThingParkOrderJson('connexin-vdr/test-offer', 
-                                                                   expectedDataManager.lorawanPackage.Actility_Subscription_ID__c);
-
+        ThingParkOrderJson thingParkOrder = new ThingParkOrderJson('connexin-vdr/test-offer', subscriberId); 
         System.debug('thingParkOrder : ' + thingParkOrder);
-        String orderJson = new ThingParkOrderJson().toJson();
+
+        String orderJson = thingParkOrder.toJson();
         System.debug('testAddOrder.orderJson : ' + orderJson);
 
         ThingParkRest.addOrder(orderJson);

@@ -111,9 +111,9 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
     public Account givenThingParkCustomer() {
         if (account == null) {
             account = new Account(Name='LoRaWAN test Customer ' + Timestamp.timestamp());
+        System.debug('Given test Customer : ' + account);
             insert account;
         }
-        System.debug('Given test Customer : ' + account);
         return account;
     }
     
@@ -124,24 +124,26 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
         }
         
         if (primaryContact == null) {
-            String firstName = RandomData.randomForename();
-            String surname = RandomData.randomSurname();
-            
+            final String firstName = RandomData.randomForename();
+            final String surname = RandomData.randomSurname();
+			final String unique = RandomData.unique();
+
             primaryContact = new Contact(accountId = account.Id, 
                                          firstName = firstName, 
                                          lastname = surname, 
-                                         email = firstName + '.' + surname + '@example.com' );
+                                         email = unique + '@example.com' );
             insert primaryContact;
             System.debug('Given primary Contact : ' + primaryContact);
         }
         
         if (altContact == null) {        
-            String altFirstName = RandomData.randomForename();
-            String altSurname = RandomData.randomSurname();
+            final String altFirstName = RandomData.randomForename();
+            final String altSurname = RandomData.randomSurname();
+			final String unique = RandomData.unique();
             altContact = new Contact(accountId = account.Id, 
                                      firstName = altFirstName, 
                                      lastname = altSurname,
-                                     email = altFirstName + '.' + altSurname + '@example.com' );
+                                     email = unique +'@example.com' );
             insert altContact;
             System.debug('Given alternate altContact : ' + altContact);
         }

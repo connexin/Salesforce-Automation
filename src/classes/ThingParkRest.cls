@@ -1,30 +1,39 @@
 public class ThingParkRest {
-
+    public class AccessNotAuthorisedException extends Exception {}
     private static ThingParkRestConfig config = ThingParkRestConfig.selectCurrent();
 
     private static String authorise() {
         // prepare authorisation uri for ThingPark
-        String serviceUrl = ThingParkRest.makeUri('/admin/{version}/oauth/token');
+        String serviceUrl = makeUri('/admin/{version}/oauth/token');
         String parameters = new QueryMaker()
             .add('grant_type=client_credentials')
             .add('client_id', config.clientId())
             .add('client_secret', config.clientSecret())
             .asString();
 
-        Http http = new Http();
         HttpRequest request = new HttpRequest();
-        String fullUrl = serviceUrl+parameters;
+        final String fullUrl = serviceUrl+parameters;
         System.debug('ThingParkRest.authorise : ' + fullUrl);
 
         request.setEndpoint(fullUrl);
         request.setMethod('POST');
-        request.setBody(parameters);
+        request.setHeader('Accept', 'application/json');
+        request.setHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        Map<String, Object> responseData = dataFromResponse(http.send(request));
-        String accessToken = (String) responseData.get('access_token');
-        System.assert(accessToken.length()>0);
+        Http http = new Http();
+        final HttpResponse response = http.send(request);
+        System.assertEquals(200, response.getStatusCode(), 'Expected Status : 200 but was :' + response.getStatusCode());
 
-        return accessToken;
+        Map<String, Object> responseData = dataFrom(Response);
+        final String accessToken = (String) responseData.get('access_token');
+        System.debug('access_token : ' + accessToken);
+        if (String.isNotBlank(accessToken)) {
+            System.assert(accessToken.length()>0, 'No access_token found in the response');
+            System.assert(accessToken.isAlpha(), 'access_token is not unicode string');
+        	return accessToken;
+        } else {
+            throw new AccessNotAuthorisedException(response.getBody());
+        }
     }
     
     @Future(callout=true)
@@ -105,13 +114,7 @@ public class ThingParkRest {
         
         updatePackageFromActilityResponse(responseData);
     }
-    
-    private static String makeUri(final string uriTemplate) {
-        final String resourceUri = uriTemplate.replace('{version}', config.version());
-        final String targetUri = config.endpoint() + resourceUri;
-        return targetUri;
-    }
-    
+
     private static Map<String, Object> makeDxGetRequest(final String serviceUrl) {
         final String accessToken = authorise();
         System.debug('ThingParkRest.makeDxGetRequest : ' + serviceUrl);
@@ -132,7 +135,7 @@ public class ThingParkRest {
                             response.getHeader('Content-Type'),
                             'Unexpected Content-Type value :' + response.getHeader('Content-Type'));
         
-        return dataFromResponse(response);
+        return dataFrom(response);
     }
     
     private static Map<String, Object> makeDxPostRequest(final String serviceUrl, final String json) {
@@ -157,7 +160,7 @@ public class ThingParkRest {
                             response.getHeader('Content-Type'),
                             'Unexpected Content-Type value :' + response.getHeader('Content-Type'));
         
-        return dataFromResponse(response);
+        return dataFrom(response);
     }
 
     private static Map<String, Object> makeDxPutRequest(final String serviceUrl, final String json) {
@@ -181,10 +184,10 @@ public class ThingParkRest {
                             response.getHeader('Content-Type'),
                             'Unexpected Content-Type value :' + response.getHeader('Content-Type'));
         
-        return dataFromResponse(response);
+        return dataFrom(response);
     }
 
-    private static Map<String, Object> dataFromResponse(final HttpResponse response) {
+    private static Map<String, Object> dataFrom(final HttpResponse response) {
         String body = response.getBody(); 
         System.debug('ThingParkRest.response.getBody() = ' + body);        
         
@@ -192,16 +195,6 @@ public class ThingParkRest {
         System.debug('ThingParkRest.jsonData = ' + jsonData);
         
         return jsonData;
-    }
-    
-    public static Boolean thingParkWithCallout() {
-        HttpRequest request = new HttpRequest();
-        request.setEndpoint('callout:thingpark/some_path');
-        request.setMethod('GET');
-        Http http = new Http();
-        HTTPResponse response = http.send(request);
-        System.debug('response.getBody() : ' + response.getBody());
-        return true;
     }
 
     public static void updateTenancyFromActilityResponse(final Map<String, Object> responseData) {
@@ -213,16 +206,23 @@ public class ThingParkRest {
 
         System.debug('SELECT count() FROM LoRaWAN_Package__c : ' + [SELECT count() FROM LoRaWAN_Package__c]);
         
-        LoRaWAN_Tenancy__c tenancy = [SELECT Id, Actility_Subscriber_ID__c, Contact__r.email 
-                                      FROM LoRaWAN_Tenancy__c 
-                                      WHERE Actility_Subscriber_ID__c =: actilitySubscriberRef 
-                                      LIMIT 1].get(0);
-        System.debug('ThingParkRest.updateTenancyFromActilityResponse.tenancy : ' + tenancy);
+        List<LoRaWAN_Tenancy__c> tenancies = [SELECT Id, Actility_Subscriber_ID__c, Contact__r.email 
+                                              FROM LoRaWAN_Tenancy__c 
+                                              WHERE Actility_Subscriber_ID__c =: actilitySubscriberRef 
+                                              LIMIT 1];
 
-		tenancy.Actility_Subscriber_ID__c = actilitySubscriberRef;
-		tenancy.Push_to_Actility__c = false;
-
-        update tenancy;
+        if (tenancies.size() == 0) {
+            System.debug('LoRaWAN_Packages not found for : ' + actilitySubscriberRef);
+        } else if (tenancies.size() == 1) {
+            System.debug('ThingParkRest.updateTenancyFromActilityResponse.tenancy : ' + tenancies);
+            
+            tenancies.get(0).Actility_Subscriber_ID__c = actilitySubscriberRef;
+            tenancies.get(0).Push_to_Actility__c = false;
+            
+            update tenancies;
+        } else { // if (tenancies.size() > 1)
+            System.debug('Too many LoRaWAN_Packages found for : ' + actilitySubscriberRef);
+        }        
     }
 
     public static void updatePackageFromActilityResponse(final Map<String, Object> responseData) {
@@ -230,16 +230,32 @@ public class ThingParkRest {
         System.debug('ThingParkRest.updatePackageFromActilityResponse.actilityPackageRef : ' + actilityPackageRef);
 
         System.debug('SELECT count() FROM LoRaWAN_Package__c : ' + [SELECT count() FROM LoRaWAN_Package__c]);
-        
-        LoRaWAN_Package__c pckge = [SELECT Id, Actility_Subscription_ID__c, Push_to_Actility__c 
-                                    FROM LoRaWAN_Package__c 
-                                    WHERE Actility_Order_Ref__c =: actilityPackageRef 
-                                    LIMIT 1].get(0);
-        System.debug('ThingParkRest.updatePackageFromActilityResponse.pckge : ' + pckge);
-        
-		pckge.Actility_Subscription_ID__c = actilityPackageRef;
-		pckge.Push_to_Actility__c = false;
 
-        update pckge;        
+        List<LoRaWAN_Package__c> packages = [SELECT Id, Actility_Subscription_ID__c, Push_to_Actility__c 
+                                             FROM LoRaWAN_Package__c 
+                                             WHERE Actility_Order_Ref__c =: actilityPackageRef 
+                                             LIMIT 1];
+
+        if (packages.size() == 0) {
+            System.debug('LoRaWAN_Packages not found for : ' + actilityPackageRef);
+        } else if (packages.size() == 1) {
+            System.debug('ThingParkRest.updatePackageFromActilityResponse.pckge : ' + packages.get(0));
+            
+            packages.get(0).Actility_Subscription_ID__c = actilityPackageRef;
+            packages.get(0).Push_to_Actility__c = false;
+    
+            update packages;
+        } else { // if (packages.size() > 1)
+            System.debug('Too many LoRaWAN_Packages found for : ' + actilityPackageRef);
+        }
     }
+
+    private static String makeUri(final string uriTemplate) {
+        // @todo use callout?
+        // request.setEndpoint('callout:thingpark/some_path');
+        final String resourceUri = uriTemplate.replace('{version}', config.version());
+        final String targetUri = config.endpoint() + resourceUri;
+        return targetUri;
+    }
+
 }

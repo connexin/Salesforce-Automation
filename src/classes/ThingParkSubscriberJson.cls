@@ -27,13 +27,13 @@ apiOnly (boolean, optional): If true, the user account can only be used for API-
 
 */
 public class ThingParkSubscriberJson extends AbstractJsonTemplate {
-    private ThingParkRestConfig config;
     public String firstName { get; set;}
     public String lastName { get; set;}
     public String email { get; set;}
     public String organization { get; set;}
     public String externalId { get; set;}
     public String password { get; set;}
+    private ThingParkRestConfig config;
 
     public ThingParkSubscriberJson() {
         this.config = ThingParkRestConfig.selectCurrent();
