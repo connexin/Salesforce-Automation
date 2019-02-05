@@ -1,5 +1,5 @@
 public class ThingParkInvoiceConfig implements ConfigurationInterface {
-    public class ConfigurationNotFoundException extends Exception {}
+    public class InvoiceConfigException extends Exception {}
     private ThingPark_Invoice_Configuration__mdt config;
 
 	private ThingParkInvoiceConfig() {
@@ -11,14 +11,16 @@ public class ThingParkInvoiceConfig implements ConfigurationInterface {
     }
     
     private ThingPark_Invoice_Configuration__mdt getRow(final String scope) {
-        List<ThingPark_Invoice_Configuration__mdt> configRows = [
+        final List<ThingPark_Invoice_Configuration__mdt> configRows = [
             SELECT label, Version__c 
             FROM ThingPark_Invoice_Configuration__mdt 
             WHERE label = :scope LIMIT 1];
 
         if (configRows.size() == 0) {
-            throw new ConfigurationNotFoundException('Configuration not found with label : ' + scope);
-        } else  {
+            throw new InvoiceConfigException('Configuration not found with label : ' + scope);
+        } else if (configRows.size() > 1) {
+            throw new InvoiceConfigException('To many Configurations found with label : ' + scope);
+        } else {
             return configRows.get(0);
         }
     }
@@ -40,7 +42,7 @@ public class ThingParkInvoiceConfig implements ConfigurationInterface {
     }
 
 	public void toLog() {
-        System.debug('toLog : ' + asString());
+        System.debug('ThingParkInvoiceConfig.toLog : ' + asString());
     }
 
 }

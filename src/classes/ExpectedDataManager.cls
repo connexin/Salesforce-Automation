@@ -47,10 +47,10 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
     }
     
     // Given LoRaWAN test products
-    // LoRaWan 0	LoRaWan without commitment.	LoRaWAN	LORAWAN00	true
-    // LoRaWan 1	LoRaWan 1 year commitment.	LoRaWAN	LORAWAN01	true
-    // LoRaWan 3	LoRaWan 3 year commitment.	LoRaWAN	LORAWAN03	true
-    // LoRaWan 5	LoRaWan 5 year commitment.	LoRaWAN	LORAWAN05	true
+    // LoRaWan 0    LoRaWan without commitment. LoRaWAN LORAWAN00   true
+    // LoRaWan 1    LoRaWan 1 year commitment.  LoRaWAN LORAWAN01   true
+    // LoRaWan 3    LoRaWan 3 year commitment.  LoRaWAN LORAWAN03   true
+    // LoRaWan 5    LoRaWan 5 year commitment.  LoRaWAN LORAWAN05   true
     public List<Product2> givenThingParkProducts() {
         if (lorawanProducts == null) {
             lorawanProducts = new List<Product2>();
@@ -126,7 +126,7 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
         if (primaryContact == null) {
             final String firstName = RandomData.randomForename();
             final String surname = RandomData.randomSurname();
-			final String unique = RandomData.unique();
+            final String unique = RandomData.unique();
 
             primaryContact = new Contact(accountId = account.Id, 
                                          firstName = firstName, 
@@ -139,7 +139,7 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
         if (altContact == null) {        
             final String altFirstName = RandomData.randomForename();
             final String altSurname = RandomData.randomSurname();
-			final String unique = RandomData.unique();
+            final String unique = RandomData.unique();
             altContact = new Contact(accountId = account.Id, 
                                      firstName = altFirstName, 
                                      lastname = altSurname,
@@ -188,7 +188,7 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
             
             lorawanPackage = new LoRaWAN_Package__c();
             lorawanPackage.LoRaWAN_Tenancy__c = tenancy.Id;
-            lorawanPackage.Actility_Subscription_ID__c = tenancy.Actility_Subscriber_ID__c;
+            // lorawanPackage.Actility_Subscription_ID__c = tenancy.Actility_Subscriber_ID__c;
             lorawanPackage.Name = 'Test-Package ' + Timestamp.timeStamp();
             lorawanPackage.Device_Rate__c = 0.05;
             lorawanPackage.Device_Rate_after_commitment_end__c = 0.10;

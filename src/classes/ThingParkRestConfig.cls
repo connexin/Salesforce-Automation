@@ -1,5 +1,5 @@
 public class ThingParkRestConfig implements ConfigurationInterface {
-    public class ConfigurationNotFoundException extends Exception {}
+    public class ThingParkConfigException extends Exception {}
     private ThingPark_REST_Config__mdt config;
 
     // Use the Current default configuration
@@ -13,14 +13,16 @@ public class ThingParkRestConfig implements ConfigurationInterface {
     }
 
     private ThingPark_REST_Config__mdt getRow(final String scope) {
-        List<ThingPark_REST_Config__mdt> configRows = [
+        final List<ThingPark_REST_Config__mdt> configRows = [
             SELECT label, API_Version__c, Client_ID__c, Client_Password__c, Client_Secret__c, Endpoint__c, Subscriber_JSON__c, Order_JSON__c 
             FROM ThingPark_REST_Config__mdt 
             WHERE label = :scope 
             LIMIT 1];
 
         if (configRows.size() == 0) {
-            throw new ConfigurationNotFoundException('Configuration not found with label : ' + scope);
+            throw new ThingParkConfigException('Configuration not found with label : ' + scope);
+        } else if (configRows.size() > 1) {
+            throw new ThingParkConfigException('To many Configurations found with label : ' + scope);
         } else  {
             return configRows.get(0);
         }
@@ -83,6 +85,6 @@ public class ThingParkRestConfig implements ConfigurationInterface {
     }
 
 	public void toLog() {
-        System.debug('toLog : ' + asString());
+        System.debug('ThingParkRestConfig.toLog : ' + asString());
     }
 }

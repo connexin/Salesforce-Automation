@@ -18,7 +18,7 @@
             
             LoRaWAN_Package__c lorawanPackage = new LoRaWAN_Package__c();
             lorawanPackage.LoRaWAN_Tenancy__c = expectedData.lorawanTenancy.Id;
-            lorawanPackage.Actility_Subscription_ID__c = expectedData.lorawanTenancy.Actility_Subscriber_ID__c;
+            // lorawanPackage.Actility_Subscription_ID__c = expectedData.lorawanTenancy.Actility_Subscriber_ID__c;
             lorawanPackage.Name = 'Test-Package' + Timestamp.timeStamp();
             lorawanPackage.Device_Rate__c = 0.05;
             lorawanPackage.Device_Rate_after_commitment_end__c = 0.10;
@@ -50,7 +50,7 @@
 
             LoRaWAN_Package__c lorawanPackage = expectedData.lorawanPackage;
             lorawanPackage.LoRaWAN_Tenancy__c = expectedData.lorawanTenancy.Id;
-            lorawanPackage.Actility_Subscription_ID__c = expectedData.lorawanTenancy.Actility_Subscriber_ID__c;
+            // lorawanPackage.Actility_Subscription_ID__c = expectedData.lorawanTenancy.Actility_Subscriber_ID__c;
             lorawanPackage.Name = 'Test-Package' + Timestamp.timeStamp();
             lorawanPackage.Device_Rate__c = 0.10;
             lorawanPackage.Device_Rate_after_commitment_end__c = 0.99;

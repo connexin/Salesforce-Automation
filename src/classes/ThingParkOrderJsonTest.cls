@@ -4,7 +4,7 @@
         Test.startTest();
 
         // Given a Json template for a ThingPark Order
-        ThingParkOrderJson instance = new ThingParkOrderJson();
+        final ThingParkOrderJson instance = new ThingParkOrderJson();
         assertNotNull(instance);
         
         // And the values to be replaced
@@ -26,7 +26,7 @@
         Test.startTest();
 
         // Given a Json template for a ThingPark Order
-        ThingParkOrderJson instance = new ThingParkOrderJson('###offerId###', '###subscriberId###');
+        final ThingParkOrderJson instance = new ThingParkOrderJson('###offerId###', '###subscriberId###');
         assertNotNull(instance);
 
         // When the json is generated
@@ -44,7 +44,7 @@
         Test.startTest();
 
         // Given a Json template for a ThingPark Order
-        ThingParkOrderJson instance = new ThingParkOrderJson();
+        final ThingParkOrderJson instance = new ThingParkOrderJson();
         assertNotNull(instance);
         
         // And the values to be replaced are undefined.
@@ -66,7 +66,7 @@
 
         // Given a Json template for a ThingPark Order
         // And the values to be replaced are null.
-        ThingParkOrderJson instance = new ThingParkOrderJson(null, null);
+        final ThingParkOrderJson instance = new ThingParkOrderJson(null, null);
         assertNotNull(instance);
 
         try {
@@ -85,7 +85,7 @@
         Test.startTest();
 
         // Given a Json template for a ThingPark Order
-        ThingParkOrderJson instance = new ThingParkOrderJson();
+        final ThingParkOrderJson instance = new ThingParkOrderJson();
         assertNotNull(instance);
 		assertNotNull(instance.verify());
 

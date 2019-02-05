@@ -3,7 +3,7 @@
     @isTest static void testCurrent() {
         Test.startTest();
 
-        ThingParkRestConfig config = ThingParkRestConfig.selectCurrent();
+        final ThingParkRestConfig config = ThingParkRestConfig.selectCurrent();
         verifyExpected(config);
 
         Test.stopTest();
@@ -12,7 +12,7 @@
     @isTest static void testLatest() {
         Test.startTest();
 
-        ThingParkRestConfig latestConfig = ThingParkRestConfig.selectLatest();
+        final ThingParkRestConfig latestConfig = ThingParkRestConfig.selectLatest();
         verifyExpected(latestConfig);
 
         Test.stopTest();
@@ -21,7 +21,7 @@
     @isTest static void testStable() {
         Test.startTest();
 
-        ThingParkRestConfig stableConfig = ThingParkRestConfig.selectStable();
+        final ThingParkRestConfig stableConfig = ThingParkRestConfig.selectStable();
         verifyExpected(stableConfig);
 
         Test.stopTest();
@@ -30,8 +30,13 @@
     @isTest static void testMissing() {
         Test.startTest();
 
-        ThingParkRestConfig missingConfig = ThingParkRestConfig.selectScope('Missing');
-        verifyExpected(missingConfig);
+        try {
+            final ThingParkRestConfig missingConfig = ThingParkRestConfig.selectScope('Missing');
+            fail('Unexpected behaviour - fail');
+        } catch(Exception e) {
+            // Then the expected exception occurs.
+            System.debug('expected exception - unit test pass');
+        }
 
         Test.stopTest();
     }

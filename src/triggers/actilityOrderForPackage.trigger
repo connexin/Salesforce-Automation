@@ -1,41 +1,46 @@
 // create a order in Actility ThingPark for a Salesforce Package
 trigger actilityOrderForPackage on LoRaWAN_Package__c (after insert, after update) {
 
-    // @TODO: Temporary to aid unit testing should be removed before going live
+    // @TODO: Temporary aid to unit testing, prevent unwanted looping
+    // should be removeable before going live
     if(Test.isRunningTest()) {
         System.debug('Skipping actilityOrderForPackage during Unit Tests');
         return;
-    } else {
-		System.debug('actilityOrderForPackage');
     }
-    
-    if ( trigger.isInsert ) {
+
+    if (Trigger.isInsert) {
+        System.debug('insertActilitySubscriber.isInsert :' + Trigger.isInsert);
         for (LoRaWAN_Package__c lorawanPackage: trigger.new) {
             if (lorawanPackage.Push_to_Actility__c) {
-                ThingParkRest.addOrder(jsonFrom(lorawanPackage));
-            } else {
-                // reset the push flag, to prevent infinit loop.
-                lorawanPackage.Push_to_Actility__c = false;
-                update lorawanPackage;
+                final String json = jsonFrom(lorawanPackage);
+                ThingParkRest.addOrder(lorawanPackage.id, json);
             }
         }
-    } else if ( trigger.isUpdate ) {
+    } else if (Trigger.isUpdate ) {
+        System.debug('insertActilitySubscriber.isUpdate :' + Trigger.isUpdate);
         for (LoRaWAN_Package__c lorawanPackage : trigger.new) {
             if (lorawanPackage.Push_to_Actility__c) {
-                ThingParkRest.updateOrder(jsonFrom(lorawanPackage));
-            } else {
-                // reset the push flag, to prevent infinit loop.
-                lorawanPackage.Push_to_Actility__c = false;
-                update lorawanPackage;
+                final String json = jsonFrom(lorawanPackage);
+                ThingParkRest.updateOrder(lorawanPackage.id, json);
             }
         }
     }
 
-    public static String jsonFrom(LoRaWAN_Package__c lorawanPackage) {
-        System.debug('lorawanPackage : ' + lorawanPackage);
-        String offerId = 'connexin-vdr/tpw-starter-kit';
-        String orderJson = new ThingParkOrderJson(offerId, lorawanPackage.id).toJson();
-        System.debug('actilitySubscriberForTenancy.orderJson : ' + orderJson);
+    static String jsonFrom(LoRaWAN_Package__c lorawanPackage) {
+        System.debug('actilityOrderForPackage.jsonFrom : ' + lorawanPackage);
+        System.debug('lorawanPackage.LoRaWAN_Tenancy__c : ' + lorawanPackage.LoRaWAN_Tenancy__c);
+        System.debug('lorawanPackage.Actility_Offer_Ref__c : ' + lorawanPackage.Actility_Offer_Ref__c);
+        System.debug('lorawanPackage.Actility_Order_ID__c : ' + lorawanPackage.Actility_Order_ID__c);
+
+        final List<LoRaWAN_Tenancy__c> tenancy = [SELECT Actility_Subscriber_ID__c FROM LoRaWAN_Tenancy__c WHERE Id =: lorawanPackage.LoRaWAN_Tenancy__c LIMIT 1];
+        System.debug('tenancy.Actility_Subscriber_ID__c : ' + tenancy[0].Actility_Subscriber_ID__c);
+        
+        final String offerId = lorawanPackage.Actility_Offer_Ref__c;
+        final String subscriberId = tenancy[0].Actility_Subscriber_ID__c;
+        final String orderJson = new ThingParkOrderJson(offerId, subscriberId).toJson();
+        
+        System.debug('actilityOrderForPackage.orderJson : ' + orderJson);
+        
         return orderJson;
     }
 }

@@ -43,7 +43,7 @@
     <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
-    <description>Represents a ThingPark Subscription.</description>
+    <description>Represents a ThingPark Order, a subscriber can have multiple orders.</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
@@ -53,20 +53,33 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <fields>
-        <fullName>Actility_Order_Ref__c</fullName>
+        <fullName>Actility_Offer_Ref__c</fullName>
+        <defaultValue>&quot;connexin-vdr/tpw-starter-kit&quot;</defaultValue>
         <externalId>false</externalId>
-        <label>Actility Order Ref</label>
-        <length>60</length>
-        <required>false</required>
+        <label>Actility Offer Ref</label>
+        <required>true</required>
         <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>connexin-vdr/tpw-starter-kit</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>connexin-vdr/test-kit</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
     </fields>
     <fields>
-        <fullName>Actility_Subscription_ID__c</fullName>
+        <fullName>Actility_Order_ID__c</fullName>
         <externalId>false</externalId>
-        <label>Actility Subscription ID</label>
-        <length>9</length>
+        <label>Actility Order ID</label>
+        <length>60</length>
         <required>false</required>
         <trackTrending>false</trackTrending>
         <type>Text</type>

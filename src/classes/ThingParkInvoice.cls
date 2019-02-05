@@ -9,10 +9,10 @@ public class ThingParkInvoice {
         this.invoice = invoice;
     }
 
-    public static ThingParkInvoice create(final String accountId, final String description, final String priceBookId) {
+    public static ThingParkInvoice create(final String accountId, final String description) {
         if (accountId != null) {
             // When we create an invoice for the service usage
-            Fiscal_Document__c invoice = new Fiscal_Document__c(
+            final Fiscal_Document__c invoice = new Fiscal_Document__c(
                 Account__c = accountId,
                 Description__c = description,
                 RecordTypeId = recordType.Id,
@@ -24,33 +24,37 @@ public class ThingParkInvoice {
         }
         return null;
     }
-    
-    public ThingParkInvoice addDeviceCharges(final String productId, final Decimal qty, final Decimal amount) {
-        final String description = 'Devices';
-        // @todo: look up product charges
-        return addLine(description, productId, qty, amount);
-    }
-    
-    public ThingParkInvoice addServiceCharges(final String productId, final Decimal qty, final Decimal amount) {
+
+    public ThingParkInvoice addServiceCharges(final String productId, final Decimal qty) {
+        // @todo: look up product description & charges
         final String description = 'Service';
-        // @todo: look up product charges
+        Decimal amount = 0.00;
+        return addLine(description, productId, qty, amount);
+    }
+
+    public ThingParkInvoice addDeviceCharges(final String productId, final Decimal qty) {
+        // @todo: look up product description & charges
+        final String description = 'Devices';
+        final Decimal amount = 2.00;
+        return addLine(description, productId, qty, amount);
+    }
+
+    public ThingParkInvoice addOverageCharges(final String productId, final Decimal qty) {
+        // @todo: look up product description & charges
+        final String description = 'Overage';
+        final Decimal amount = 4.00;
         return addLine(description, productId, qty, amount);
     }
     
-    public ThingParkInvoice addOverageCharges(final String productId, final Decimal qty, final Decimal amount) {
-        final String description = 'Overage';
-        // @todo: look up product charges
-        return addLine(description, productId, qty, amount);
-    }
-    
-    public ThingParkInvoice addEndOfLifeCharges(final String productId, final Decimal qty, final Decimal amount) {
-        final String description = 'Overage';
-        // @todo: look up product charges
+    public ThingParkInvoice addEndOfLifeCharges(final String productId, final Decimal qty) {
+        // @todo: look up product description & charges
+        final String description = 'End of life';
+        final Decimal amount = 8.00;
         return addLine(description, productId, qty, amount);
     }
     
     private ThingParkInvoice addLine(final String description, final String productId, final Decimal qty, final Decimal amount) {
-        Fiscal_Document_Line__c invoiceLine = new Fiscal_Document_Line__c(
+        final Fiscal_Document_Line__c invoiceLine = new Fiscal_Document_Line__c(
             Fiscal_Document__c = invoice.id,
             Description__c = description,
             Product__c = productId,
