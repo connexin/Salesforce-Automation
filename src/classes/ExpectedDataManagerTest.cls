@@ -6,15 +6,13 @@
         
         PriceBook2 priceBook = expectedDataManager.givenTestPriceBook();
         assertNotNull(priceBook);
-        System.debug('priceBook : ' + priceBook);
+        System.debug('Given priceBook : ' + priceBook);
+
+        assertNotNull(expectedDataManager.pricebook);
+        System.debug('expectedDataManager.pricebook : ' + expectedDataManager.pricebook);
         
         List<PriceBook2> actual = [SELECT Id, Name, Description, IsActive FROM Pricebook2 WHERE IsActive = true];
         assertTrue(actual.size() == 1);
-        
-        System.debug('expectedDataManager : ' + expectedDataManager.priceBook);
-        
-        assertNotNull(expectedDataManager.pricebook);
-        System.debug('expectedDataManager.pricebook : ' + expectedDataManager.pricebook);
     }
     
     @isTest static void testGivenTestProduct() {
@@ -23,9 +21,8 @@
         
         Product2 product = expectedDataManager.givenTestProduct();
         assertNotNull(product);
-        System.debug('Given product : ' + product);
-        System.debug('expectedDataManager : ' + expectedDataManager);
-        
+        System.debug('Given a test product : ' + product);
+
         assertNotNull(expectedDataManager.testProduct);
         System.debug('expectedDataManager.testProduct : ' + expectedDataManager.testProduct);
     }
@@ -37,10 +34,12 @@
         Product2[] thingParkProducts = expectedDataManager.givenThingParkProducts();
         assertNotNull(thingParkProducts);
         System.debug('Given thingParkProducts : ' + thingParkProducts);
-        System.debug('expectedDataManager : ' + expectedDataManager);
-        
+
         assertNotNull(expectedDataManager.lorawanProducts);
         System.debug('expectedDataManager.lorawanProducts : ' + expectedDataManager.lorawanProducts);
+        
+        List<Product2> actual = [SELECT Id, Name, Family, IsActive FROM Product2 WHERE IsActive = true AND Family LIKE '%LoRaWAN%'];
+        assertTrue(actual.size() == 5);
     }
     
     @isTest static void testGivenThingParkCustomer() {
@@ -49,8 +48,7 @@
         
         Account thingParkCustomer = expectedDataManager.givenThingParkCustomer();
         assertNotNull(thingParkCustomer);
-        System.debug('Given thingParkCustomer : ' + thingParkCustomer);        
-        System.debug('expectedDataManager : ' + expectedDataManager);
+        System.debug('Given thingParkCustomer : ' + thingParkCustomer);
         
         assertNotNull(expectedDataManager.account);
         System.debug('expectedDataManager.account : ' + expectedDataManager.account);
@@ -77,7 +75,7 @@
         
         LoRaWAN_Tenancy__c tenancy = expectedDataManager.givenThingParkTenancy();
         assertNotNull(tenancy);
-        System.debug('Given tenancy : ' + tenancy);
+        System.debug('Given ThingPark tenancy : ' + tenancy);
         
         assertNotNull(expectedDataManager.lorawanTenancy);
         System.debug('expectedDataManager.lorawanTenancy : ' + expectedDataManager.lorawanTenancy);
@@ -89,7 +87,7 @@
         
         LoRaWAN_Package__c pckge = expectedDataManager.givenThingParkPackage();
         assertNotNull(pckge);
-        System.debug('Given package : ' + pckge);
+        System.debug('Given ThingPark package : ' + pckge);
         
         assertNotNull(expectedDataManager.lorawanPackage);
         System.debug('expectedDataManager.lorawanPackage : ' + expectedDataManager.lorawanPackage);

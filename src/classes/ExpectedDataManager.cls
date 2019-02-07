@@ -1,5 +1,5 @@
 public class ExpectedDataManager extends AbstractThingParkTestCase {
-    
+
     public Pricebook2 pricebook;
     public Product2 testProduct;
     public List<Product2> lorawanProducts;
@@ -10,15 +10,16 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
     public LoRaWAN_Package__c lorawanPackage;
     public Tax__c vatRate;
     public RecordType invoiceRecordType;
-    
-    // Given User for Tests
+    public User testUser;
+
+    // Given a User for Tests
     public User givenTestUser() {
-        User testUser = [SELECT name, Id  FROM user LIMIT 1];
+        testUser = [SELECT name, Id  FROM user LIMIT 1];
         assertNotNull(testUser, 'Expected user to be available for test.');
-        System.debug('Running as : ' + testUser);
+        System.debug('Given the TestUser : ' + testUser);
         return testUser;
     }
-    
+
     // Given Pricebook2 for LoRaWAN test products
     public Pricebook2 givenTestPriceBook() {
         if (pricebook == null) {
@@ -27,10 +28,10 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
                 IsActive = true);
             insert pricebook;
         }
-        System.debug('Given pricebook : ' + pricebook);
+        System.debug('Given the pricebook : ' + pricebook);
         return pricebook;
     }
-    
+
     // Given Test Product
     public Product2 givenTestProduct() {    
         if (testProduct == null) {
@@ -42,25 +43,27 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
                 IsActive = true);
             insert testProduct;
         }
-        System.debug('Given testProduct : ' + testProduct);
+        System.debug('Given the testProduct : ' + testProduct);
         return testProduct;
     }
-    
+
     // Given LoRaWAN test products
-    // LoRaWan 0    LoRaWan without commitment. LoRaWAN LORAWAN00   true
-    // LoRaWan 1    LoRaWan 1 year commitment.  LoRaWAN LORAWAN01   true
-    // LoRaWan 3    LoRaWan 3 year commitment.  LoRaWAN LORAWAN03   true
-    // LoRaWan 5    LoRaWan 5 year commitment.  LoRaWAN LORAWAN05   true
+    // 	LoRaWan 0    LoRaWan without commitment. LoRaWAN LORAWAN00   true
+    // 	LoRaWan 1    LoRaWan 1 year commitment.  LoRaWAN LORAWAN01   true
+    // 	LoRaWan 3    LoRaWan 3 year commitment.  LoRaWAN LORAWAN03   true
+    // 	LoRaWan 5    LoRaWan 5 year commitment.  LoRaWAN LORAWAN05   true
+    // 	LoRaWan 5    LoRaWan Overage. LoRaWAN LORAWAN99   true
     public List<Product2> givenThingParkProducts() {
         if (lorawanProducts == null) {
             lorawanProducts = new List<Product2>();
+            
             Product2 testLorawanProduct00 = new Product2(
                 Name = 'LoRaWan 0', 
                 ProductCode = 'LORAWAN00',
                 Description = 'LoRaWan without commitment. ' + Timestamp.timestamp(),
                 Family = 'LoRaWAN',
                 IsActive = true);
-            insert testLorawanProduct00;
+            // insert testLorawanProduct00;
             lorawanProducts.add(testLorawanProduct00);
             System.debug('Given Lorawan test product : ' + testLorawanProduct00);
             
@@ -70,7 +73,7 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
                 Description = 'LoRaWan 1 year commitment. ' + Timestamp.timestamp(),
                 Family = 'LoRaWAN',
                 IsActive = true);
-            insert testLorawanProduct01;
+            // insert testLorawanProduct01;
             lorawanProducts.add(testLorawanProduct01);
             System.debug('Given Lorawan test Product : ' + testLorawanProduct01);
             
@@ -80,7 +83,7 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
                 Description = 'LoRaWan 3 year commitment.'  + Timestamp.timestamp(),
                 Family = 'LoRaWAN',
                 IsActive = true);
-            insert testLorawanProduct03;
+            // insert testLorawanProduct03;
             lorawanProducts.add(testLorawanProduct03);
             System.debug('Given Lorawan test Product : ' + testLorawanProduct03);
             
@@ -90,7 +93,7 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
                 Description = 'LoRaWan 5 year commitment.'  + Timestamp.timestamp(),
                 Family = 'LoRaWAN',
                 IsActive = true);
-            insert testLorawanProduct05;
+            // insert testLorawanProduct05;
             lorawanProducts.add(testLorawanProduct05);
             System.debug('Given Lorawan test Product : ' + testLorawanProduct05);
             
@@ -100,41 +103,46 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
                 Description = 'LoRaWan Overage.'  + Timestamp.timestamp(),
                 Family = 'LoRaWAN',
                 IsActive = true);
-            insert testLorawanOverage;
+            // insert testLorawanOverage;
             lorawanProducts.add(testLorawanOverage);
-            System.debug('Given Lorawan test Product : ' + testLorawanOverage);
+	        System.debug('Given Lorawan test Product : ' + testLorawanOverage);
+
+            insert lorawanProducts;
         }
+
+        System.debug('lorawanProducts : ' + lorawanProducts);
+
         return lorawanProducts;
     }
-    
+
     // Given ThingPark test Customer
     public Account givenThingParkCustomer() {
         if (account == null) {
-            account = new Account(Name='LoRaWAN test Customer ' + Timestamp.timestamp());
-        System.debug('Given test Customer : ' + account);
+            account = new Account(Name='ThingPark test Customer ' + Timestamp.timestamp());
             insert account;
         }
+		System.debug('Given ThingPark test Customer : ' + account);
         return account;
     }
-    
+
     // Given Contacts for ThingPark test Customer
     public Contact givenCustomerContacts() {
         if (account == null) {
             givenThingParkCustomer();
         }
-        
+
         if (primaryContact == null) {
             final String firstName = RandomData.randomForename();
             final String surname = RandomData.randomSurname();
             final String unique = RandomData.unique();
-
+            
             primaryContact = new Contact(accountId = account.Id, 
                                          firstName = firstName, 
                                          lastname = surname, 
                                          email = unique + '@example.com' );
             insert primaryContact;
-            System.debug('Given primary Contact : ' + primaryContact);
         }
+		System.debug('Given primary Contact : ' + primaryContact);
         
         if (altContact == null) {        
             final String altFirstName = RandomData.randomForename();
@@ -145,9 +153,9 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
                                      lastname = altSurname,
                                      email = unique +'@example.com' );
             insert altContact;
-            System.debug('Given alternate altContact : ' + altContact);
         }
-        
+		System.debug('Given alternate altContact : ' + altContact);
+
         return primaryContact;
     }
     
@@ -161,17 +169,18 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
         if (lorawanTenancy == null) {
             // Mock Actility because of trigger on LoRaWAN_Tenancy__c
             createMock();
-            
+
             lorawanTenancy = new LoRaWAN_Tenancy__c();
             lorawanTenancy.Account__c = account.id;
             lorawanTenancy.Contact__c = contact.id;
             lorawanTenancy.Actility_Subscriber_ID__c = '88888';
             lorawanTenancy.Name = 'Test-Tenancy ' + Timestamp.timeStamp();
-            lorawanTenancy.Daily_Max_Average__c = 99;
-            lorawanTenancy.Overage_Rate__c = 0.15;
+            lorawanTenancy.Daily_Max_Average__c = 60;
+            lorawanTenancy.Overage_Rate__c = 0.40;
             insert lorawanTenancy;
-            System.debug('Given lorawanTenancy : ' + lorawanTenancy);
         }
+
+		System.debug('Given lorawanTenancy : ' + lorawanTenancy);
         return lorawanTenancy;
     }
     
@@ -188,16 +197,16 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
             
             lorawanPackage = new LoRaWAN_Package__c();
             lorawanPackage.LoRaWAN_Tenancy__c = tenancy.Id;
-            // lorawanPackage.Actility_Subscription_ID__c = tenancy.Actility_Subscriber_ID__c;
             lorawanPackage.Name = 'Test-Package ' + Timestamp.timeStamp();
-            lorawanPackage.Device_Rate__c = 0.05;
-            lorawanPackage.Device_Rate_after_commitment_end__c = 0.10;
+            lorawanPackage.Device_Rate__c = 2.00;
+            lorawanPackage.Device_Rate_after_commitment_end__c = 4.00;
             lorawanPackage.Start_Date__c = System.today();
             lorawanPackage.Term__c = 12;
-            lorawanPackage.Quantity_Of_Devices__c = 99;
+            lorawanPackage.Quantity_Of_Devices__c = 100;
             insert lorawanPackage;
-            System.debug('Given lorawanPackage : ' + lorawanPackage);
         }
+
+		System.debug('Given lorawanPackage : ' + lorawanPackage);
         return lorawanPackage;
     }
     
@@ -206,8 +215,8 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
         if (vatRate == null) {
             vatRate = new Tax__c(Name = 'VAT Rate (Test)', Rate__c = 20 );
             insert vatRate;
-            System.debug('Given vatRate : ' + vatRate);
         }
+		System.debug('Given vatRate : ' + vatRate);
         return vatRate;
     }
     
@@ -215,8 +224,28 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
     public RecordType givenInvoiceRecordType() {
         if (invoiceRecordType == null) {
             invoiceRecordType = [SELECT Id FROM RecordType WHERE SobjectType = 'Fiscal_Document__c' AND DeveloperName = 'sales_invoice'];
-            System.debug('Given invoiceRecordType : ' + invoiceRecordType);
         }
+		System.debug('Given invoiceRecordType : ' + invoiceRecordType);
         return invoiceRecordType;
+    }
+
+    public Date today() {
+        return System.today();
+    }
+    
+    public Date tomorrow() {
+        return System.today().addDays(1);
+    }
+    
+    public Date nextWeek() {
+        return System.today().addDays(7);
+    }
+    
+    public Date nextMonth() {
+        return System.today().addMonths(1);
+    }
+    
+    public Date nextYear() {
+        return System.today().addMonths(12);
     }
 }

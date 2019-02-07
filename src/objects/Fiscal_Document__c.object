@@ -183,6 +183,30 @@
         <type>Summary</type>
     </fields>
     <fields>
+        <fullName>Original_Source__c</fullName>
+        <defaultValue>&apos;Unknown&apos;</defaultValue>
+        <description>The original source of the liability for this invoice.</description>
+        <externalId>false</externalId>
+        <label>Original Source</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>ThingPark</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Unknown</fullName>
+                    <default>true</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
         <fullName>Payment_Term__c</fullName>
         <defaultValue>0</defaultValue>
         <externalId>false</externalId>
@@ -335,6 +359,21 @@
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>
+    <listViews>
+        <fullName>ThingPark_Invoices</fullName>
+        <columns>NAME</columns>
+        <columns>Account__c</columns>
+        <columns>Date__c</columns>
+        <columns>Description__c</columns>
+        <columns>Price_Book__c</columns>
+        <columns>RECORDTYPE</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>ThingPark Invoices</label>
+        <sharedTo>
+            <group>Accounts</group>
+        </sharedTo>
+    </listViews>
     <nameField>
         <label>Number</label>
         <type>AutoNumber</type>
@@ -344,11 +383,33 @@
         <fullName>credit_note</fullName>
         <active>true</active>
         <label>Credit Note</label>
+        <picklistValues>
+            <picklist>Original_Source__c</picklist>
+            <values>
+                <fullName>ThingPark</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
     </recordTypes>
     <recordTypes>
         <fullName>sales_invoice</fullName>
         <active>true</active>
         <label>Sales Invoice</label>
+        <picklistValues>
+            <picklist>Original_Source__c</picklist>
+            <values>
+                <fullName>ThingPark</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
     </recordTypes>
     <searchLayouts>
         <customTabListAdditionalFields>RECORDTYPE</customTabListAdditionalFields>
