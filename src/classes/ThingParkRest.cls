@@ -43,7 +43,6 @@ public class ThingParkRest {
 
         final Map<String, Object> responseData = ThingParkRest.makeDxPostRequest(serviceUrl, newTenancyJson);
 
-        // update LoRaWAN_Tenancy__c from Actility Subscriber 
         updateTenancyFromActilityResponse(tenancyId, responseData);
     }
     
@@ -103,13 +102,19 @@ public class ThingParkRest {
         updatePackageFromActilityResponse(packageId, responseData);
     }
 
-    private static String makeUri(final string uriTemplate) {
-        // @todo use callout?
-        // request.setEndpoint('callout:thingpark/some_path');
+    private static String makeUriFor(final String service) {
+        final String calloutUri = 'callout:ThingPark_DX/${version}/${service}';
+        calloutUri = calloutUri.replace('${version}', config.version());
+        calloutUri = calloutUri.replace('${service}', service);
+        return calloutUri;
+    }
+
+    // see https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_callouts.htm
+    private static String makeUri(final String uriTemplate) {
         final String resourceUri = uriTemplate.replace('{version}', config.version());
         final String targetUri = config.endpoint() + resourceUri;
         return targetUri;
-    }    
+    }
 
     private static Map<String, Object> makeDxGetRequest(final String serviceUrl) {
         final String accessToken = authorise();
@@ -120,7 +125,7 @@ public class ThingParkRest {
         request.setEndpoint(serviceUrl);
         request.setMethod('GET');
         request.setHeader('Accept', 'application/json');
-        request.setHeader('Content-Type', 'application/json;charset=UTF-8');
+        // request.setHeader('Content-Type', 'application/json;charset=UTF-8');
         request.setHeader('Authorization', 'Bearer ' + accessToken);        
 
         final HttpResponse response = http.send(request);
@@ -142,7 +147,8 @@ public class ThingParkRest {
         request.setEndpoint(serviceUrl);
         request.setMethod('POST');
         request.setHeader('Accept', 'application/json');
-        request.setHeader('Content-Type', 'application/json;charset=UTF-8');
+        // request.setHeader('Content-Type', 'application/json;charset=UTF-8');
+        request.setHeader('Content-Type', 'application/json');
         request.setHeader('Authorization', 'Bearer ' + accessToken);
         System.debug('makeDxPostRequest.request : ' + request);
 
@@ -171,7 +177,8 @@ public class ThingParkRest {
         request.setEndpoint(serviceUrl);
         request.setMethod('PUT');
         request.setHeader('Accept', 'application/json');
-        request.setHeader('Content-Type', 'application/json;charset=UTF-8');
+        // request.setHeader('Content-Type', 'application/json;charset=UTF-8');
+        request.setHeader('Content-Type', 'application/json');
         request.setHeader('Authorization', 'Bearer ' + accessToken);
         System.debug('makeDxPutRequest.request : ' + request);
 
@@ -213,7 +220,10 @@ public class ThingParkRest {
         System.assert(actilitySubscriberId != null, 'SubscriberId not found in response');
         System.debug('actilitySubscriberId : ' + actilitySubscriberId);
 
-        final List<LoRaWAN_Tenancy__c> tenancies = [SELECT Id, Actility_Subscriber_ID__c, Contact__r.email, Push_to_Actility__c  
+        final List<LoRaWAN_Tenancy__c> tenancies = [SELECT Id, 
+                                                    	Actility_Subscriber_ID__c, 
+                                                    	Contact__r.email, 
+                                                    	Push_to_Actility__c  
                                                     FROM LoRaWAN_Tenancy__c 
                                                     WHERE id =: tenancyId 
                                                     LIMIT 1];
@@ -223,12 +233,12 @@ public class ThingParkRest {
             System.debug('LoRaWAN_Packages not found for : ' + actilitySubscriberId);
         } else if (tenancies.size() == 1) {            
             final LoRaWAN_Tenancy__c tenancy = tenancies.get(0);
-            System.debug('ThingParkRest.updateTenancyFromActilityResponse.tenancy : ' + tenancy);
 
             tenancy.Actility_Subscriber_ID__c = actilitySubscriberId;
-            tenancy.Push_to_Actility__c = false;
-            
+            tenancy.Push_to_Actility__c = false;            
             update tenancy;
+
+            System.debug('ThingParkRest.updateTenancyFromActilityResponse.tenancy : ' + tenancy);            
         } else { // if (tenancies.size() > 1)
             System.debug('Too many LoRaWAN_Packages found for : ' + actilitySubscriberId);
         }        
@@ -242,7 +252,9 @@ public class ThingParkRest {
         System.debug('actilityOrderId : ' + actilityOrderId);
 
         //Actility_Order_ID__c,
-        List<LoRaWAN_Package__c> packages = [SELECT Id, Push_to_Actility__c 
+        List<LoRaWAN_Package__c> packages = [SELECT Id, 
+                                             	Actility_Order_ID__c,
+                                             	Push_to_Actility__c
                                              FROM LoRaWAN_Package__c 
                                              WHERE id =: packageId
                                              LIMIT 1];
@@ -250,13 +262,13 @@ public class ThingParkRest {
         if (packages.size() == 0) {
             System.debug('LoRaWAN_Packages not found for : ' + packageId);
         } else if (packages.size() == 1) {            
-            final LoRaWAN_Package__c lorawanPackage = packages.get(0);
-            System.debug('ThingParkRest.updatePackageFromActilityResponse.lorawanPackage : ' + lorawanPackage);
-            
+            final LoRaWAN_Package__c lorawanPackage = packages.get(0);            
+
             lorawanPackage.Actility_Order_ID__c = actilityOrderId;
             lorawanPackage.Push_to_Actility__c = false;
-    
+
             update lorawanPackage;
+            System.debug('ThingParkRest.updatePackageFromActilityResponse.lorawanPackage : ' + lorawanPackage);            
         } else { // if (packages.size() > 1)
             System.debug('Too many LoRaWAN_Packages found for : ' + packageId);
         }

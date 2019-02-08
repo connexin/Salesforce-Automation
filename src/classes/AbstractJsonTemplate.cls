@@ -27,12 +27,12 @@ public virtual class AbstractJsonTemplate {
         return this;
     }
 
-	// simple helper for improved semantic    
+	// simple helper for improved semantics
     protected String with(final String withValue) {
         return withValue;
     }
     
-    protected void errorHandler(final String errorMessage) {
+    private void errorHandler(final String errorMessage) {
 		if (failOnError) {
 			throw new InvalidReplacementException(errorMessage);
 		} else {

@@ -13,7 +13,7 @@ public class ThingParkInvoice {
         FROM RecordType 
         WHERE SobjectType = 'Fiscal_Document__c' AND DeveloperName = 'sales_invoice' 
     	LIMIT 1];
-    private static Tax__c vatRate = [SELECT Id, Name, Rate__c FROM Tax__c LIMIT 1];
+    private static Tax__c vatRate = [SELECT Id, Name, Rate__c FROM Tax__c WHERE Name LIKE '%VAT%' LIMIT 1];
     private Fiscal_Document__c invoice = null;
 
     public static ThingParkInvoice create(final String accountId, final String description) {
@@ -37,9 +37,13 @@ public class ThingParkInvoice {
 
 	// @todo: Enhancement look up product description & charges from a pricebook.pricebookEntry.product
     public ThingParkInvoice addServiceCharges(final String productId, final Decimal qty) {
-        final String description = 'Service';
-        Decimal unitCost = 0.00;
-        return addServiceCharges(description, productId, qty, unitCost);
+        PricebookEntry lorawanPrices = 
+            [SELECT Id, ProductCode, Name, UnitPrice, IsActive 
+             FROM PricebookEntry 
+             WHERE ProductCode =: productId AND IsActive = true
+             LIMIT 1];
+        System.debug('lorawanPrices : ' + lorawanPrices);
+        return addServiceCharges(lorawanPrices.Name, productId, qty, lorawanPrices.UnitPrice);
     }
 
     public ThingParkInvoice addServiceCharges(final String description, 
@@ -51,9 +55,13 @@ public class ThingParkInvoice {
     
 	// @todo: Enhancement look up product description & charges from a pricebook.pricebookEntry.product
     public ThingParkInvoice addDeviceCharges(final String productId, final Decimal qty) {
-        final String description = 'Devices';
-        final Decimal unitCost = 2.00;
-        return addDeviceCharges(description, productId, qty, unitCost);
+        PricebookEntry lorawanPrices = 
+            [SELECT Id, ProductCode, Name, UnitPrice, IsActive 
+             FROM PricebookEntry 
+             WHERE ProductCode =: productId AND IsActive = true
+             LIMIT 1];
+        System.debug('lorawanPrices : ' + lorawanPrices);
+        return addDeviceCharges(lorawanPrices.Name, productId, qty, lorawanPrices.UnitPrice);
     }
 
     public ThingParkInvoice addDeviceCharges(final String description, 
@@ -65,9 +73,13 @@ public class ThingParkInvoice {
 
 	// @todo: Enhancement look up product description & charges from a pricebook.pricebookEntry.product
     public ThingParkInvoice addOverageCharges(final String productId, final Decimal qty) {
-        final String description = 'Overage';
-        final Decimal unitCost = 0.40;
-        return addOverageCharges(description, productId, qty, unitCost);
+        PricebookEntry lorawanPrices = 
+            [SELECT Id, ProductCode, Name, UnitPrice, IsActive 
+             FROM PricebookEntry 
+             WHERE ProductCode =: productId AND IsActive = true
+             LIMIT 1];
+        System.debug('lorawanPrices : ' + lorawanPrices);
+        return addOverageCharges(lorawanPrices.Name, productId, qty, lorawanPrices.UnitPrice);
     }
 
     public ThingParkInvoice addOverageCharges(final String description, 
@@ -79,9 +91,13 @@ public class ThingParkInvoice {
     
 	// @todo: Enhancement look up product description & charges from a pricebook.pricebookEntry.product
     public ThingParkInvoice addEndOfLifeCharges(final String productId, final Decimal qty) {
-        final String description = 'End of life';
-        final Decimal unitCost = 0.80;
-        return addEndOfLifeCharges(description, productId, qty, unitCost);
+        PricebookEntry lorawanPrices = 
+            [SELECT Id, ProductCode, Name, UnitPrice, IsActive 
+             FROM PricebookEntry 
+             WHERE ProductCode =: productId AND IsActive = true
+             LIMIT 1];
+        System.debug('lorawanPrices : ' + lorawanPrices);
+        return addEndOfLifeCharges(lorawanPrices.Name, productId, qty, lorawanPrices.UnitPrice);
     }
 
     public ThingParkInvoice addEndOfLifeCharges(final String description, 
@@ -91,7 +107,7 @@ public class ThingParkInvoice {
         return addLine(description, productId, qty, unitCost);
     }
 
-    private ThingParkInvoice addLine(final String description, 
+    public ThingParkInvoice addLine(final String description, 
                                      final String productId, 
                                      final Decimal qty, 
                                      final Decimal unitCost) {
@@ -102,13 +118,13 @@ public class ThingParkInvoice {
 		System.debug('addLine.invoice.id' + invoice.id);
 
         final Fiscal_Document_Line__c invoiceLine = new Fiscal_Document_Line__c(
-            Fiscal_Document__c = invoice.id,
-            Description__c = description,
-            Product__c = productId,
-            Quantity__c = qty,
-            Amount__c = unitCost,
+            Fiscal_Document__c = invoice.id, 
+            Description__c = description, 
+            // Product__c = productId, 
+            Quantity__c = qty, 
+            Amount__c = unitCost, 
             Tax__c = vatRate.Id);
-		insert invoiceLine;
+		insert invoiceLine; 
 
         return this;
     }
@@ -123,6 +139,4 @@ public class ThingParkInvoice {
         	System.debug('invoiceLine : ' + invoiceLine);
         }
     }
-    
-    
 }

@@ -78,4 +78,9 @@ public class ThingParkSubscriberJson extends AbstractJsonTemplate {
         System.debug('jsonTemplate after replacement : ' + toJson());
         return jsonTemplate;
     }
+    
+	public static ThingParkSubscriberJson parse(String jsonStr) {
+		return (ThingParkSubscriberJson) JSON.deserialize(jsonStr, ThingParkSubscriberJson.class);
+	}
+    
 }

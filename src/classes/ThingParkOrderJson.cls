@@ -42,4 +42,8 @@ public class ThingParkOrderJson extends AbstractJsonTemplate {
         System.debug('jsonTemplate after replacement : ' + toJson());
         return jsonTemplate;
     }
+    
+	public static ThingParkOrderJson parse(String jsonStr) {
+		return (ThingParkOrderJson) JSON.deserialize(jsonStr, ThingParkOrderJson.class);
+	}    
 }

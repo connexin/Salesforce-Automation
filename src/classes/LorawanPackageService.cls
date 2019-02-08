@@ -10,9 +10,7 @@ global with sharing class LorawanPackageService {
 
             return [SELECT Id, Name, 
                     	LoRaWAN_Tenancy__c, LoRaWAN_Tenancy__r.Id, LoRaWAN_Tenancy__r.Name, 
-                        // Actility_Subscription_ID__c,
-                        Actility_Order_ID__c,
-                        Start_Date__c, Term__c, End_Date__c,
+                        Actility_Order_ID__c, Start_Date__c, Term__c, End_Date__c,
                         Quantity_Of_Devices__c, Device_Rate__c, Device_Rate_after_commitment_end__c,
                         is_Active__c, is_Cancelled__c, Status__c, Push_to_Actility__c
                     FROM LoRaWAN_Package__c 
@@ -20,9 +18,7 @@ global with sharing class LorawanPackageService {
         } else {
             return [SELECT Id, Name, 
                     	LoRaWAN_Tenancy__c, LoRaWAN_Tenancy__r.Id, LoRaWAN_Tenancy__r.Name, 
-                        // Actility_Subscription_ID__c, 
-                        Actility_Order_ID__c,
-                        Start_Date__c, Term__c, End_Date__c,
+                        Actility_Order_ID__c, Start_Date__c, Term__c, End_Date__c,
                         Quantity_Of_Devices__c, Device_Rate__c, Device_Rate_after_commitment_end__c,
                         is_Active__c, is_Cancelled__c, Status__c, Push_to_Actility__c
                     FROM LoRaWAN_Package__c];

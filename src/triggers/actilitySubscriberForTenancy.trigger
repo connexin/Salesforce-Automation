@@ -1,7 +1,7 @@
 // create a subscriber in Actility ThingPark for a Salesforce Tenancy
 trigger actilitySubscriberForTenancy on LoRaWAN_Tenancy__c (after insert, after update) {
 
-    // @TODO: Temporary aid to unit testing, prevent unwanted looping
+    // @TODO: Temporary aid to unit testing, to prevent unwanted looping
     // should be removeable before going live
     if(Test.isRunningTest()) {
         System.debug('Skipping actilitySubscriberForTenancy during Unit Tests');

@@ -57,6 +57,17 @@ public virtual class AbstractTestCase {
         }
     }
 
+    public static void assertEqual(final Object expected, final Object actual) {
+        final String message = 'Actual value : ' + actual.toString() + ' should be equal to : ' + expected.toString();
+        assertEqual(expected, actual, message);
+    }
+
+    public static void assertEqual(final Object expected, final Object actual, final String message) {
+		if (actual.equals(expected) == false) {
+        	fail(message);
+        }
+    }    
+
     public static boolean verifyNotNull(final Object obj, final String message) {
         if (obj == null) {
             System.debug(message);
@@ -84,6 +95,11 @@ public virtual class AbstractTestCase {
         }
     }    
 
+    public static boolean verifyEqual(final Object expected, final Object actual) {
+        final String message = 'Actual value : ' + actual.toString() + ' should be equal to : ' + expected.toString();
+        return verifyEqual(expected, actual, message);
+    }
+    
     public static boolean verifyEqual(final Object expected, final Object actual, final String message) {
 		if (actual.equals(expected)) {
             return true;
@@ -107,7 +123,8 @@ public virtual class AbstractTestCase {
 		Map<String, Object> jsonData = (Map<String, Object>) JSON.deserializeUntyped(jsonStr);
 		assertNotNull(jsonData);
         System.debug('verifyJson : ' + jsonData);
-        return true;
+        final String newJsonStr = JSON.serialize(jsonData);
+        return verifyEqual(jsonStr, newJsonStr);
     }    
 
 	public static String asString(final Object obj) {

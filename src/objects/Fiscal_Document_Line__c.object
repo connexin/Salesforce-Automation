@@ -287,5 +287,4 @@
         <errorConditionFormula>Quantity__c   &lt;= 0</errorConditionFormula>
         <errorMessage>Quantity cannot be less than or equal to zero</errorMessage>
     </validationRules>
-    <visibility>Public</visibility>
 </CustomObject>

@@ -39,11 +39,17 @@
         <members>ValidatorTest</members>
         <members>AbstractJsonTemplate</members>
         <members>CounterTest</members>
-        <members>FiscalDocument</members>
-        <members>FiscalDocumentTestClass</members>
         <members>MockTestCase</members>
         <members>Status</members>
         <members>StatusTest</members>
+        <members>ConfigurationInterface</members>
+        <members>EmailManager</members>
+        <members>StringTemplate</members>
+        <members>StringTemplateTests</members>
+        <members>ThingParkBilling</members>
+        <members>ThingParkInvoiceCreateTest</members>
+        <members>ThingParkInvoiceJson</members>
+        <members>ThingParkInvoiceJsonTest</members>
         <name>ApexClass</name>
     </types>
     <types>
@@ -59,12 +65,26 @@
         <members>LoRaWAN_Package__c</members>
         <members>LoRaWAN_Tenancy__c</members>
         <members>Fiscal_Document__c</members>
+        <members>Fiscal_Document_Line__c</members>
         <name>CustomObject</name>
     </types>
     <types>
         <members>ThingPark_Billing_App</members>
         <members>ThingPark_Setup</members>
         <name>CustomApplication</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>CustomMetadata</name>
+    </types>
+    <types>
+        <members>ThingPark_Billing_App_UtilityBar</members>
+        <name>FlexiPage</name>
+    </types>
+    <types>
+        <members>LoRaWAN_Tenancy__c</members>
+        <members>LoRaWAN_Package__c</members>
+        <name>CustomTab</name>
     </types>
     <version>38.0</version>
 </Package>
