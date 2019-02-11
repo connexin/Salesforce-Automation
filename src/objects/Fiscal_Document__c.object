@@ -368,11 +368,9 @@
         <columns>Price_Book__c</columns>
         <columns>RECORDTYPE</columns>
         <columns>Status__c</columns>
+        <columns>CREATED_DATE</columns>
         <filterScope>Everything</filterScope>
         <label>ThingPark Invoices</label>
-        <sharedTo>
-            <group>Accounts</group>
-        </sharedTo>
     </listViews>
     <nameField>
         <label>Number</label>

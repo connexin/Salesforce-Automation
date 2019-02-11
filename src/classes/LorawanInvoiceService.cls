@@ -1,6 +1,6 @@
 @RestResource(urlMapping='/ThingParkBillingService/LorawanInvoice/*')
 global with sharing class LorawanInvoiceService {
-
+    
     @HttpGet global static Fiscal_Document__c[] doGet() {
         System.debug('LorawanInvoiceService.doGet');
         final RestRequest request = RestContext.request;
@@ -12,7 +12,7 @@ global with sharing class LorawanInvoiceService {
         System.debug('Fiscal_Document__c' + results);
         return results;
     }
-
+    
     @HttpPost global static String doPost() {
         System.debug('LorawanInvoiceService.doPost : ');
         final RestRequest request = RestContext.request;
@@ -21,24 +21,31 @@ global with sharing class LorawanInvoiceService {
         System.debug('LorawanInvoiceService.request.resourcePath : ' + request.resourcePath);
         System.debug('LorawanInvoiceService.request.params : ' + request.params);
         System.debug('LorawanInvoiceService.request.requestBody : ' + request.requestBody);
-
+        
         final String requestPayload = request.requestBody.toString();
         System.debug('requestPayload : ' + requestPayload);
-        
-		ThingParkInvoiceJson jsonData = ThingParkInvoiceJson.parse(requestPayload);        
-		System.assert(jsonData != null);
-        System.debug('jsonData : ' + jsonData);
-        System.debug('jsonData.lines : ' + jsonData.lines);
 
-        final String resultMessage;
-        try {
-        	new ThingParkBilling().process(jsonData);
-	        resultMessage = '{"status":"success", "message":"invoice created"}';
-        } catch(Exception e) {
-            resultMessage = '{"status":"error","description":"' + e.getMessage() +'}"';
+		final String resultMessage;
+        if (ThingParkInvoiceJson.verify(requestPayload)) {
+            ThingParkInvoiceJson jsonData = ThingParkInvoiceJson.parse(requestPayload);
+            System.assert(jsonData != null);
+            System.debug('jsonData : ' + jsonData);
+            System.debug('jsonData.lines : ' + jsonData.lines);
+
+            try {
+                new ThingParkBilling().process(jsonData);
+                resultMessage = '{"status":"success", "message":"invoice created"}';
+            } catch(Exception e) {
+                resultMessage = '{"status":"error","description":"' + e.getMessage() + '}"';
+                RestContext.response.statusCode = 400;
+            }
+            System.debug(resultMessage);
+            return resultMessage;
+        } else {
+            resultMessage = '{"status":"error","description":"Invalid Json", "payload":"' + requestPayload + '}"';
             RestContext.response.statusCode = 400;
+            System.debug(resultMessage);
+            return resultMessage;
         }
-	System.debug(resultMessage);
-	return resultMessage;
     }
 }

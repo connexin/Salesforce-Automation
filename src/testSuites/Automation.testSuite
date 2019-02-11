@@ -5,6 +5,7 @@
     <testClassName>QueryMakerTest</testClassName>
     <testClassName>RandomDataTest</testClassName>
     <testClassName>StatusTest</testClassName>
+    <testClassName>StringTemplateTests</testClassName>
     <testClassName>TimeStampTest</testClassName>
     <testClassName>ValidatorTest</testClassName>
 </ApexTestSuite>

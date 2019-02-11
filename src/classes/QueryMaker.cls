@@ -1,11 +1,15 @@
-// This is a pretty dumb helper for making URI queries,
-// by contatination and performs no validation.
+// Dumb helper for making URI queries by contatination.
+// Performs no validation.
 public class QueryMaker {
-    
+
     private String str = '?';
 
     public QueryMaker add(final String keyValue) {
-        str += keyValue + '&';
+        if (keyValue.endsWith('&')) {
+            str += keyValue;
+        } else {
+            str += keyValue + '&';
+        }
         return this;
     }
 
@@ -14,7 +18,10 @@ public class QueryMaker {
     }
 
     public String asString() {
-        return str.left(str.length()-1);
-    }
-    
+        if (str.endsWith('&')) {
+            return str.left(str.length()-1); // chop off final &
+        } else {
+            return str;
+        }
+    }    
 }
