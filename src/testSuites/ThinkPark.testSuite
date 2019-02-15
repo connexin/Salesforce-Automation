@@ -9,7 +9,6 @@
     <testClassName>StringTemplateTests</testClassName>
     <testClassName>ThingParkInvoiceCreateTest</testClassName>
     <testClassName>ThingParkInvoiceJsonTest</testClassName>
-    <testClassName>ThingParkInvoiceTest</testClassName>
     <testClassName>ThingParkOrderJsonTest</testClassName>
     <testClassName>ThingParkRestConfigTest</testClassName>
     <testClassName>ThingParkRestTest</testClassName>

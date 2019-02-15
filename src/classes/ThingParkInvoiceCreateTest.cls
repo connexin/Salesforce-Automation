@@ -23,7 +23,8 @@
     
     private static ThingParkInvoice invoiceFor(final ExpectedDataManager expectedData) {
         final ThingParkInvoice invoice = ThingParkInvoice.create(expectedData.account.id,
-                                                                 'Test-Invoice ' + TimeStamp.timeStamp());
+                                                                 'Test-Invoice ',
+                                                                 Date.today());
         
         invoice.addDeviceCharges('Device Charges',
                                  expectedData.testProduct.id,

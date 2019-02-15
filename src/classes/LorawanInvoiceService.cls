@@ -2,7 +2,7 @@
 global with sharing class LorawanInvoiceService {
     
     @HttpGet global static Fiscal_Document__c[] doGet() {
-        System.debug('LorawanInvoiceService.doGet');
+        System.debug('ThingParkBillingService.LorawanInvoice.doGet');
         final RestRequest request = RestContext.request;
         System.debug('request : ' + request);
         System.debug('request.requestURI : ' + request.requestURI);
@@ -12,15 +12,15 @@ global with sharing class LorawanInvoiceService {
         System.debug('Fiscal_Document__c' + results);
         return results;
     }
-    
+
     @HttpPost global static String doPost() {
-        System.debug('LorawanInvoiceService.doPost : ');
+        System.debug('ThingParkBillingService.LorawanInvoice.doPost : ');
         final RestRequest request = RestContext.request;
-        System.debug('LorawanInvoiceService.request : ' + request);
-        System.debug('LorawanInvoiceService.request.requestURI : ' + request.requestURI);
-        System.debug('LorawanInvoiceService.request.resourcePath : ' + request.resourcePath);
-        System.debug('LorawanInvoiceService.request.params : ' + request.params);
-        System.debug('LorawanInvoiceService.request.requestBody : ' + request.requestBody);
+        System.debug('ThingParkBillingService.LorawanInvoice.request : ' + request);
+        System.debug('ThingParkBillingService.LorawanInvoice.request.requestURI : ' + request.requestURI);
+        System.debug('ThingParkBillingService.LorawanInvoice.request.resourcePath : ' + request.resourcePath);
+        System.debug('ThingParkBillingService.LorawanInvoice.request.params : ' + request.params);
+        System.debug('ThingParkBillingService.LorawanInvoice.request.requestBody : ' + request.requestBody);
         
         final String requestPayload = request.requestBody.toString();
         System.debug('requestPayload : ' + requestPayload);
@@ -28,7 +28,7 @@ global with sharing class LorawanInvoiceService {
 		final String resultMessage;
         if (ThingParkInvoiceJson.verify(requestPayload)) {
             ThingParkInvoiceJson jsonData = ThingParkInvoiceJson.parse(requestPayload);
-            System.assert(jsonData != null);
+            System.assert(jsonData != null, 'jsonData cannot be null for requestPayload : ' + requestPayload);
             System.debug('jsonData : ' + jsonData);
             System.debug('jsonData.lines : ' + jsonData.lines);
 

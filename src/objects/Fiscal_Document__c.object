@@ -413,9 +413,9 @@
         <customTabListAdditionalFields>RECORDTYPE</customTabListAdditionalFields>
         <customTabListAdditionalFields>Account__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Status__c</customTabListAdditionalFields>
-        <customTabListAdditionalFields>Net_Subtotal__c</customTabListAdditionalFields>
-        <customTabListAdditionalFields>Tax_Subtotal__c</customTabListAdditionalFields>
-        <customTabListAdditionalFields>Subtotal__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Subtotal_Value__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Tax_Value__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Total_Value__c</customTabListAdditionalFields>
         <searchResultsAdditionalFields>Reference__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>RECORDTYPE</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Account__c</searchResultsAdditionalFields>

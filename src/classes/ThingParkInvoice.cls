@@ -1,49 +1,42 @@
 public class ThingParkInvoice {
-    private static ThingParkInvoiceConfig invoiceConfig = ThingParkInvoiceConfig.selectCurrent();
-	private static List<LoRaWAN_Package__c> lorawanPackages = [
-        SELECT ID, Name, Quantity_Of_Devices__c, Device_Rate__c, End_Date__c, Device_Rate_after_commitment_end__c 
-        FROM LoRaWAN_Package__c];
-        // WHERE IsActive = true LIMIT 1];
-    private static List<Product2> lorawanProducts = [
-        SELECT Id, Name, Description, Family, ProductCode, IsActive 
-        FROM Product2 
-        WHERE Family = 'LORAWAN' AND IsActive = true];
-    private static RecordType recordType = [
-        SELECT Id 
-        FROM RecordType 
-        WHERE SobjectType = 'Fiscal_Document__c' AND DeveloperName = 'sales_invoice' 
-    	LIMIT 1];
-    private static Tax__c vatRate = [SELECT Id, Name, Rate__c FROM Tax__c WHERE Name LIKE '%VAT%' LIMIT 1];
-    private Fiscal_Document__c invoice = null;
 
-    public static ThingParkInvoice create(final String accountId, final String description) {
+	private Fiscal_Document__c fiscalDoc = null;
+    private static String recordTypeId;
+    private static String vatRateId;
+
+    public static ThingParkInvoice create(final String accountId, 
+                                          final String description,
+                                          final Date actionDate) {
         System.assert(accountId != null, 'Account must be specified for all invoices');
-        return new ThingParkInvoice(accountId, description);
+
+		recordTypeId = [
+        	SELECT Id FROM RecordType 
+            WHERE SobjectType = 'Fiscal_Document__c' 
+            AND Name = 'Sales Invoice' 
+            AND IsActive = true
+            LIMIT 1].id;
+
+        vatRateId = [
+        	SELECT Id FROM Tax__c 
+        	WHERE Name LIKE '%VAT%'
+            LIMIT 1].id;
+
+        return new ThingParkInvoice(accountId, description, actionDate);
     }
 
-    private ThingParkInvoice(final String accountId, final String description) {
+    private ThingParkInvoice(final String accountId, 
+                             final String description,
+                             final Date actionDate) {
         // When we create an invoice for the service usage
-        this.invoice = new Fiscal_Document__c(
+        this.fiscalDoc = new Fiscal_Document__c(
             Account__c = accountId,
             Description__c = description,
+            Date__c = actionDate,
             Original_Source__c = 'ThingPark',
-            RecordTypeId = recordType.Id,
+            RecordTypeId = recordTypeId,
             Draft__c = true,
             Dispute__c = false);
-        insert invoice;
-        System.debug('ThingParkInvoice.accountId : ' + accountId);
-        System.debug('ThingParkInvoice.invoice : ' + invoice);
-    }
-
-	// @todo: Enhancement look up product description & charges from a pricebook.pricebookEntry.product
-    public ThingParkInvoice addServiceCharges(final String productId, final Decimal qty) {
-        PricebookEntry lorawanPrices = 
-            [SELECT Id, ProductCode, Name, UnitPrice, IsActive 
-             FROM PricebookEntry 
-             WHERE ProductCode =: productId AND IsActive = true
-             LIMIT 1];
-        System.debug('lorawanPrices : ' + lorawanPrices);
-        return addServiceCharges(lorawanPrices.Name, productId, qty, lorawanPrices.UnitPrice);
+        insert fiscalDoc;
     }
 
     public ThingParkInvoice addServiceCharges(final String description, 
@@ -53,16 +46,6 @@ public class ThingParkInvoice {
         return addLine(description, productId, qty, unitCost);
     }
     
-	// @todo: Enhancement look up product description & charges from a pricebook.pricebookEntry.product
-    public ThingParkInvoice addDeviceCharges(final String productId, final Decimal qty) {
-        PricebookEntry lorawanPrices = 
-            [SELECT Id, ProductCode, Name, UnitPrice, IsActive 
-             FROM PricebookEntry 
-             WHERE ProductCode =: productId AND IsActive = true
-             LIMIT 1];
-        System.debug('lorawanPrices : ' + lorawanPrices);
-        return addDeviceCharges(lorawanPrices.Name, productId, qty, lorawanPrices.UnitPrice);
-    }
 
     public ThingParkInvoice addDeviceCharges(final String description, 
                                              final String productId, 
@@ -71,16 +54,6 @@ public class ThingParkInvoice {
         return addLine(description, productId, qty, unitCost);
     }
 
-	// @todo: Enhancement look up product description & charges from a pricebook.pricebookEntry.product
-    public ThingParkInvoice addOverageCharges(final String productId, final Decimal qty) {
-        PricebookEntry lorawanPrices = 
-            [SELECT Id, ProductCode, Name, UnitPrice, IsActive 
-             FROM PricebookEntry 
-             WHERE ProductCode =: productId AND IsActive = true
-             LIMIT 1];
-        System.debug('lorawanPrices : ' + lorawanPrices);
-        return addOverageCharges(lorawanPrices.Name, productId, qty, lorawanPrices.UnitPrice);
-    }
 
     public ThingParkInvoice addOverageCharges(final String description, 
                                               final String productId, 
@@ -89,16 +62,6 @@ public class ThingParkInvoice {
         return addLine(description, productId, qty, unitCost);
     }
     
-	// @todo: Enhancement look up product description & charges from a pricebook.pricebookEntry.product
-    public ThingParkInvoice addEndOfLifeCharges(final String productId, final Decimal qty) {
-        PricebookEntry lorawanPrices = 
-            [SELECT Id, ProductCode, Name, UnitPrice, IsActive 
-             FROM PricebookEntry 
-             WHERE ProductCode =: productId AND IsActive = true
-             LIMIT 1];
-        System.debug('lorawanPrices : ' + lorawanPrices);
-        return addEndOfLifeCharges(lorawanPrices.Name, productId, qty, lorawanPrices.UnitPrice);
-    }
 
     public ThingParkInvoice addEndOfLifeCharges(final String description, 
                                                 final String productId, 
@@ -114,29 +77,26 @@ public class ThingParkInvoice {
         System.assert(productId != null, 'Product must be identified for invoice line');
         System.assert(qty != null, 'qty must be defined, but may be zero.');
         System.assert(unitCost != null, 'unitCost must be defined, but may be zero.');
-		System.debug('addLine.invoice' + invoice);
-		System.debug('addLine.invoice.id' + invoice.id);
+		System.debug('addLine.fiscalDoc' + fiscalDoc);
+		System.debug('addLine.fiscalDoc.id' + fiscalDoc.id);
 
-        final Fiscal_Document_Line__c invoiceLine = new Fiscal_Document_Line__c(
-            Fiscal_Document__c = invoice.id, 
+        final Fiscal_Document_Line__c fiscalDocLine = new Fiscal_Document_Line__c(
+            Fiscal_Document__c = fiscalDoc.id, 
             Description__c = description, 
-            // Product__c = productId, 
+            // Product__c = productId,
             Quantity__c = qty, 
             Amount__c = unitCost, 
-            Tax__c = vatRate.Id);
-		insert invoiceLine; 
+            Tax__c = vatRateId);
+		insert fiscalDocLine; 
 
         return this;
     }
 
+	public String asJson() {
+    	return JSON.serialize(fiscalDoc);
+    }
+
     public void toLog() {
-		System.debug('ThingParkInvoice.invoice : ' + invoice);
-        final List<Fiscal_Document_Line__c> invoiceLines = [
-        	SELECT id, Name, Description__c, Amount__c, Amount_Value__c, Fiscal_Document__c
-            FROM Fiscal_Document_Line__c
-            WHERE Fiscal_Document__c =: invoice.id];
-        for(Fiscal_Document_Line__c invoiceLine : invoiceLines) {
-        	System.debug('invoiceLine : ' + invoiceLine);
-        }
+		System.debug('ThingParkInvoice.Fiscal_Document__c : ' + asJson());
     }
 }
