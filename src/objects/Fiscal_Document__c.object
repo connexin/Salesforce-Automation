@@ -369,6 +369,8 @@
         <columns>RECORDTYPE</columns>
         <columns>Status__c</columns>
         <columns>CREATED_DATE</columns>
+        <columns>Total_Value__c</columns>
+        <columns>Subtotal__c</columns>
         <filterScope>Everything</filterScope>
         <label>ThingPark Invoices</label>
     </listViews>

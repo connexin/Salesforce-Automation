@@ -1,6 +1,8 @@
 @isTest public class ExpectedDataManagerTest extends AbstractThingParkTestCase {
 
     @isTest static void testGivenTestPriceBook() {
+		Test.startTest();        
+        
         ExpectedDataManager expectedDataManager = new ExpectedDataManager();
         assertNotNull(expectedDataManager);
         
@@ -16,6 +18,8 @@
     }
     
     @isTest static void testGivenTestProduct() {
+		Test.startTest();
+        
         ExpectedDataManager expectedDataManager = new ExpectedDataManager();
         assertNotNull(expectedDataManager);
         
@@ -28,6 +32,8 @@
     }
     
     @isTest static void testGivenThingParkProduct() {
+		Test.startTest();
+
         ExpectedDataManager expectedDataManager = new ExpectedDataManager();
         assertNotNull(expectedDataManager);
         
@@ -43,6 +49,8 @@
     }
     
     @isTest static void testGivenThingParkCustomer() {
+		Test.startTest();
+
         ExpectedDataManager expectedDataManager = new ExpectedDataManager();
         assertNotNull(expectedDataManager);
         
@@ -55,6 +63,8 @@
     }
     
     @isTest static void testGivenCustomerContacts() {
+		Test.startTest();
+
         ExpectedDataManager expectedDataManager = new ExpectedDataManager();
         assertNotNull(expectedDataManager);
         
@@ -70,6 +80,8 @@
     }
     
     @isTest static void testGivenThingParkTenancy() {
+		Test.startTest();
+
         ExpectedDataManager expectedDataManager = new ExpectedDataManager();
         assertNotNull(expectedDataManager);
         
@@ -82,6 +94,8 @@
     }
     
     @isTest static void testGivenThingParkPackage() {
+		Test.startTest();
+
         ExpectedDataManager expectedDataManager = new ExpectedDataManager();
         assertNotNull(expectedDataManager);
         
@@ -94,6 +108,8 @@
     }
     
     @isTest static void testGivenInvoiceTaxRate() {
+		Test.startTest();
+
         ExpectedDataManager expectedDataManager = new ExpectedDataManager();
         assertNotNull(expectedDataManager);
         
@@ -106,6 +122,8 @@
     }
     
     @isTest static void testGivenInvoiceRecordType() {
+		Test.startTest();
+
         ExpectedDataManager expectedDataManager = new ExpectedDataManager();
         assertNotNull(expectedDataManager);
 
@@ -115,6 +133,16 @@
 
         assertNotNull(expectedDataManager.invoiceRecordType);
         System.debug('expectedDataManager.invoiceRecordType : ' + expectedDataManager.invoiceRecordType);
+    }
+
+    @isTest static void testStaticHelpers() {
+        Test.startTest();
+		assertNotNull(ExpectedDataManager.today());
+		assertNotNull(ExpectedDataManager.tomorrow());
+		assertNotNull(ExpectedDataManager.nextWeek());
+		assertNotNull(ExpectedDataManager.nextMonth());
+		assertNotNull(ExpectedDataManager.nextYear());
+        Test.stopTest();
     }
 
 }

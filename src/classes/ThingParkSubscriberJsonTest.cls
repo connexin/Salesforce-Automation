@@ -31,12 +31,13 @@
 
         // Given a Json template for a ThingPark Order
         // And the values to be replaced
-        final ThingParkSubscriberJson instance = new ThingParkSubscriberJson('###firstName###', 
-                                                                       '###lastName###', 
-                                                                       '###email@example.com###', 
-                                                                       '###organization###', 
-                                                                       '###externalId###', 
-                                                                       '###password###');
+        final ThingParkSubscriberJson instance = new ThingParkSubscriberJson(
+            '###firstName###', 
+            '###lastName###', 
+            '###email@example.com###', 
+            '###organization###', 
+            '###externalId###', 
+            '###password###');
         assertNotNull(instance);
 
         // When the json is generated

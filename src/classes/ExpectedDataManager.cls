@@ -229,23 +229,24 @@ public class ExpectedDataManager extends AbstractThingParkTestCase {
         return invoiceRecordType;
     }
 
-    public Date today() {
+    public static Date today() {
         return System.today();
     }
     
-    public Date tomorrow() {
+    public static Date tomorrow() {
         return System.today().addDays(1);
     }
     
-    public Date nextWeek() {
+    public static Date nextWeek() {
         return System.today().addDays(7);
     }
     
-    public Date nextMonth() {
+    public static Date nextMonth() {
         return System.today().addMonths(1);
     }
     
-    public Date nextYear() {
+    public static Date nextYear() {
         return System.today().addMonths(12);
     }
+
 }

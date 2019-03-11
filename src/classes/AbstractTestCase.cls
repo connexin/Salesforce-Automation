@@ -58,11 +58,16 @@ public virtual class AbstractTestCase {
     }
 
     public static void assertEqual(final Object expected, final Object actual) {
+        assertNotNull(expected);
+        assertNotNull(actual);
         final String message = 'Actual value : ' + actual.toString() + ' should be equal to : ' + expected.toString();
         assertEqual(expected, actual, message);
     }
 
     public static void assertEqual(final Object expected, final Object actual, final String message) {
+        assertNotNull(expected);
+        assertNotNull(actual);
+        assertNotNull(message);
 		if (actual.equals(expected) == false) {
         	fail(message);
         }

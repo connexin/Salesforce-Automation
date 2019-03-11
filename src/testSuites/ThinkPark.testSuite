@@ -13,4 +13,5 @@
     <testClassName>ThingParkRestConfigTest</testClassName>
     <testClassName>ThingParkRestTest</testClassName>
     <testClassName>ThingParkSubscriberJsonTest</testClassName>
+    <testClassName>ThingParkUsageJsonTest</testClassName>
 </ApexTestSuite>
