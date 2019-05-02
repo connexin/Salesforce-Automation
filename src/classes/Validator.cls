@@ -22,7 +22,7 @@ public with sharing class Validator {
 			return false;
 		}
     }
-        
+
     public static Boolean is24HourClock(final String candidate) {
     	return isIsoTime(candidate);
     }
