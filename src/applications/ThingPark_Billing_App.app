@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
     <brand>
-        <headerColor>#0070D2</headerColor>
+        <headerColor>#0070D7</headerColor>
+        <logo>X66662169_antenawifisignalwaveswirel</logo>
+        <logoVersion>1</logoVersion>
     </brand>
     <description>Actility ThingPark Subscriber Tenancy &amp; Billing Management.</description>
     <formFactors>Large</formFactors>

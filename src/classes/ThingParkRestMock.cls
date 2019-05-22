@@ -68,7 +68,7 @@ global class ThingParkRestMock implements HttpCalloutMock {
         return result;
 	}    
     
-	public HttpResponse authorise(final HTTPRequest request) {    
+	public HttpResponse authorise(final HTTPRequest request) {
         final HttpResponse response = new HttpResponse();
 		response.setHeader('Content-Type', 'application/json;charset=UTF-8');
         
@@ -321,7 +321,7 @@ global class ThingParkRestMock implements HttpCalloutMock {
 		response.setStatusCode(200);
         return response;
     }
-    
+
 	public HttpResponse unsupportedRequest(final HTTPRequest request) {
             System.debug('Unsupported Request in Mock : ' + request.getMethod() + ' ' + request.getEndpoint());
 			final HttpResponse response = new HttpResponse();
@@ -334,4 +334,5 @@ global class ThingParkRestMock implements HttpCalloutMock {
             response.setStatusCode(500);
 	        return response;
     }
+
 }
