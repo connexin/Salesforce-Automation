@@ -1,4 +1,5 @@
 @isTest public class LoggingRestMock implements HttpCalloutMock {
+
     protected Integer statusCode;
     protected String statusString;
     protected String bodyAsString;

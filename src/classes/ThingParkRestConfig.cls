@@ -1,4 +1,5 @@
 public class ThingParkRestConfig implements ConfigurationInterface {
+    
     public class ThingParkConfigException extends Exception {}
     private ThingPark_REST_Config__mdt config;
 
