@@ -1,0 +1,28 @@
+<apex:component >
+    <apex:attribute name="status" type="string" description="status" />
+    
+    <apex:outputPanel rendered="{!status='pending'}">
+        <div id="status-pending" class="callout-status">
+            <apex:image value="{!$Resource.Lorawan_Mast_Icon}" width="50" height="50" />
+        </div>
+    </apex:outputPanel>    
+    
+    <apex:outputPanel rendered="{!status='waiting'}">
+        <div id="status-waiting" class="callout-status">
+            <apex:image value="{!$Resource.Scanning}" width="50" height="50" />
+        </div>
+    </apex:outputPanel>    
+    
+    <apex:outputPanel rendered="{!status='positive'}">
+        <div id="status-positive" class="callout-status">
+            <apex:image value="{!$Resource.Green_Tick_Icon}" width="50" height="50" />
+        </div>
+    </apex:outputPanel>
+    
+    <apex:outputPanel rendered="{!status='negative'}">
+        <div id="status-negative" class="callout-status">
+            <apex:image value="{!$Resource.Red_Cross_Icon}" width="50" height="50" />
+        </div>
+    </apex:outputPanel>    
+    
+</apex:component>

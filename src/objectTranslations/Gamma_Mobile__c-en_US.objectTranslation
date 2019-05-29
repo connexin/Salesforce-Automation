@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Gamma Mobile</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Gamma Mobiles</value>
+    </caseValues>
+    <fields>
+        <label><!-- Contact --></label>
+        <name>Contact__c</name>
+        <relationshipLabel><!-- Gamma Mobiles --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Iccid --></label>
+        <name>Iccid__c</name>
+    </fields>
+    <fields>
+        <label><!-- Imei --></label>
+        <name>Imei__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last_Reponse --></label>
+        <name>Last_Reponse__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last_Request --></label>
+        <name>Last_Request__c</name>
+    </fields>
+    <fields>
+        <label><!-- Msisdn --></label>
+        <name>Msisdn__c</name>
+    </fields>
+    <fields>
+        <label><!-- Pac Code --></label>
+        <name>Pac_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Port Date --></label>
+        <name>Port_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation><!-- Active --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ceased</masterLabel>
+            <translation><!-- Ceased --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New</masterLabel>
+            <translation><!-- New --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Provisioned</masterLabel>
+            <translation><!-- Provisioned --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Gamma Mobile Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

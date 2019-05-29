@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>m.spamer@connexin.co.uk</contactEmail>
+    <description>RESTful Billing Service for ThingPark</description>
+    <label>ThingPark Billing Service</label>
+    <oauthConfig>
+        <callbackUrl>https://localhost</callbackUrl>
+        <consumerKey>3MVG9PerJEe9i8iKAb9Gx__kwLeZnADcODpHDuFnQ_lXaTsFCxn_HiJkoh_V_GevRSknAPh6TrIdzNfoAQy0P</consumerKey>
+        <scopes>Full</scopes>
+    </oauthConfig>
+</ConnectedApp>

@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>PaymentEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>PaymentEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>PaymentView</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Payments</relationshipLabel>
+        <relationshipName>Payments</relationshipName>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Actual_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( ISNULL(Charge_Date__c), Date__c, DATEVALUE(Charge_Date__c ))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Actual Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Amount_Allocated__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Amount Allocated</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Amount_Refunded__c</fullName>
+        <externalId>false</externalId>
+        <label>Amount Refunded</label>
+        <summarizedField>Refund__c.Amount__c</summarizedField>
+        <summaryFilterItems>
+            <field>Refund__c.Draft__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Refund__c.Payment__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Amount</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Charge_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Charge Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Confirmed_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Confirmed Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Confirmed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Confirmed</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Date__c</fullName>
+        <defaultValue>NOW()</defaultValue>
+        <externalId>false</externalId>
+        <label>Date</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <description>Match with invoice reference</description>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Draft__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Draft</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Failed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Failed</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Payout_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Payout Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Reference__c</fullName>
+        <caseSensitive>true</caseSensitive>
+        <externalId>false</externalId>
+        <label>Reference</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Source__c</fullName>
+        <defaultValue>&quot;Manual&quot;</defaultValue>
+        <externalId>false</externalId>
+        <label>Source</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>manual</fullName>
+                    <default>true</default>
+                </value>
+                <value>
+                    <fullName>go_cardless</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>stripe</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Draft__c == True, &apos;Draft&apos;,
+  IF(Failed__c == True, &apos;Failed&apos;,
+    IF(Confirmed__c == False, &apos;Pending&apos;,
+      &apos;Paid - &apos;
+      &amp;
+      IF(Amount_Allocated__c == 0, &apos;Unallocated&apos;,
+        IF(Amount_Allocated__c == Amount__c, &apos;Allocated&apos;,
+          IF(Amount_Allocated__c &lt; Amount__c, &apos;Partially Allocated&apos;, &apos;&apos;)
+        )
+      )
+    )
+  )
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Payment</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Account__c</columns>
+        <columns>Amount__c</columns>
+        <columns>Amount_Allocated__c</columns>
+        <columns>Date__c</columns>
+        <columns>Charge_Date__c</columns>
+        <columns>Confirmed__c</columns>
+        <columns>Payout_Date__c</columns>
+        <columns>Source__c</columns>
+        <columns>Reference__c</columns>
+        <columns>Failed__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>{0}</displayFormat>
+        <label>Id</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Payments</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Date__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Source__c</customTabListAdditionalFields>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <listViewButtons>Take_Payment</listViewButtons>
+        <searchResultsAdditionalFields>Account__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Confirmed__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Date__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Description__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Draft__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Failed__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Amount_Allocated_Less_Zero</fullName>
+        <active>true</active>
+        <errorConditionFormula>Amount_Allocated__c &lt; 0</errorConditionFormula>
+        <errorDisplayField>Amount_Allocated__c</errorDisplayField>
+        <errorMessage>Amount Allocated cannot be less than 0</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Amount_Allocated_More_Amount</fullName>
+        <active>true</active>
+        <errorConditionFormula>Amount_Allocated__c &gt; Amount__c</errorConditionFormula>
+        <errorDisplayField>Amount_Allocated__c</errorDisplayField>
+        <errorMessage>Amount Allocated cannot be greater than Payment Amount</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Amount_Is_Positive</fullName>
+        <active>true</active>
+        <errorConditionFormula>Amount__c &lt; 0</errorConditionFormula>
+        <errorMessage>Amount cannot be negative</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prevent_Draft_Confirmed</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Confirmed__c = True, Draft__c = True)</errorConditionFormula>
+        <errorDisplayField>Confirmed__c</errorDisplayField>
+        <errorMessage>A payment cannot be Confirmed whistl it is in Draft</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prevent_Reverse_Validation</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Draft__c == True, NOT(ISNEW()), ISCHANGED(Draft__c))</errorConditionFormula>
+        <errorDisplayField>Draft__c</errorDisplayField>
+        <errorMessage>Payment cannot be reverted to Draft Status once it has been validated</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prevent_Zero_Total</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(AND(Draft__c == False, NOT(ISNEW()), ISCHANGED(Draft__c)), Amount__c == 0)</errorConditionFormula>
+        <errorMessage>Payment must be Draft if amount is 0</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Protect_Non_Draft_Account</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(ISCHANGED(Account__c), Draft__c = False)</errorConditionFormula>
+        <errorDisplayField>Account__c</errorDisplayField>
+        <errorMessage>Account cannot be changed on a Payment what is not in Draft</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Protect_Non_Draft_Amount</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(ISCHANGED(Amount__c), Draft__c = False)</errorConditionFormula>
+        <errorMessage>Amount cannot be changed on a Payment that is not in Draft</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Protect_Non_Draft_Confirmed</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(ISCHANGED(Confirmed__c), Confirmed__c = False, Draft__c = False)</errorConditionFormula>
+        <errorDisplayField>Confirmed__c</errorDisplayField>
+        <errorMessage>A payment cannot be un-confirmed</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Protect_Non_Draft_Date</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(ISCHANGED(Date__c), Draft__c = False)</errorConditionFormula>
+        <errorDisplayField>Date__c</errorDisplayField>
+        <errorMessage>Date cannot be changed on a Payment that is not in Draft</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Protect_Non_Draft_Reference</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(ISCHANGED(Reference__c), Draft__c = False)</errorConditionFormula>
+        <errorDisplayField>Reference__c</errorDisplayField>
+        <errorMessage>Reference cannot be changed on a Payment that is not in Draft</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Protect_Non_Draft_Source</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(ISCHANGED(Source__c), Draft__c = False)</errorConditionFormula>
+        <errorDisplayField>Source__c</errorDisplayField>
+        <errorMessage>Source cannot be changed on a Payment that is not Draft</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Validate_Date</fullName>
+        <active>false</active>
+        <errorConditionFormula>AND( ISCHANGED(Draft__c) , Draft__c == False, Date__c &lt; DATEVALUE(NOW()))</errorConditionFormula>
+        <errorDisplayField>Date__c</errorDisplayField>
+        <errorMessage>Payment Date cannot be in the past</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Take_Payment</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Take Payment</masterLabel>
+        <openType>sidebar</openType>
+        <page>PaymentTake</page>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+    </webLinks>
+</CustomObject>

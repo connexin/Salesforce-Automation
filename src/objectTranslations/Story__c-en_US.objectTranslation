@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Scrum_Story</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Stories</value>
+    </caseValues>
+    <fields>
+        <label><!-- Narrative --></label>
+        <name>Narrative__c</name>
+    </fields>
+    <fields>
+        <label><!-- Story Type --></label>
+        <name>Story_Type__c</name>
+        <picklistValues>
+            <masterLabel>Epic Story</masterLabel>
+            <translation><!-- Epic Story --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Technical Story</masterLabel>
+            <translation><!-- Technical Story --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>User Story</masterLabel>
+            <translation><!-- User Story --></translation>
+        </picklistValues>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

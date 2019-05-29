@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Stripe</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Stripe</value>
+    </caseValues>
+    <fields>
+        <label><!-- Api Key --></label>
+        <name>Api_Key__c</name>
+    </fields>
+    <fields>
+        <label><!-- Api Url --></label>
+        <name>Api_Url__c</name>
+    </fields>
+    <fields>
+        <label><!-- Api Version --></label>
+        <name>Api_Version__c</name>
+    </fields>
+    <fields>
+        <label><!-- Currency --></label>
+        <name>Currency__c</name>
+    </fields>
+    <fields>
+        <label><!-- Public Api Key --></label>
+        <name>Public_Api_Key__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RemoteSiteSetting xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>See : https://oss-api.thingpark.com/5.2/Thingpark-OS/vendors/documentation.html#/</description>
+    <disableProtocolSecurity>false</disableProtocolSecurity>
+    <isActive>true</isActive>
+    <url>https://oss-api.thingpark.com</url>
+</RemoteSiteSetting>

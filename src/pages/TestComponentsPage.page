@@ -1,0 +1,25 @@
+<apex:page title="Visual Result Component example usage" standardController="Account">
+    <apex:pageBlock title="CalloutSpinner">
+        <c:CalloutSpinner status="pending" />
+        <c:CalloutSpinner status="waiting" />
+        <c:CalloutSpinner status="positive" />
+        <c:CalloutSpinner status="negative" />
+    </apex:pageBlock>
+
+    <apex:pageBlock title="Visual Result Component">
+        <c:VisualResultComponent result="pass" />
+        <c:VisualResultComponent result="fail" />
+    </apex:pageBlock>
+
+    <apex:pageBlock title="Page Block Result">
+        <apex:pageBlockTable value="{!account}" var="name">
+            <apex:column >
+                <c:VisualResultComponent result="pass" />
+            </apex:column>
+            <apex:column >
+                <c:VisualResultComponent result="fail" />
+            </apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+
+</apex:page>

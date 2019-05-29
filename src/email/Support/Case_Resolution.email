@@ -1,0 +1,11 @@
+Hi,<br />
+<br />
+I've marked your Connexin Support Case - {!Case.CaseNumber} as Resolved but if you have any further questions please feel free to get in touch.<br />
+<br />
+You can reopen this Support Case at any time by replying to this email or alternatively to open a new Support Case you can email us at <a href="mailto">support@connexin.co.uk</a> or call us on 01482 36 37 38<br />
+<br />
+Kind Regards,<br />
+<br />
+{!User.FirstName}<br />
+Connexin Support Team<br />
+01482 36 37 38

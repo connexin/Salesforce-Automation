@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RemoteSiteSetting xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Test Site for :
+https://trailhead.salesforce.com/en/content/learn/modules/apex_integration_services/apex_integration_callouts#apex_integration_callouts_authorizing</description>
+    <disableProtocolSecurity>false</disableProtocolSecurity>
+    <isActive>true</isActive>
+    <url>https://th-apex-http-callout.herokuapp.com</url>
+</RemoteSiteSetting>

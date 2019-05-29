@@ -1,0 +1,49 @@
+<apex:page standardController="Management_IP_Port_Assignment__c" extensions="ManagementIPPortAssignmentController">
+    
+    <apex:sectionHeader title="Management IP Port Assignment" subtitle="{! Management_IP_Port_Assignment__c.Name__c }" help=""/>
+    
+    <apex:form >
+        <apex:pageBlock title="Management IP Port Assignment Details" mode="maindetail">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Edit" action="{! edit }"/>
+                <apex:commandButton value="Delete" action="{! delete }"/>
+            </apex:pageBlockButtons>
+            <apex:pageMessages />
+            
+            <apex:pageBlockSection >
+                <apex:outputField value="{! Management_IP_Port_Assignment__c.Name__c }" />
+                <apex:outputField value="{! Management_IP_Port_Assignment__c.Management_IP__c }" />
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{! $ObjectType.Management_IP_Port_Assignment__c.fields.Connected_Device_Name__c.label }" />
+                    <apex:outputLink value="{! URLFOR($Action.Management_IP_Port_Assignment__c.View, Management_IP_Port_Assignment__c.Connected_Device__c, null, false) }" rendered="{! Management_IP_Port_Assignment__c.Connected_Device__c != null }">
+                        {! Management_IP_Port_Assignment__c.Connected_Device_Name__c }
+                    </apex:outputLink>
+                </apex:pageBlockSectionItem>
+                <apex:outputField value="{! Management_IP_Port_Assignment__c.Management_Device_Type_Port__c }" />
+                <apex:outputField value="{! Management_IP_Port_Assignment__c.Auto_Negotiate__c }" />
+                <apex:outputField value="{! Management_IP_Port_Assignment__c.Port_Speed__c }" />
+                <apex:outputField value="{! Management_IP_Port_Assignment__c.Auto_Set_PoE__c }" />
+                <apex:outputField value="{! Management_IP_Port_Assignment__c.PoE_Input__c }" rendered="{! Management_IP_Port_Assignment__c.PoE_Input__c != null }" />
+                <apex:outputField value="{! Management_IP_Port_Assignment__c.PoE_Output__c }" rendered="{! Management_IP_Port_Assignment__c.PoE_Output__c != null }" />
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+        
+    </apex:form>
+    
+    <apex:includeScript value="/support/console/20.0/integration.js"/>
+    <script type="text/javascript">
+        function testSetTabTitle() {
+            //Set the current tab's title
+            sforce.console.setTabTitle('Management IP Port Assignment: {! Management_IP_Port_Assignment__c.Name__c }');
+        }
+        var pageLoad = window.onload;
+        window.onload = function() {
+            if (pageLoad) {
+                pageLoad();
+            }
+            testSetTabTitle();
+        }
+    </script>
+    
+</apex:page>

@@ -1,0 +1,38 @@
+<apex:page id="ResidentialCustomerCoverage" controller="ResidentialBroadbandController" wizard="true" docType="html-5.0">
+    <apex:sectionHeader title="Residential Coverage"/>
+    <apex:form id="ResidentialCoverage" forceSSL="true">
+        <apex:pageBlock title="Service Coverage">
+            <apex:pageMessages id="messages" />
+            <apex:pageBlockSection title="Residential Postcode" columns="1" collapsible="false">
+                <apex:inputText id="consumerPostcode"
+                                label="Postcode"
+                                value="{!consumerPostcode}"
+                                disabled="{!consumerPostcode!=null}"
+                                size="12" maxlength="8"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Coverage Check" collapsible="false" >
+                <apex:actionStatus id="actionStatus">
+                    <apex:facet name="start">
+                        <apex:outputPanel >
+                            <apex:image rendered="{!coverageIsPending}" value="{!$Resource.Scanning}" width="50" height="50" />
+                        </apex:outputPanel>
+                    </apex:facet>
+                    <apex:facet name="stop">
+                        <apex:outputPanel >
+                            <apex:commandLink action="{!checkCoverage}" id="checkCoverageLink" status="actionStatus" >
+                                <apex:image rendered="{!coverageIsPending}" value="{!$Resource.Lorawan_Mast_Icon}" width="50" height="50" />
+                            </apex:commandLink>
+                            <apex:image rendered="{!coverageIsPassed}" value="{!$Resource.Green_Tick_Icon}" width="50" height="50" />
+                            <apex:image rendered="{!coverageIsFailed}" value="{!$Resource.Red_Cross_Icon}" width="50" height="50" />
+                        </apex:outputPanel>
+                    </apex:facet>
+                </apex:actionStatus>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Previous" action="{!step1}"/>
+                <apex:commandButton value="Next" action="{!step3}" />
+                <apex:commandButton value="Cancel" action="{!cancel}" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

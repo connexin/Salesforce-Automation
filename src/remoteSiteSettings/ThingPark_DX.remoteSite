@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RemoteSiteSetting xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>See: https://dx-api.thingpark.com/core/latest/swagger-ui/index.html?shortUrl=tpdx-core-api-contract.json#/</description>
+    <disableProtocolSecurity>false</disableProtocolSecurity>
+    <isActive>true</isActive>
+    <url>https://dx-api.thingpark.com</url>
+</RemoteSiteSetting>

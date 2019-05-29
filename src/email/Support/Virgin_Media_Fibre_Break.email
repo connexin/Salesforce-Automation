@@ -1,0 +1,15 @@
+Hi {!Contact.FirstName},<br />
+<br />
+Thanks for your email,<br />
+<br />
+Apologies for the delay in coming back to you<br />
+<br />
+We experienced some issues when one of our main fibre's into Hull was broken at a Road Works site near Scunthorpe last Thursday<br />
+<br />
+Could I ask that you check your connection now and let me know if it's working now?<br />
+<br />
+Kind Regards,<br />
+<br />
+{!User.FirstName}<br />
+Connexin Support Team<br />
+01482 36 37 38

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Fiscal Document</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Fiscal Documents</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account --></label>
+        <name>Account__c</name>
+        <relationshipLabel><!-- Fiscal Documents --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Due Date --></label>
+        <name>Actual_Due_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Amount Allocated --></label>
+        <name>Amount_Allocated__c</name>
+    </fields>
+    <fields>
+        <label><!-- Amount Unallocated --></label>
+        <name>Amount_Unallocated__c</name>
+    </fields>
+    <fields>
+        <label><!-- Auto Process --></label>
+        <name>Auto_Actions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Processed --></label>
+        <name>Auto_Proc__c</name>
+    </fields>
+    <fields>
+        <label><!-- Automatic --></label>
+        <name>Automatic__c</name>
+    </fields>
+    <fields>
+        <label><!-- Date --></label>
+        <name>Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- In Dispute --></label>
+        <name>Dispute__c</name>
+    </fields>
+    <fields>
+        <label><!-- Draft --></label>
+        <name>Draft__c</name>
+    </fields>
+    <fields>
+        <label><!-- Due Date --></label>
+        <name>Due_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Subtotal --></label>
+        <name>Net_Subtotal__c</name>
+    </fields>
+    <fields>
+        <label><!-- Original Source --></label>
+        <name>Original_Source__c</name>
+        <picklistValues>
+            <masterLabel>ThingPark</masterLabel>
+            <translation><!-- ThingPark --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unknown</masterLabel>
+            <translation><!-- Unknown --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Payment Term --></label>
+        <name>Payment_Term__c</name>
+    </fields>
+    <fields>
+        <label><!-- Price Book --></label>
+        <name>Price_Book__c</name>
+        <relationshipLabel><!-- Fiscal Documents --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Reference --></label>
+        <name>Reference__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sent --></label>
+        <name>Sent__c</name>
+    </fields>
+    <fields>
+        <label><!-- Signed Total --></label>
+        <name>Signed_Total_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Subtotal --></label>
+        <name>Subtotal_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total --></label>
+        <name>Subtotal__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tax --></label>
+        <name>Tax_Subtotal__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tax --></label>
+        <name>Tax_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total --></label>
+        <name>Total_Value__c</name>
+    </fields>
+    <layouts>
+        <layout>Credit Note Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Fiscal Document Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Sales Invoice Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Credit Note --></label>
+        <name>credit_note</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Sales Invoice --></label>
+        <name>sales_invoice</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Amount Allocated cannot be less than 0 --></errorMessage>
+        <name>Amount_Allocated_Less_Zero</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Amount Allocated cannot be greater than Fiscal Document Total --></errorMessage>
+        <name>Amount_Allocated_More_Total</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Fiscal Document cannot be reverted to Draft Status once it has been validated --></errorMessage>
+        <name>Prevent_Reverse_Validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Fiscal Document cannot be validated if its total is 0 --></errorMessage>
+        <name>Prevent_Zero_Total_Validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Account cannot be changed on a Fiscal Document that is not in Draft --></errorMessage>
+        <name>Protect_Non_Draft_Account</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Automatic cannot be changed on a Fiscal Document that is not in Draft --></errorMessage>
+        <name>Protect_Non_Draft_Automatic</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Date cannot be changed on a Fiscal Document that is not in Draft --></errorMessage>
+        <name>Protect_Non_Draft_Date</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Payment Term cannot be changed on a Fiscal Document that is not in Draft --></errorMessage>
+        <name>Protect_Non_Draft_Payment_Term</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Record Type cannot be changed on a Fiscal Document that is not in Draft --></errorMessage>
+        <name>Protect_Non_Draft_Record_Type</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Reference cannot be changed on a Fiscal Document that is not in Draft --></errorMessage>
+        <name>Protect_Non_Draft_Reference</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Dispute cannot be changed on an Invoice that is fully or partially allocated --></errorMessage>
+        <name>Protect_Paid_Dispute</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Fiscal Document Date cannot be in the past --></errorMessage>
+        <name>Validate_Date</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Reference cannot be blank --></errorMessage>
+        <name>Validate_Reference</name>
+    </validationRules>
+</CustomObjectTranslation>

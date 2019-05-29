@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Api_Token__c</fullName>
+        <externalId>false</externalId>
+        <label>Api Token</label>
+        <length>50</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Api_Url__c</fullName>
+        <externalId>false</externalId>
+        <label>Api Url</label>
+        <length>35</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Api_Version__c</fullName>
+        <externalId>false</externalId>
+        <label>Api Version</label>
+        <length>10</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Go Cardless</label>
+    <visibility>Public</visibility>
+</CustomObject>

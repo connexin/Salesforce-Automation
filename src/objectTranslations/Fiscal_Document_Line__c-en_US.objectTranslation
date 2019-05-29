@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Fiscal Document Line</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Fiscal Document Lines</value>
+    </caseValues>
+    <fields>
+        <label><!-- ATOM Id --></label>
+        <name>ATOM_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Amount --></label>
+        <name>Amount_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- Amount --></label>
+        <name>Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fiscal Document Draft --></label>
+        <name>Fiscal_Document_Draft__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fiscal Document --></label>
+        <name>Fiscal_Document__c</name>
+        <relationshipLabel><!-- Fiscal Document Lines --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Net Subtotal --></label>
+        <name>Net_Subtotal_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- Net Subtotal --></label>
+        <name>Net_Subtotal__c</name>
+    </fields>
+    <fields>
+        <label><!-- Nominal Code --></label>
+        <name>Nominal_Code__c</name>
+        <relationshipLabel><!-- Fiscal Document Lines --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Product --></label>
+        <name>Product__c</name>
+        <relationshipLabel><!-- Fiscal Document Lines --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Quantity --></label>
+        <name>Quantity__c</name>
+    </fields>
+    <fields>
+        <label><!-- Subtotal --></label>
+        <name>Subtotal_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- Subtotal --></label>
+        <name>Subtotal__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tax Rate --></label>
+        <name>Tax_Rate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tax Subtotal --></label>
+        <name>Tax_Subtotal_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tax Subtotal --></label>
+        <name>Tax_Subtotal__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tax --></label>
+        <name>Tax__c</name>
+        <relationshipLabel><!-- Fiscal Document Lines --></relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>Fiscal Document Line Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Amount cannot be changed on a Fiscal Document Line where the Fiscal Document is not in Draft --></errorMessage>
+        <name>Protect_Non_Draft_Amount</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Description cannot be changed on a Fiscal Document Line where the Fiscal Document is not in Draft --></errorMessage>
+        <name>Protect_Non_Draft_Description</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Quantity cannot be changed on a Fiscal Document Line where the Fiscal Document is not in Draft --></errorMessage>
+        <name>Protect_Non_Draft_Quantity</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Tax Code cannot be changed on a Fiscal Document Line where the Fiscal Document is not in Draft --></errorMessage>
+        <name>Protect_Non_Draft_Tax</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Quantity cannot be less than or equal to zero --></errorMessage>
+        <name>Protect_Quantity_Less_Equal_to_Zero</name>
+    </validationRules>
+</CustomObjectTranslation>

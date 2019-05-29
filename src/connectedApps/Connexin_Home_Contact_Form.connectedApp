@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>wk@connexin.co.uk</contactEmail>
+    <label>Connexin Home Contact Form</label>
+    <oauthConfig>
+        <callbackUrl>https://login.salesforce.com/services/oauth2/callback</callbackUrl>
+        <consumerKey>3MVG9PerJEe9i8iICQ8qavfYTX45V.beb5cqQTUtcLN3FlLhFv4AFNBEYe5RWy5kY49rZ197vWbgRd8OaJWCf</consumerKey>
+        <scopes>Full</scopes>
+    </oauthConfig>
+</ConnectedApp>

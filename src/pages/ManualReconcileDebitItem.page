@@ -1,0 +1,126 @@
+<apex:page Controller="ManualReconciliationController">
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" />
+    <script type="text/javascript">
+            function getdata() {
+                //var focused = document.activeElement;
+                //console.log(focused);
+                //console.log(document.activeElement);
+            }
+    </script>
+    <apex:form >
+        <apex:pageBlock title="Selected Credit Items" rendered="{! reconciliations.size == 0 }" id="selected_credits_block">
+            <apex:repeat value="{! selectedcredititems }" var="credititemkey">
+                <apex:pageBlockSection title="Selected {! selectedcredititems[credititemkey].objectType } Details" >
+                    <apex:outputText label="Type" value="{! selectedcredititems[credititemkey].objectType }"></apex:outputText>
+                    <apex:outputText label="Date" value="{0,date,dd' 'MMM' - 'yyyy}">
+                        <apex:param value="{! selectedcredititems[credititemkey].sortDate }"/>
+                    </apex:outputText>
+                    <apex:outputText label="Reference" value="{! selectedcredititems[credititemkey].reference }"></apex:outputText>
+                    <apex:outputText label="Status" value="{! selectedcredititems[credititemkey].status }"></apex:outputText>
+                    <apex:outputText label="Allocated Amount" value="{! selectedcredititems[credititemkey].amount_allocated }"></apex:outputText>
+                    <apex:outputText label="Amount to Reconcile" value="{! selectedcredititems[credititemkey].credit_amount }" style="color:red"></apex:outputText>
+                    <apex:inputCheckbox label="Split" value="{! selectedcredititems[credititemkey].split }">
+                        <apex:actionSupport event="onchange" reRender="selected_credits_block"/>
+                    </apex:inputCheckbox>
+                    <apex:inputText label="Split Amount" value="{! selectedcredititems[credititemkey].split_amount }" rendered="{! selectedcredititems[credititemkey].split }"></apex:inputText>
+                </apex:pageBlockSection>
+            </apex:repeat>
+        </apex:pageBlock>
+    
+        <apex:pageBlock title="Debit Items Selection" id="debits_selection_block" rendered="{! reconciliations.size == 0 }">
+            <apex:pageMessages ></apex:pageMessages>
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{! selectDebit }" title="Reconcile" value="Reconcile" rendered="{! NOT(debitsisempty) }"/>
+                <apex:commandButton action="{! cancel }" title="Cancel" value="Cancel"/>
+            </apex:pageBlockButtons>
+            <apex:outputText value="No debit items to display" rendered="{! debitsisempty }"/>
+            <apex:pageBlockTable value="{! debits }" var="debitKey" id="debitsTable" rendered="{! NOT(debitsisempty) }">
+                
+                <apex:column headerValue="Select" style="background-color:{! if(selectedItems[debitKey],'#e7ffd3','white') }">
+                    <apex:inputCheckbox value="{! selectedItems[debitKey] }">
+                        <apex:actionSupport event="onchange" reRender="debits_selection_block,debitstable"/>
+                    </apex:inputCheckbox>
+                </apex:column>
+
+                <apex:column headerValue="Date"  style="background-color:{! if(selectedItems[debitKey],'#e7ffd3','white') }">
+                    <apex:actionSupport event="onclick" action="{! toggleSelection }" reRender="debitsTable">
+                        <apex:param name="selectedItem" value="{! debitKey }" assignTo="{! clickedItem }"/>
+                    </apex:actionSupport>
+                    <apex:outputText value="{0,date,dd' 'MMM' - 'yyyy}">
+                        <apex:param value="{! debits[debitKey].sortDate }"/>
+                    </apex:outputText>
+                </apex:column>
+                
+                <apex:column headerValue="Type" style="background-color:{! if(selectedItems[debitKey],'#e7ffd3','white') }">
+                    <apex:actionSupport event="onclick" action="{! toggleSelection }" reRender="debitsTable">
+                        <apex:param name="selectedItem" value="{! debitKey }" assignTo="{! clickedItem }"/>
+                    </apex:actionSupport>
+                    <apex:outputText value="{! debits[debitKey].objectType }"/>
+                </apex:column>
+                
+                <apex:column headerValue="Reference" style="background-color:{! if(selectedItems[debitKey],'#e7ffd3','white') }" >
+                    <apex:actionSupport event="onclick" action="{! toggleSelection }" reRender="debitsTable">
+                        <apex:param name="selectedItem" value="{! debitKey }" assignTo="{! clickedItem }"/>
+                    </apex:actionSupport>
+                    <apex:outputText value="{! debits[debitKey].reference }"/>
+                </apex:column>
+                
+                <apex:column headerValue="Status" style="background-color:{! if(selectedItems[debitKey],'#e7ffd3','white') }" >
+                    <apex:actionSupport event="onclick" action="{! toggleSelection }" reRender="debitsTable">
+                        <apex:param name="selectedItem" value="{! debitKey }" assignTo="{! clickedItem }"/>
+                    </apex:actionSupport>
+                    <apex:outputText value="{! debits[debitKey].status}"/>
+                </apex:column>
+                
+                <apex:column headerValue="Total Amount" style="background-color:{! if(selectedItems[debitKey],'#e7ffd3','white') }" >
+                    <apex:actionSupport event="onclick" action="{! toggleSelection }" reRender="debitsTable">
+                        <apex:param name="selectedItem" value="{! debitKey }" assignTo="{! clickedItem }"/>
+                    </apex:actionSupport>
+                    <apex:outputText value="{! debits[debitKey].total_amount }"/>
+                </apex:column>
+                
+                <apex:column headerValue="Allocated Amount" style="background-color:{! if(selectedItems[debitKey],'#e7ffd3','white') }" >
+                    <apex:actionSupport event="onclick" action="{! toggleSelection }" reRender="debitsTable">
+                        <apex:param name="selectedItem" value="{! debitKey }" assignTo="{! clickedItem }"/>
+                    </apex:actionSupport>
+                    <apex:outputText value="{! debits[debitKey].amount_allocated }"/>
+                </apex:column>
+                
+                <apex:column headerValue="Remaining Amount" style="background-color:{! if(selectedItems[debitKey],'#e7ffd3','white') }">
+                    <apex:actionSupport event="onclick" action="{! toggleSelection }" reRender="debitsTable">
+                        <apex:param name="selectedItem" value="{! debitKey }" assignTo="{! clickedItem }"/>
+                    </apex:actionSupport>
+                    <apex:outputText value="{! debits[debitKey].debit_amount }" style="color:red"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </apex:column>
+                
+                <apex:column headerValue="Split Remaining Amount" width="200" style="background-color:{! if(selectedItems[debitKey],'#e7ffd3','white') }" >
+                    <apex:actionSupport event="onclick" action="{! toggleSelection }" reRender="debitsTable" disabled="{! selectedItems[debitKey] }">
+                        <apex:param name="selectedItem" value="{! debitKey }" assignTo="{! clickedItem }"/>
+                    </apex:actionSupport>
+                    <apex:inputText value="{! debits[debitKey].split_amount }" label="{! debitKey }" />
+                </apex:column>
+                
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+    </apex:form>
+    
+    <apex:form >
+        <apex:pageBlock title="Reconciliations" rendered="{! reconciliations.size > 0 }">
+            <apex:repeat value="{! reconciliations }" var="reconciliation">
+                <apex:pageBlockSection title="New Reconciliation">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Reconciliation"></apex:outputLabel>
+                        <apex:outputLink value="/apex/ReconciliationView?id={!reconciliation.Id}" title="Reconciliation">{!reconciliation.Name}</apex:outputLink>
+                    </apex:pageBlockSectionItem>
+                    <apex:outputField value="{! reconciliation.Credits__c}"/>
+                    <apex:outputField value="{! reconciliation.Balance__c}"/>
+                    <apex:outputField value="{! reconciliation.Debits__c}"/>
+                    <apex:outputField value="{! reconciliation.Reconciled__c}"/>
+                </apex:pageBlockSection>
+            </apex:repeat>
+            <apex:commandButton action="{! cancel }" title="Finish" value="Finish" rendered="{! reconciliations.size > 0 }"/>
+        </apex:pageBlock>
+    </apex:form>
+    
+</apex:page>

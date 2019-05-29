@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssignmentRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assignmentRule>
+        <fullName>Case Assignment</fullName>
+        <active>true</active>
+        <ruleEntry>
+            <assignedTo>wk@connexin.co.uk</assignedTo>
+            <assignedToType>User</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Technical Support Request</value>
+            </criteriaItems>
+            <template>unfiled$public/New_Case</template>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Accounts</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Accounts</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Level_1_Support</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Support</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>kyy@connexin.co.uk</assignedTo>
+            <assignedToType>User</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Survey</value>
+            </criteriaItems>
+            <template>unfiled$public/New_Case</template>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Delivery</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Delivery</value>
+            </criteriaItems>
+            <template>unfiled$public/New_Case</template>
+        </ruleEntry>
+    </assignmentRule>
+</AssignmentRules>

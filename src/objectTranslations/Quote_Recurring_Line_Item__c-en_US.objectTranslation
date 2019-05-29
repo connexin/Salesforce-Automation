@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Quote Recurring Line Item</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Quote Recurring Line Items</value>
+    </caseValues>
+    <fields>
+        <label><!-- Discount --></label>
+        <name>Discount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Schedule --></label>
+        <name>HasSchedule__c</name>
+    </fields>
+    <fields>
+        <label><!-- Line Item Description --></label>
+        <name>Line_Item_Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Line Item Number --></label>
+        <name>Line_Item_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- List Price --></label>
+        <name>ListPrice__c</name>
+    </fields>
+    <fields>
+        <label><!-- Product --></label>
+        <name>Product__c</name>
+        <relationshipLabel><!-- Quote Recurring Line Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Quantity --></label>
+        <name>Quantity__c</name>
+    </fields>
+    <fields>
+        <label><!-- Quote Name --></label>
+        <name>Quote_Name__c</name>
+        <relationshipLabel><!-- Quote Recurring Line Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Date --></label>
+        <name>ServiceDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Subtotal --></label>
+        <name>Subtotal__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Price --></label>
+        <name>TotalPrice__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sales Price --></label>
+        <name>UnitPrice__c</name>
+    </fields>
+    <layouts>
+        <layout>Quote Recurring Line Item Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

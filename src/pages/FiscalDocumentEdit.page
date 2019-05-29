@@ -1,0 +1,54 @@
+<apex:page standardController="Fiscal_Document__c" extensions="FiscalDocumentsController">
+    
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" />
+    
+    <apex:sectionHeader title="{! Fiscal_Document__c.RecordType.Name }" subtitle="New Fiscal Document" help=""/>
+    
+    <apex:form >
+        <apex:pageBlock title="{! Fiscal_Document__c.RecordType.Name + ' Details'}" mode="editdetail">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Cancel" action="{! cancel }"/>
+                <apex:commandButton value="Save" action="{! save }" />
+            </apex:pageBlockButtons>
+            <apex:pageMessages />
+            
+            <apex:pageBlockSection >
+                <apex:inputField value="{! Fiscal_Document__c.Account__c }" rendered="{! Fiscal_Document__c.Draft__c = true || Fiscal_Document__c.Id == null }" />
+                <apex:outputField value="{! Fiscal_Document__c.Account__c }" rendered="{! Fiscal_Document__c.Draft__c = false && Fiscal_Document__c.Id != null }" />
+                <apex:inputField value="{! Fiscal_Document__c.Description__c }" />
+                <apex:inputField value="{! Fiscal_Document__c.Date__c }" rendered="{! Fiscal_Document__c.Draft__c = true || Fiscal_Document__c.Id == null }" required="true"/>
+                <apex:outputField value="{! Fiscal_Document__c.Date__c }" rendered="{! Fiscal_Document__c.Draft__c = false && Fiscal_Document__c.Id != null }" />
+                <apex:inputField value="{! Fiscal_Document__c.Payment_Term__c }" rendered="{! (Fiscal_Document__c.Draft__c = true || Fiscal_Document__c.Id == null) && Fiscal_Document__c.RecordType.DeveloperName == 'sales_invoice' }" required="true" >
+                    <apex:actionSupport event="onchange" rerender="duedate" />
+                </apex:inputField>
+                <apex:outputField value="{! Fiscal_Document__c.Payment_Term__c }" rendered="{! Fiscal_Document__c.Draft__c = false && Fiscal_Document__c.Id != null && Fiscal_Document__c.RecordType.DeveloperName == 'sales_invoice' }" />
+                <apex:pageBLockSectionItem id="duedate" rendered="{! Fiscal_Document__c.RecordType.DeveloperName == 'sales_invoice' }" >
+                    <apex:outputLabel for="duedatefield" >{! $ObjectType.Fiscal_Document__c.Fields.Due_Date__c.Label }</apex:outputLabel>
+                    <apex:outputField id="duedatefield" value="{! Fiscal_Document__c.Due_Date__c }" />
+                </apex:pageBLockSectionItem>
+                <apex:inputField value="{! Fiscal_Document__c.Price_Book__c }" rendered="{! Fiscal_Document__c.Draft__c = true || Fiscal_Document__c.Id == null }" required="true"/>
+                <apex:outputField value="{! Fiscal_Document__c.Price_Book__c }" rendered="{! Fiscal_Document__c.Draft__c = false && Fiscal_Document__c.Id != null }" />
+                <apex:inputField value="{! Fiscal_Document__c.Dispute__c }" rendered="{! Fiscal_Document__c.Draft__c = false && Fiscal_Document__c.Id != null && Fiscal_Document__c.Amount_Allocated__c == 0 && Fiscal_Document__c.RecordType.DeveloperName == 'sales_invoice' }" />
+                <apex:inputField value="{! Fiscal_Document__c.Auto_Proc__c }" rendered="{! Fiscal_Document__c.Draft__c = false && Fiscal_Document__c.Id != null && Fiscal_Document__c.RecordType.DeveloperName == 'sales_invoice' }" />
+                <apex:inputField value="{! Fiscal_Document__c.Auto_Actions__c }" rendered="{! Fiscal_Document__c.Draft__c = false && Fiscal_Document__c.Id != null }" />
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:form>
+    
+    <apex:includeScript value="/support/console/20.0/integration.js"/>
+    <script type="text/javascript">
+        function testSetTabTitle() {
+            //Set the current tab's title
+            sforce.console.setTabTitle('Sales Invoice: {! Fiscal_Document__c.Name }');
+        }
+        var pageLoad = window.onload;
+        window.onload = function() {
+            if (pageLoad) {
+                pageLoad();
+            }
+            testSetTabTitle();
+        }
+    </script>
+    
+</apex:page>

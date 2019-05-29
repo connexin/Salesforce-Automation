@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>LoRaWAN Package</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>LoRaWAN Package</value>
+    </caseValues>
+    <fields>
+        <label><!-- Actility Offer Ref --></label>
+        <name>Actility_Offer_Ref__c</name>
+        <picklistValues>
+            <masterLabel>connexin-vdr/test-kit</masterLabel>
+            <translation><!-- connexin-vdr/test-kit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>connexin-vdr/tpw-starter-kit</masterLabel>
+            <translation><!-- connexin-vdr/tpw-starter-kit --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Actility Order ID --></label>
+        <name>Actility_Order_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Device Rate --></label>
+        <name>Device_Rate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Device Rate after commitment end --></label>
+        <name>Device_Rate_after_commitment_end__c</name>
+    </fields>
+    <fields>
+        <label><!-- End Date --></label>
+        <name>End_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- LoRaWAN Tenancy --></label>
+        <name>LoRaWAN_Tenancy__c</name>
+        <relationshipLabel><!-- LoRaWAN Package --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Push to Actility --></label>
+        <name>Push_to_Actility__c</name>
+    </fields>
+    <fields>
+        <label><!-- Quantity Of Devices --></label>
+        <name>Quantity_Of_Devices__c</name>
+    </fields>
+    <fields>
+        <label><!-- Start Date --></label>
+        <name>Start_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Term --></label>
+        <name>Term__c</name>
+    </fields>
+    <fields>
+        <label><!-- Active --></label>
+        <name>is_Active__c</name>
+    </fields>
+    <fields>
+        <label><!-- Cancelled --></label>
+        <name>is_Cancelled__c</name>
+    </fields>
+    <layouts>
+        <layout>LoRaWAN Package Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Create a new Package, do not attempt to edit an existing package. --></errorMessage>
+        <name>After_End_Device_Rate_unchangable</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Create a new Package, do not attempt to edit an existing package. --></errorMessage>
+        <name>Device_Rate_unchangable</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Package must be made cancelled, should not be reverted to &apos;Draft&apos;. --></errorMessage>
+        <name>Prevent_Reverse_Activation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You must create a new Package, you should not attempt to reverse previous cancellation. --></errorMessage>
+        <name>Prevent_Reverse_Cancellation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Create a new Package, do not attempt to edit an existing package. --></errorMessage>
+        <name>Quantity_of_Devices_unchangable</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Create a new Package, do not attempt to edit an existing package. --></errorMessage>
+        <name>Start_Date_unchangable</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Create a new Package, do not attempt to edit an existing package. --></errorMessage>
+        <name>Term_unchangable</name>
+    </validationRules>
+</CustomObjectTranslation>

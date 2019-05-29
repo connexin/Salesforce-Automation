@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assignments>
+        <name>Update_Service_Appointment_Status</name>
+        <label>Update Service Appointment Status</label>
+        <locationX>24</locationX>
+        <locationY>410</locationY>
+        <assignmentItems>
+            <assignToReference>ServiceAppointment.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>New_Status</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Service_Appointment</targetReference>
+        </connector>
+    </assignments>
+    <choices>
+        <name>Cannot_Complete</name>
+        <choiceText>Cannot Complete</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Cannot Complete</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Completed</name>
+        <choiceText>Completed</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Completed</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>In_Progress</name>
+        <choiceText>In Progress</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>In Progress</stringValue>
+        </value>
+    </choices>
+    <decisions>
+        <name>Check_New_Status</name>
+        <label>Check New Status</label>
+        <locationX>29</locationX>
+        <locationY>889</locationY>
+        <defaultConnector>
+            <targetReference>Update_Work_Order_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Cannot Complete</defaultConnectorLabel>
+        <rules>
+            <name>Is_Completed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>New_Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Completed</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Work_Order</targetReference>
+            </connector>
+            <label>Completed</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Service_Appointment_Parent_Record_Type</name>
+        <label>Check Service Appointment Parent Record Type</label>
+        <locationX>26</locationX>
+        <locationY>643</locationY>
+        <defaultConnectorLabel>Not Work Order</defaultConnectorLabel>
+        <rules>
+            <name>Is_Work_Order</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>ServiceAppointment.ParentRecordType</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>WorkOrder</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Feed_Item</targetReference>
+            </connector>
+            <label>Is Work Order</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Service_Appointment_Status</name>
+        <label>Check Service Appointment Status</label>
+        <locationX>23</locationX>
+        <locationY>151</locationY>
+        <defaultConnector>
+            <targetReference>Cannot_Complete_Screen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not In Progress</defaultConnectorLabel>
+        <rules>
+            <name>Is_In_Progress</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>ServiceAppointment.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>In Progress</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Complete_Job</targetReference>
+            </connector>
+            <label>Is In Progress</label>
+        </rules>
+    </decisions>
+    <interviewLabel>Complete {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Complete</label>
+    <processType>FieldServiceMobile</processType>
+    <recordCreates>
+        <name>Create_Feed_Item</name>
+        <label>Create Feed Item</label>
+        <locationX>28</locationX>
+        <locationY>769</locationY>
+        <connector>
+            <targetReference>Check_New_Status</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Body</field>
+            <value>
+                <elementReference>Job_Notes</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ParentId</field>
+            <value>
+                <elementReference>ServiceAppointment.ParentRecordId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Type</field>
+            <value>
+                <stringValue>TextPost</stringValue>
+            </value>
+        </inputAssignments>
+        <object>FeedItem</object>
+    </recordCreates>
+    <recordLookups>
+        <name>Lookup_Service_Appointment</name>
+        <label>Lookup Service Appointment</label>
+        <locationX>22</locationX>
+        <locationY>21</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_Service_Appointment_Status</targetReference>
+        </connector>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Id</elementReference>
+            </value>
+        </filters>
+        <object>ServiceAppointment</object>
+        <outputReference>ServiceAppointment</outputReference>
+        <queriedFields>Status</queriedFields>
+        <queriedFields>ParentRecordId</queriedFields>
+        <queriedFields>ParentRecordType</queriedFields>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Service_Appointment</name>
+        <label>Update Service Appointment</label>
+        <locationX>25</locationX>
+        <locationY>517</locationY>
+        <connector>
+            <targetReference>Check_Service_Appointment_Parent_Record_Type</targetReference>
+        </connector>
+        <inputReference>ServiceAppointment</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Work_Order</name>
+        <label>Update Work Order</label>
+        <locationX>248</locationX>
+        <locationY>889</locationY>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>ServiceAppointment.ParentRecordId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <object>WorkOrder</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Work_Order_0</name>
+        <label>Update Work Order</label>
+        <locationX>30</locationX>
+        <locationY>1028</locationY>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>ServiceAppointment.ParentRecordId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Cannot Complete</stringValue>
+            </value>
+        </inputAssignments>
+        <object>WorkOrder</object>
+    </recordUpdates>
+    <screens>
+        <name>Cannot_Complete_Screen</name>
+        <label>Cannot Complete Screen</label>
+        <locationX>270</locationX>
+        <locationY>154</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>CannotCompleteDisplayText</name>
+            <fieldText>The Service Appointment has a Status of {!ServiceAppointment.Status}
+
+Service Appointments must have a Status of In Progress before they can be Completed</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+    </screens>
+    <screens>
+        <name>Complete_Job</name>
+        <label>Complete Job</label>
+        <locationX>22</locationX>
+        <locationY>281</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Update_Service_Appointment_Status</targetReference>
+        </connector>
+        <fields>
+            <name>New_Status</name>
+            <choiceReferences>Completed</choiceReferences>
+            <choiceReferences>Cannot_Complete</choiceReferences>
+            <dataType>String</dataType>
+            <defaultSelectedChoiceReference>Completed</defaultSelectedChoiceReference>
+            <fieldText>New Status</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Job_Notes</name>
+            <fieldText>Job Notes</fieldText>
+            <fieldType>LargeTextArea</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+    </screens>
+    <startElementReference>Lookup_Service_Appointment</startElementReference>
+    <variables>
+        <name>Id</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>ServiceAppointment</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>ServiceAppointment</objectType>
+    </variables>
+</Flow>

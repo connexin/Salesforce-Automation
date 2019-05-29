@@ -1,0 +1,69 @@
+<apex:page standardController="Direct_Debit__c" extensions="DirectDebitController">
+    <apex:sectionHeader title="Direct Debit" subtitle="{! Direct_Debit__c.Name }" help=""/>
+    
+    <apex:form >
+        <apex:pageBlock mode="maindetail" title="Direct Debit">
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Edit" action="{! edit }"/>
+                <apex:commandButton value="Delete" action="{! delete }"/>
+            </apex:pageBlockButtons>
+            
+            <apex:pageMessages />
+            
+            <apex:pageBlockSection >
+                <apex:outputField value="{! Direct_Debit__c.Name }" />
+                <apex:outputField value="{! Direct_Debit__c.Account__c }" />
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Bank Accounts" columns="1">
+                <!--<apex:commandButton value="Create" action="{! createBankAccount }" />-->
+                <apex:repeat value="{! bankAccounts }" var="bankAccount">
+                    <apex:pageBlockSection title="{! bankAccount.id }" collapsible="false" >
+                        <apex:outputText value="{! IF(bankAccount.enabled == true, 'Enabled', 'Disabled') }" style="{! IF(bankAccount.enabled == true, 'color: green', 'color: red') }" label="Status" />
+                        <apex:outputText value="{0, Date, MMMM d','  yyyy}" label="Created" >
+                            <apex:param value="{! bankAccount.created_at }" />
+                        </apex:outputText>
+                        <apex:outputText value="{! bankAccount.account_holder_name }" label="Account Holder" />
+                        <apex:outputText value="{! '••••••' + bankAccount.account_number_ending }" label="Account No. Ending" />
+                        <apex:outputText value="{! bankAccount.country_code }" label="Country Code" />
+                        <apex:outputText value="{! bankAccount.currency_code }" label="Currency" />
+                        <apex:outputText value="{! bankAccount.bank_name }" label="Bank Name" />
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel >Actions</apex:outputLabel>
+                            <apex:outputPanel >
+                                <apex:commandLink styleClass="btn" style="text-decoration:none;padding:4px;" action="{! disableBankAccount }" value="Disable" rendered="{! bankAccount.enabled }" >
+                                    <apex:param name="curBankAccountId" assignTo="{! curBankAccountId }" value="{! bankAccount.id }" />
+                                </apex:commandLink>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                </apex:repeat>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Payments" columns="1">
+                <apex:repeat value="{! payments }" var="payment">
+                    <apex:pageBlockSection title="{! payment.id }" collapsible="false">
+                        <apex:outputText value="{! UPPER(LEFT(payment.status, 1)) + RIGHT(SUBSTITUTE(payment.status, '_', ' '), LEN(payment.status) - 1) }" label="Status" style="{! IF(payment.status == 'pending_customer_approval', 'color: orange', IF(payment.status == 'pending_submission', 'color: orange', IF(payment.status == 'submitted', 'color: orange', IF(payment.status == 'confirmed', 'color: green', IF(payment.status == 'paid_out', 'color: green', IF(payment.status == 'cancelled', 'color: red', IF(payment.status == 'customer_approval_denied', 'color: red', IF(payment.status == 'failed', 'color: red', IF(payment.status == 'charged_back', 'color: red', ''))))))))) }"/>
+                        <apex:outputText value="{0, Number, £###,###,##0.00}" label="Amount" >
+                            <apex:param value="{! payment.amount / 100 }" />
+                        </apex:outputText>
+                        <apex:outputText value="{0, Date, MMMM d','  yyyy}" label="Created" >
+                            <apex:param value="{! payment.created_at }" />
+                        </apex:outputText>
+                        <apex:outputText value="{0, Date, MMMM d','  yyyy}" label="Charge Date" >
+                            <apex:param value="{! payment.charge_date }" />
+                        </apex:outputText>
+                        <apex:outputText value="{! payment.description }" label="Description" />
+                        <apex:outputText value="{! payment.reference }" label="Reference" />
+                        <apex:outputText value="{0, Number, £###,###,##0.00}" label="Amount Refunded" >
+                            <apex:param value="{! payment.amount_refunded }" />
+                        </apex:outputText>
+                    </apex:pageBlockSection>
+                </apex:repeat>
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:form>
+    
+</apex:page>

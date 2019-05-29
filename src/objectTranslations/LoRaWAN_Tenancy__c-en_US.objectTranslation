@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>LoRaWAN Tenancy</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>LoRaWAN Tenancies</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account --></label>
+        <name>Account__c</name>
+        <relationshipLabel><!-- LoRaWAN Tenancies --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Actility Subscriber ID --></label>
+        <name>Actility_Subscriber_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Primary Contact --></label>
+        <name>Contact__c</name>
+        <relationshipLabel><!-- LoRaWAN Tenancies --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Daily Max Average --></label>
+        <name>Daily_Max_Average__c</name>
+    </fields>
+    <fields>
+        <label><!-- Overage Rate --></label>
+        <name>Overage_Rate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Push to Actility --></label>
+        <name>Push_to_Actility__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Devices --></label>
+        <name>Total_Devices__c</name>
+    </fields>
+    <layouts>
+        <layout>LoRaWAN Tenancy Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

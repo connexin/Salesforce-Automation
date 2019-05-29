@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Account$Name</field>
+    </columns>
+    <columns>
+        <field>Account.Fiscal_Documents__r$Id</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.Fiscal_Documents__r$Sent__c</field>
+    </columns>
+    <columns>
+        <field>Account$Type</field>
+    </columns>
+    <description>This report can be used to see which non residential accounts have not been receiving invoices</description>
+    <filter>
+        <criteriaItems>
+            <column>Account$Type</column>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>,Business,Reseller,Public Sector</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Fiscal_Documents__r$Sent__c</column>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>0</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>Invoices with email and sent or not</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Debits_and_Credits__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>Account.Fiscal_Documents__r$CreatedDate</dateColumn>
+        <interval>INTERVAL_CURRENT</interval>
+    </timeFrameFilter>
+</Report>

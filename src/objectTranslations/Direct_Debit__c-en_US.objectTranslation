@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Direct Debit</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Direct Debits</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account --></label>
+        <name>Account__c</name>
+        <relationshipLabel><!-- Direct Debits --></relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>Direct Debit Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Go Cardless ID must be specified --></errorMessage>
+        <name>Name_Not_Null</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Go Cardless ID must be Unique --></errorMessage>
+        <name>Name_Unique</name>
+    </validationRules>
+</CustomObjectTranslation>

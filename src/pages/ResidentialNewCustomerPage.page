@@ -1,0 +1,33 @@
+<apex:page id="NewResidentialCustomer" controller="ResidentialBroadbandController" wizard="true" docType="html-5.0">
+    <apex:sectionHeader title="New Residential Customer"/>
+    <apex:form id="NewResidentialCustomer" forceSSL="true">
+        <apex:pageBlock title="Consumer Postcode">
+            <apex:pageMessages id="mesages"/>
+            <apex:actionSupport event="onchange" reRender="existingLeads, existingOpportunities">
+                <apex:pageBlockSection title="Residential Postcode" columns="1" collapsible="false">
+                    <apex:inputText id="consumerPostcode"
+                                    label="Postcode"
+                                    value="{!consumerPostcode}"
+                                    size="12" maxlength="8" />
+                </apex:pageBlockSection>
+            </apex:actionSupport>
+            <apex:pageBlockSection showHeader="false" columns="2" >
+                <apex:pageBlockSection title="Leads with same Postcode" id="existingLeads" collapsible="false">
+                    <apex:selectList >
+                        <apex:selectOptions value="{!leadList}" />
+                    </apex:selectList>                    
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Opportunities with same Postcode" id="existingOpportunities" collapsible="false">
+                    <apex:selectList >
+                        <apex:selectOptions value="{!OpportunityList}" />
+                    </apex:selectList>                    
+                </apex:pageBlockSection>
+                
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Next" action="{!step2}" />
+                <apex:commandButton value="Cancel" action="{!cancel}" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

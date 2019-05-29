@@ -1,0 +1,17 @@
+<apex:page id="tabbedPage" controller="ResidentialBroadbandController" wizard="true" docType="html-5.0">
+    <apex:sectionHeader title="New Residential Broadband Customer"/>    
+    <apex:tabPanel switchType="client" selectedTab="name1" id="theTabPanel">
+        <apex:tab label="Selection" name="step1" id="tabOne">
+            <apex:include pageName="ResidentialNewCustomerPage"/>
+        </apex:tab>
+        <apex:tab label="Coverage" name="step2" id="tabTwo">
+            <apex:include pageName="ResidentialNewCustomerCoverage"/>
+        </apex:tab>        
+        <apex:tab label="Detail" name="step3" id="tabThree">
+            <apex:include pageName="ResidentialNewCustomerDetails"/>
+        </apex:tab>
+        <apex:tab label="Booking" name="step4" id="tabFour">
+            <apex:include pageName="ResidentialNewCustomerBooking"/>
+        </apex:tab>    
+    </apex:tabPanel>
+</apex:page>

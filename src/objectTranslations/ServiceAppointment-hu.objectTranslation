@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Appointment Grade --></label>
+        <name>FSL__Appointment_Grade__c</name>
+    </fields>
+    <fields>
+        <label><!-- Auto Schedule --></label>
+        <name>FSL__Auto_Schedule__c</name>
+    </fields>
+    <fields>
+        <label><!-- Duration In Minutes --></label>
+        <name>FSL__Duration_In_Minutes__c</name>
+    </fields>
+    <fields>
+        <label><!-- Emergency --></label>
+        <name>FSL__Emergency__c</name>
+    </fields>
+    <fields>
+        <label><!-- Gantt Color --></label>
+        <name>FSL__GanttColor__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter a URL for an icon. The URL must end in an image suffix, such as .png. --></help>
+        <label><!-- Gantt Icon --></label>
+        <name>FSL__GanttIcon__c</name>
+    </fields>
+    <fields>
+        <label><!-- Gantt Label --></label>
+        <name>FSL__GanttLabel__c</name>
+    </fields>
+    <fields>
+        <label><!-- Gantt Display Date --></label>
+        <name>FSL__Gantt_Display_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- In Jeopardy Reason --></label>
+        <name>FSL__InJeopardyReason__c</name>
+        <picklistValues>
+            <masterLabel>Delayed Finish</masterLabel>
+            <translation>Késleltetett befejezés</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Delayed Start</masterLabel>
+            <translation>Késleltetett kezdés</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Due Date Approaching</masterLabel>
+            <translation>Közeledik a határidő</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No Response</masterLabel>
+            <translation>Nincs válasz</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- In Jeopardy --></label>
+        <name>FSL__InJeopardy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Internal SLR Geolocation --></label>
+        <name>FSL__InternalSLRGeolocation__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Fill In Candidate --></label>
+        <name>FSL__IsFillInCandidate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is MultiDay --></label>
+        <name>FSL__IsMultiDay__c</name>
+    </fields>
+    <fields>
+        <label><!-- Multiday Work Calculated length --></label>
+        <name>FSL__MDS_Calculated_length__c</name>
+    </fields>
+    <fields>
+        <label><!-- Multiday Work Operational Time --></label>
+        <name>FSL__MDT_Operational_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- Pinned --></label>
+        <name>FSL__Pinned__c</name>
+    </fields>
+    <fields>
+        <label><!-- Prevent Geocoding For Chatter Actions --></label>
+        <name>FSL__Prevent_Geocoding_For_Chatter_Actions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Related Service --></label>
+        <name>FSL__Related_Service__c</name>
+        <relationshipLabel><!-- Service Appointments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Same Day --></label>
+        <name>FSL__Same_Day__c</name>
+    </fields>
+    <fields>
+        <label><!-- Same Resource --></label>
+        <name>FSL__Same_Resource__c</name>
+    </fields>
+    <fields>
+        <label><!-- Schedule Mode --></label>
+        <name>FSL__Schedule_Mode__c</name>
+        <picklistValues>
+            <masterLabel>Automatic</masterLabel>
+            <translation>Automatikus</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Manual</masterLabel>
+            <translation>Kézi</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>None</masterLabel>
+            <translation>Nincs</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Optimization</masterLabel>
+            <translation>Optimalizálás</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Schedule Over Lower Priority Appointment --></label>
+        <name>FSL__Schedule_over_lower_priority_appointment__c</name>
+    </fields>
+    <fields>
+        <label><!-- Scheduling Policy Used --></label>
+        <name>FSL__Scheduling_Policy_Used__c</name>
+        <relationshipLabel><!-- Service Appointments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Time Dependency --></label>
+        <name>FSL__Time_Dependency__c</name>
+        <picklistValues>
+            <masterLabel>Finish Before Start</masterLabel>
+            <translation>Befejezés a kezdés előtt</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Same Start</masterLabel>
+            <translation>Azonos kezdés</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Start After Finish</masterLabel>
+            <translation>Kezdés a befejezés után</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- UpdatedByOptimization --></label>
+        <name>FSL__UpdatedByOptimization__c</name>
+    </fields>
+    <fields>
+        <label><!-- Use Async Logic --></label>
+        <name>FSL__Use_Async_Logic__c</name>
+    </fields>
+    <fields>
+        <label><!-- Virtual Service For Chatter Action (SLR) --></label>
+        <name>FSL__Virtual_Service_For_Chatter_Action__c</name>
+    </fields>
+    <layouts>
+        <layout>Service Appointment Layout</layout>
+        <sections>
+            <label><!-- Address --></label>
+            <section>Address</section>
+        </sections>
+        <sections>
+            <label><!-- Dispatcher Console --></label>
+            <section>Dispatcher Console</section>
+        </sections>
+    </layouts>
+    <quickActions>
+        <label><!-- SendEmail --></label>
+        <name>SendEmail</name>
+    </quickActions>
+    <validationRules>
+        <errorMessage><!-- New service appointment cannot be created in scheduled or  dispatched statuses. --></errorMessage>
+        <name>FSL__Dont_allow_scheduled_or_dispatched</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Select a valid dependency type. If the appointments must be assigned to the same resource, the dependency type can’t be Same Start. --></errorMessage>
+        <name>FSL__Related_Service_with_time_dependency</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Resource dependency is invalid. Time Dependency can&apos;t be Same Start when same resource is required. --></errorMessage>
+        <name>FSL__Same_Resource_Same_Start</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Both scheduled start and end are required --></errorMessage>
+        <name>FSL__Schedule_End_Required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Both scheduled start and end are required --></errorMessage>
+        <name>FSL__Schedule_Start_Required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Gantt color must be in hexadecimal format: (for example: #ffffff) --></errorMessage>
+        <name>FSL__Service_Color_HEX_Format</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please select Related Service. --></errorMessage>
+        <name>FSL__Time_dependency_with_related_service</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- DueDate field is required --></errorMessage>
+        <name>FSL__isDueDateExist</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Duration field is required --></errorMessage>
+        <name>FSL__isDurationExist</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- EarliestStartTime field is required --></errorMessage>
+        <name>FSL__isEarliestStartTimeExist</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The Scheduled Start must be earlier than the Scheduled End. --></errorMessage>
+        <name>FSL__startTimeShouldPrecedeEndTime</name>
+    </validationRules>
+</CustomObjectTranslation>

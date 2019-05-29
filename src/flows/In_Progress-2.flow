@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <decisions>
+        <name>Check_Service_Appointment_is_Dispatched</name>
+        <label>Check Service Appointment is Dispatched</label>
+        <locationX>194</locationX>
+        <locationY>224</locationY>
+        <defaultConnector>
+            <targetReference>Not_Dispatched</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Dispatched</defaultConnectorLabel>
+        <rules>
+            <name>Is_Dispatched</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>ServiceAppointmentStatus</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Dispatched</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Start_Service_Appointment</targetReference>
+            </connector>
+            <label>Is Dispatched</label>
+        </rules>
+    </decisions>
+    <formulas>
+        <name>Now</name>
+        <dataType>DateTime</dataType>
+        <expression>NOW()</expression>
+    </formulas>
+    <interviewLabel>In Progress {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>In Progress</label>
+    <processType>FieldServiceMobile</processType>
+    <recordLookups>
+        <name>Lookup_Service_Appointment</name>
+        <label>Lookup Service Appointment</label>
+        <locationX>196</locationX>
+        <locationY>96</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_Service_Appointment_is_Dispatched</targetReference>
+        </connector>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Id</elementReference>
+            </value>
+        </filters>
+        <object>ServiceAppointment</object>
+        <outputAssignments>
+            <assignToReference>ServiceAppointmentStatus</assignToReference>
+            <field>Status</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordUpdates>
+        <name>Start_Service_Appointment</name>
+        <label>Start Service Appointment</label>
+        <locationX>193</locationX>
+        <locationY>363</locationY>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>ActualStartTime</field>
+            <value>
+                <elementReference>Now</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>In Progress</stringValue>
+            </value>
+        </inputAssignments>
+        <object>ServiceAppointment</object>
+    </recordUpdates>
+    <screens>
+        <name>Not_Dispatched</name>
+        <label>Not Dispatched</label>
+        <locationX>432</locationX>
+        <locationY>224</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>NotDispatchedDisplay</name>
+            <fieldText>The Service Appointment has a Status of {!ServiceAppointmentStatus}.
+
+Service Appointments must have a Status of Dispatched before they can be marked as In Progress</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+    </screens>
+    <startElementReference>Lookup_Service_Appointment</startElementReference>
+    <variables>
+        <name>Id</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>ServiceAppointmentStatus</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

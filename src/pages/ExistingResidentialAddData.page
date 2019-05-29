@@ -1,0 +1,8 @@
+<apex:page wizard="true" docType="html-5.0">
+    <apex:sectionHeader title="Residential Customer - Add Data"/>
+    <apex:pageBlock title="Messages">
+        <apex:pageMessages id="mesages" /><br/>
+    </apex:pageBlock>    
+    <apex:pageBlock title="Customer">
+    </apex:pageBlock>
+</apex:page>

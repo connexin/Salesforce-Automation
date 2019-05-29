@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Ledger Item</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Ledger Items</value>
+    </caseValues>
+    <fields>
+        <help><!-- Credit/Debit Amount --></help>
+        <label><!-- Amount --></label>
+        <name>Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Date --></label>
+        <name>Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Draft --></label>
+        <name>Draft__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fiscal Document --></label>
+        <name>Fiscal_Document__c</name>
+        <relationshipLabel><!-- Ledger Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Payment --></label>
+        <name>Payment__c</name>
+        <relationshipLabel><!-- Ledger Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Reconciled --></label>
+        <name>Reconciled__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reconciliation --></label>
+        <name>Reconciliation__c</name>
+        <relationshipLabel><!-- Ledger Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Refund --></label>
+        <name>Refund__c</name>
+        <relationshipLabel><!-- Ledger Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Signed_Amount --></label>
+        <name>Signed_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+    </fields>
+    <layouts>
+        <layout>Ledger_Item Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Credit --></label>
+        <name>credit</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Debit --></label>
+        <name>debit</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Parent Record cannot be Null --></errorMessage>
+        <name>Check_Parent_Record_is_Not_Null</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Ledger Item cannot have more than 1 parent --></errorMessage>
+        <name>Check_Single_Parent</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Reconciliation cannot be changed if Reconciliation is Reconciled --></errorMessage>
+        <name>Prevent_Change_Reconciliation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Ledger Item must not be Draft before it can be assigned to a Reconciliation --></errorMessage>
+        <name>Prevent_Reconciliation_If_Draft</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Ledger Item cannot be Reparented --></errorMessage>
+        <name>Prevent_Reparenting</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Ledger Item cannot be reverted to Draft Status --></errorMessage>
+        <name>Prevent_Reverse_Validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Record Type cannot be changed on a Ledger Item that is not in Draft --></errorMessage>
+        <name>Protect_Non_Draft_Record_Type</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Amount cannot be equal to 0 --></errorMessage>
+        <name>Validate_Amount</name>
+    </validationRules>
+</CustomObjectTranslation>

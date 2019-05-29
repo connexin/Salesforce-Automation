@@ -1,0 +1,13 @@
+Hi {!Case.OwnerFullName},<br />
+<br />
+The following case has been created<br />
+<br />
+Company: {!Account.Name} <br />
+Contact Name: {!Contact.Name} <br />
+Case #: {!Case.CaseNumber} <br />
+Subject: {!Case.Subject} <br />
+Description: {!Case.Description} <br />
+<br />
+Click on the link to access the case: {!Case.Link}<br />
+<br />
+{!Case.Thread_Id}

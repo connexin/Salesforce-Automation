@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>ManagementIPPortAssignmentEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>ManagementIPPortAssignmentEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>ManagementIPPortAssignmentView</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>Default</compactLayoutAssignment>
+    <compactLayouts>
+        <fullName>Default</fullName>
+        <fields>Name__c</fields>
+        <label>Default</label>
+    </compactLayouts>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Auto_Negotiate__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Auto Negotiate</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Auto_Set_PoE__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Auto Set PoE</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Connected_Device_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (Connected_Device__c == null, &apos;&apos;, Connected_Device__r.Management_IP__r.Site__r.Name + &quot; &quot; + Connected_Device__r.Management_IP__r.Hostname__c + &quot; - Port &quot; +  Connected_Device__r.Management_Device_Type_Port__r.Name + IF(Connected_Device__r.Description__c != &quot;&quot;, &quot; (&quot; + Connected_Device__r.Description__c + &quot;)&quot;, &quot;&quot;))</formula>
+        <label>Connected Device</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Connected_Device__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Connected Device</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>$Source.Management_IP__c</field>
+                <operation>notEqual</operation>
+                <valueField>Management_IP_Port_Assignment__c.Management_IP__c</valueField>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Management_IP_Port_Assignment__c</referenceTo>
+        <relationshipLabel>Management IP Port Assignments</relationshipLabel>
+        <relationshipName>Connected_Device</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Management_Device_Type_Port__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Management Device Type Port</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>$Source.Management_Device_Type__c</field>
+                <operation>equals</operation>
+                <valueField>Management_Device_Type_Port__c.Management_Device_Type__c</valueField>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Management_Device_Type_Port__c</referenceTo>
+        <relationshipLabel>Management IP Port Assignments</relationshipLabel>
+        <relationshipName>Management_IP_Port_Assignments</relationshipName>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Management_Device_Type__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Management Device Type</label>
+        <referenceTo>Management_Device_Type__c</referenceTo>
+        <relationshipLabel>Management IP Port Assignments</relationshipLabel>
+        <relationshipName>Management_IP_Port_Assignments</relationshipName>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Management_IP__c</fullName>
+        <externalId>false</externalId>
+        <label>Management IP</label>
+        <referenceTo>Management_IP__c</referenceTo>
+        <relationshipLabel>Management IP Port Assignments</relationshipLabel>
+        <relationshipName>Management_IP_Port_Assignments</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Management_IP__r.Site__r.Name + &quot; &quot; + Management_IP__r.Hostname__c + &quot; - Port &quot; +  Management_Device_Type_Port__r.Name + IF(Description__c != &quot;&quot;, &quot; (&quot; + Description__c + &quot;)&quot;, &quot;&quot;)</formula>
+        <label>Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PoE_Input__c</fullName>
+        <externalId>false</externalId>
+        <label>PoE Input</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>PoE</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>PoE_Output__c</fullName>
+        <externalId>false</externalId>
+        <label>PoE Output</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>PoE</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Port_Speed__c</fullName>
+        <externalId>false</externalId>
+        <label>Port Speed</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>Port_Speed</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Skip_Update_Remote__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Skip Update Remote</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Management IP Port Assignment</label>
+    <nameField>
+        <displayFormat>{0000}</displayFormat>
+        <label>ID</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Management IP Port Assignments</pluralLabel>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Name__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Name__c</lookupPhoneDialogsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Validate_Auto_Negotiation</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Management_Device_Type_Port__r.Auto_Negotiation_Support__c = false,  Auto_Negotiate__c = true)</errorConditionFormula>
+        <errorDisplayField>Auto_Negotiate__c</errorDisplayField>
+        <errorMessage>Auto Negotiation is not supported by this Management Device Type Port</errorMessage>
+    </validationRules>
+</CustomObject>

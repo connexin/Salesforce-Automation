@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Payment</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Payments</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account --></label>
+        <name>Account__c</name>
+        <relationshipLabel><!-- Payments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Actual Date --></label>
+        <name>Actual_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Amount Allocated --></label>
+        <name>Amount_Allocated__c</name>
+    </fields>
+    <fields>
+        <label><!-- Amount Refunded --></label>
+        <name>Amount_Refunded__c</name>
+    </fields>
+    <fields>
+        <label><!-- Amount --></label>
+        <name>Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Charge Date --></label>
+        <name>Charge_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Confirmed Date --></label>
+        <name>Confirmed_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Confirmed --></label>
+        <name>Confirmed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Date --></label>
+        <name>Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Draft --></label>
+        <name>Draft__c</name>
+    </fields>
+    <fields>
+        <label><!-- Failed --></label>
+        <name>Failed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payout Date --></label>
+        <name>Payout_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reference --></label>
+        <name>Reference__c</name>
+    </fields>
+    <fields>
+        <label><!-- Source --></label>
+        <name>Source__c</name>
+        <picklistValues>
+            <masterLabel>Credit/Debit Card</masterLabel>
+            <translation><!-- Credit/Debit Card --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Direct Debit</masterLabel>
+            <translation><!-- Direct Debit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Manual</masterLabel>
+            <translation><!-- Manual --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+    </fields>
+    <layouts>
+        <layout>Payment Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Amount Allocated cannot be less than 0 --></errorMessage>
+        <name>Amount_Allocated_Less_Zero</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Amount Allocated cannot be greater than Payment Amount --></errorMessage>
+        <name>Amount_Allocated_More_Amount</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Amount cannot be negative --></errorMessage>
+        <name>Amount_Is_Positive</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- A payment cannot be Confirmed whistl it is in Draft --></errorMessage>
+        <name>Prevent_Draft_Confirmed</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Payment cannot be reverted to Draft Status once it has been validated --></errorMessage>
+        <name>Prevent_Reverse_Validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Payment must be Draft if amount is 0 --></errorMessage>
+        <name>Prevent_Zero_Total</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Account cannot be changed on a Payment what is not in Draft --></errorMessage>
+        <name>Protect_Non_Draft_Account</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Amount cannot be changed on a Payment that is not in Draft --></errorMessage>
+        <name>Protect_Non_Draft_Amount</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- A payment cannot be un-confirmed --></errorMessage>
+        <name>Protect_Non_Draft_Confirmed</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Date cannot be changed on a Payment that is not in Draft --></errorMessage>
+        <name>Protect_Non_Draft_Date</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Reference cannot be changed on a Payment that is not in Draft --></errorMessage>
+        <name>Protect_Non_Draft_Reference</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Source cannot be changed on a Payment that is not Draft --></errorMessage>
+        <name>Protect_Non_Draft_Source</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Payment Date cannot be in the past --></errorMessage>
+        <name>Validate_Date</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Take_Payment --></label>
+        <name>Take_Payment</name>
+    </webLinks>
+</CustomObjectTranslation>

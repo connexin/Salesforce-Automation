@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Auto Response</name>
+    <style>none</style>
+    <subject>Your Connexin Accounts Case - {!Case.Solution_Subject} [ {!Case.Thread_Id} ]</subject>
+    <textOnly>Hi,
+
+Thank you for your email. We&apos;ve created an accounts case with unique reference number {!Case.CaseNumber} for you and a member of our team will be in touch shortly to assist.
+
+In the meantime if there&apos;s anything else you&apos;d like us to know you can reply to this email. Your case details are displayed below for your reference.
+
+Your Case Description:
+{!Case.Description}
+
+Thank you,
+
+Connexin Accounts Team
+01482 36 37 38</textOnly>
+    <type>custom</type>
+</EmailTemplate>

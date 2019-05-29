@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Connection Settings for ThingPark REST API</description>
+    <fields>
+        <fullName>API_Version__c</fullName>
+        <defaultValue>&apos;latest/api&apos;</defaultValue>
+        <description>API Version number for Actility.</description>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>API Version</label>
+        <length>32</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Actility_Offer_ID__c</fullName>
+        <description>The identifier for the default offer for actility</description>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <inlineHelpText>Tenancy needs to be assigned 1 x connexin-vdr/tpw-starter-kit and 1 x connexin-vdr/connexin-wireless-license for each device</inlineHelpText>
+        <label>Actility Offer</label>
+        <length>60</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Client_ID__c</fullName>
+        <defaultValue>&apos;connexin-api/salesforce-actility-api@connexin.co.uk&apos;</defaultValue>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Client ID</label>
+        <length>60</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Client_Password__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Client Password</label>
+        <length>32</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Client_Secret__c</fullName>
+        <defaultValue>&apos;373C2US9JU131Pw&apos;</defaultValue>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Client Secret</label>
+        <length>32</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Endpoint__c</fullName>
+        <defaultValue>&apos;https://dx-api.thingpark.com&apos;</defaultValue>
+        <description>The Endpoint base URL.</description>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Endpoint</label>
+        <required>true</required>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Order_JSON__c</fullName>
+        <description>JSON Template for Actility Order</description>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Order JSON</label>
+        <length>32768</length>
+        <type>LongTextArea</type>
+        <visibleLines>16</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Subscriber_JSON__c</fullName>
+        <description>JSON Template for Actility Subscriber</description>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Subscriber JSON</label>
+        <length>32768</length>
+        <type>LongTextArea</type>
+        <visibleLines>16</visibleLines>
+    </fields>
+    <label>ThingPark REST Configuration</label>
+    <pluralLabel>ThingPark REST Configurations</pluralLabel>
+    <visibility>Protected</visibility>
+</CustomObject>

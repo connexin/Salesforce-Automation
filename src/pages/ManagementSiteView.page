@@ -1,0 +1,96 @@
+<apex:page standardController="Management_Site__c" >
+    
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" />
+    
+    <apex:sectionHeader title="Management Site" subtitle="{! Management_Site__c.Name }" help=""/>
+    
+    <apex:form >
+        <apex:pageBlock title="Management Site Details" mode="maindetail">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Edit" action="{! edit }"/>
+                <apex:commandButton value="Delete" action="{! delete }"/>
+            </apex:pageBlockButtons>
+            <apex:pageMessages />
+            
+            <apex:pageBlockSection >
+                <apex:outputField value="{! Management_Site__c.Name }" />
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Parent Site" for="ParentSite"/>
+                    <apex:actionRegion >
+                        <apex:outputField id="ParentSite" value="{! Management_Site__c.Parent_Site__c }" />
+                    </apex:actionRegion>
+                </apex:pageBlockSectionItem>
+                <apex:outputField value="{! Management_Site__c.Domain__c }" />
+                <apex:outputField value="{! Management_Site__c.Active__c}" />
+                <apex:outputField value="{! Management_Site__c.PTMP_Site__c }" />
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Network">
+                <apex:outputField value="{! Management_Site__c.Parent_Subnet__c }" />
+                <apex:outputField value="{! Management_Site__c.Parent_VLAN__c }" />
+                <apex:outputField value="{! Management_Site__c.Parent_Default_Gateway__c }" />
+                <apex:outputField value="{! Management_Site__c.Parent_PPPoE_VLAN__c }" />
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Location" >
+                <apex:outputField value="{! Management_Site__c.Latitude__c }" />
+                <apex:outputField value="{! Management_Site__c.Longitude__c }" />
+                <apex:outputField value="{! Management_Site__c.Elevation__c }" />
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="PTMP" rendered="{! Management_Site__c.PTMP_Site__c == true }" >
+                <apex:outputField value="{! Management_Site__c.Range__c}" />
+                <apex:outputField value="{! Management_Site__c.Unlimited__c }" />
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Limit" />
+                    <apex:outputText value="{! IF(Management_Site__c.Unlimited__c == false, Management_Site__c.Limit__c, 'Unlimited') }" />
+                </apex:pageBlockSectionItem>
+                <apex:outputField value="{! Management_Site__c.Public_Comment__c}" />
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Other">
+                <apex:outputField value="{! Management_Site__c.Contact__c }" />
+                <apex:outputField value="{! Management_Site__c.Comment__c }" />
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:form>
+    
+    <apex:relatedList list="Child_Sites__r" title="Child Sites" />
+    
+    <apex:relatedList list="Management_IPs__r" />
+    
+    <apex:relatedList list="CombinedAttachments" />
+    
+    <script type="text/javascript">
+    $j = jQuery.noConflict();
+    
+    $j(document).ready(function(){
+        $j("input[name=newNote]").hide();
+        $j("input[name=viewAll]").hide();
+        
+        $j.each($j(".pbTitle"), function() {
+            if ($j($j(this).find("h3")[0]).text() == "Notes & Attachments") {
+                $j($j(this).find("h3")[0]).text("Attachments");
+            }
+        });
+    });
+    
+    </script>
+    
+    <apex:includeScript value="/support/console/20.0/integration.js"/>
+    <script type="text/javascript">
+        function testSetTabTitle() {
+            //Set the current tab's title
+            sforce.console.setTabTitle('Management Site: {! Management_Site__c.Name }');
+        }
+        var pageLoad = window.onload;
+        window.onload = function() {
+            if (pageLoad) {
+                pageLoad();
+            }
+            testSetTabTitle();
+        }
+        </script>
+    
+</apex:page>

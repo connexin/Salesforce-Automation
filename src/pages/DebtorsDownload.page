@@ -1,0 +1,7 @@
+<apex:page controller="DebtorsController" sidebar="false" action="{! sortedDebtors}" contenttype="text/plain/#debtors_{!invoiceCutoffDate}.csv" cache="false" readOnly="true">
+    <apex:outputText >AccountType,AccountId,AccountName,InvoiceAmount,CreditnoteAmount,PaymentAmount,RefundAmount,BalanceAmount,DebtorFlag</apex:outputText>
+    <apex:repeat value="{! sortedDebtors}" var="debtor">
+        {!debtor.customerType},{!debtor.accountId},{!debtor.accountName},{!debtor.invoiceAmount},{!debtor.creditnoteAmount},{!debtor.paymentAmount},{!debtor.refundAmount},{!debtor.balanceAmount},{!debtor.debtor}
+    </apex:repeat>
+    <apex:includeScript value="/support/console/20.0/integration.js"/>
+</apex:page>

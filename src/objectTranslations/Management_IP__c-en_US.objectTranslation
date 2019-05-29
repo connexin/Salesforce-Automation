@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Management IP</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Management IPs</value>
+    </caseValues>
+    <fields>
+        <label><!-- Active --></label>
+        <name>Active__c</name>
+    </fields>
+    <fields>
+        <label><!-- Azimuth --></label>
+        <name>Azimuth__c</name>
+    </fields>
+    <fields>
+        <label><!-- Clone --></label>
+        <name>Clone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Comment --></label>
+        <name>Comment__c</name>
+    </fields>
+    <fields>
+        <label><!-- Default Gateway --></label>
+        <name>Default_Gateway__c</name>
+    </fields>
+    <fields>
+        <label><!-- Management Device Type --></label>
+        <name>Device__c</name>
+        <relationshipLabel><!-- Management IPs --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Domain --></label>
+        <name>Domain__c</name>
+    </fields>
+    <fields>
+        <label><!-- Elevation --></label>
+        <name>Elevation__c</name>
+    </fields>
+    <fields>
+        <label><!-- Hostname --></label>
+        <name>Hostname__c</name>
+    </fields>
+    <fields>
+        <help><!-- Allows Customer Services to access the Managment IP from their VPNs --></help>
+        <label><!-- Customer Service Access --></label>
+        <name>Limited_VPN_Access__c</name>
+    </fields>
+    <fields>
+        <label><!-- MAC Address --></label>
+        <name>MAC_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Management IP Port Assignment Count --></label>
+        <name>Management_IP_Port_Assignment_Count__c</name>
+    </fields>
+    <fields>
+        <help><!-- The PPPoE Per Sector C-Tag VLAN --></help>
+        <label><!-- PPPoE VLAN --></label>
+        <name>PPPoE_VLAN__c</name>
+    </fields>
+    <fields>
+        <label><!-- PTP --></label>
+        <name>PTP__c</name>
+    </fields>
+    <fields>
+        <label><!-- Remote Device --></label>
+        <lookupFilter>
+            <errorMessage><!-- Device Type must match Remote Device Type --></errorMessage>
+        </lookupFilter>
+        <name>Remote_Device__c</name>
+        <relationshipLabel><!-- Management IPs --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- SSID --></label>
+        <name>SSID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sector SSID --></label>
+        <name>Sector_SSID__c</name>
+        <picklistValues>
+            <masterLabel>Auto</masterLabel>
+            <translation><!-- Auto --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Hide</masterLabel>
+            <translation><!-- Hide --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Show</masterLabel>
+            <translation><!-- Show --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Sector --></label>
+        <name>Sector__c</name>
+    </fields>
+    <fields>
+        <label><!-- Channel Bandwidth --></label>
+        <name>Siklu_Channel_Bandwidth__c</name>
+        <picklistValues>
+            <masterLabel>125</masterLabel>
+            <translation><!-- 125 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>250</masterLabel>
+            <translation><!-- 250 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>500</masterLabel>
+            <translation><!-- 500 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Mode --></label>
+        <name>Siklu_Mode__c</name>
+        <picklistValues>
+            <masterLabel>Master</masterLabel>
+            <translation><!-- Master --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Slave</masterLabel>
+            <translation><!-- Slave --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Siklu PTP --></label>
+        <name>Siklu_PTP__c</name>
+    </fields>
+    <fields>
+        <label><!-- Rx Link Id --></label>
+        <name>Siklu_Rx_Link_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tx Frequency --></label>
+        <name>Siklu_Tx_Frequency__c</name>
+        <picklistValues>
+            <masterLabel>71875</masterLabel>
+            <translation><!-- 71875 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>71937.5</masterLabel>
+            <translation><!-- 71937.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>72000</masterLabel>
+            <translation><!-- 72000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>72062.5</masterLabel>
+            <translation><!-- 72062.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>72187.5</masterLabel>
+            <translation><!-- 72187.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>72250</masterLabel>
+            <translation><!-- 72250 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>72312.5</masterLabel>
+            <translation><!-- 72312.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>72375</masterLabel>
+            <translation><!-- 72375 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>72437.5</masterLabel>
+            <translation><!-- 72437.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>72500</masterLabel>
+            <translation><!-- 72500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>72562.5</masterLabel>
+            <translation><!-- 72562.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>72687.5</masterLabel>
+            <translation><!-- 72687.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>72750</masterLabel>
+            <translation><!-- 72750 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>72812.5</masterLabel>
+            <translation><!-- 72812.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>72875</masterLabel>
+            <translation><!-- 72875 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>72937.5</masterLabel>
+            <translation><!-- 72937.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>73000</masterLabel>
+            <translation><!-- 73000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>73062.5</masterLabel>
+            <translation><!-- 73062.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>73187.5</masterLabel>
+            <translation><!-- 73187.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>73250</masterLabel>
+            <translation><!-- 73250 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>73312.5</masterLabel>
+            <translation><!-- 73312.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>73375</masterLabel>
+            <translation><!-- 73375 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>73437.5</masterLabel>
+            <translation><!-- 73437.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>73500</masterLabel>
+            <translation><!-- 73500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>73562.5</masterLabel>
+            <translation><!-- 73562.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>73687.5</masterLabel>
+            <translation><!-- 73687.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>73750</masterLabel>
+            <translation><!-- 73750 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>73812.5</masterLabel>
+            <translation><!-- 73812.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>73875</masterLabel>
+            <translation><!-- 73875 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>73937.5</masterLabel>
+            <translation><!-- 73937.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>74000</masterLabel>
+            <translation><!-- 74000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>74062.5</masterLabel>
+            <translation><!-- 74062.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>74187.5</masterLabel>
+            <translation><!-- 74187.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>74250</masterLabel>
+            <translation><!-- 74250 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>74312.5</masterLabel>
+            <translation><!-- 74312.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>74375</masterLabel>
+            <translation><!-- 74375 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>74437.5</masterLabel>
+            <translation><!-- 74437.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>74500</masterLabel>
+            <translation><!-- 74500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>74562.5</masterLabel>
+            <translation><!-- 74562.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>74687.5</masterLabel>
+            <translation><!-- 74687.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>74750</masterLabel>
+            <translation><!-- 74750 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>74812.5</masterLabel>
+            <translation><!-- 74812.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>74875</masterLabel>
+            <translation><!-- 74875 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>74937.5</masterLabel>
+            <translation><!-- 74937.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>75000</masterLabel>
+            <translation><!-- 75000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>75062.5</masterLabel>
+            <translation><!-- 75062.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>75187.5</masterLabel>
+            <translation><!-- 75187.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>75250</masterLabel>
+            <translation><!-- 75250 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>75312.5</masterLabel>
+            <translation><!-- 75312.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>75375</masterLabel>
+            <translation><!-- 75375 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>75437.5</masterLabel>
+            <translation><!-- 75437.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>75500</masterLabel>
+            <translation><!-- 75500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>75562.5</masterLabel>
+            <translation><!-- 75562.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>75687.5</masterLabel>
+            <translation><!-- 75687.5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>75750</masterLabel>
+            <translation><!-- 75750 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Tx Link Id --></label>
+        <name>Siklu_Tx_Link_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Management Site --></label>
+        <name>Site__c</name>
+        <relationshipLabel><!-- Management IPs --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Concat Subnet PPPoE VLAN --></label>
+        <name>Subnet_PPPoE_VLAN__c</name>
+    </fields>
+    <fields>
+        <label><!-- Concat Subnet Rx Link Id --></label>
+        <name>Subnet_Siklu_Rx_Link_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Concat Subnet Tx Link Id --></label>
+        <name>Subnet_Siklu_Tx_Link_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Subnet --></label>
+        <name>Subnet__c</name>
+    </fields>
+    <fields>
+        <label><!-- VLAN --></label>
+        <name>VLAN__c</name>
+    </fields>
+    <layouts>
+        <layout>Management IP Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Sector Info --></label>
+            <section>Sector Info</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Cannot change Management Device Type with Assigned Ports --></errorMessage>
+        <name>Prevent_Change_Device_Type_with_Ports</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Rx Link Id must be between 0 and 127 --></errorMessage>
+        <name>Rx_Link_Id_Range</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Tx Link Id must be between 0 and 127 --></errorMessage>
+        <name>Tx_Link_Id_Range</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Invalid MAC Address --></errorMessage>
+        <name>Valid_MAC_Address</name>
+    </validationRules>
+</CustomObjectTranslation>

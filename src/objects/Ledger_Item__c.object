@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>LedgerItemView</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>LedgerItemView</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Holds credit and debit entries for Fiscal documents and Payments.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Amount__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Credit/Debit Amount</inlineHelpText>
+        <label>Amount</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(
+  NOT(ISNULL(Fiscal_Document__r.Date__c)),
+  Fiscal_Document__r.Date__c,
+  IF(
+    NOT(ISNULL(Payment__r.Date__c)),
+    Payment__r.Date__c,
+    IF(
+      NOT(ISNULL(Refund__r.Date__c)),
+      Refund__r.Date__c,
+      null
+    )
+  )
+)</formula>
+        <label>Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Draft__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Draft</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Fiscal_Document__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Fiscal Document</label>
+        <referenceTo>Fiscal_Document__c</referenceTo>
+        <relationshipLabel>Ledger Items</relationshipLabel>
+        <relationshipName>Ledger_Items</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Payment__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Payment</label>
+        <referenceTo>Payment__c</referenceTo>
+        <relationshipLabel>Ledger Items</relationshipLabel>
+        <relationshipName>Ledger_Items</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Reconciled__c</fullName>
+        <externalId>false</externalId>
+        <formula>Reconciliation__r.Reconciled__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reconciled</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Reconciliation__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Reconciliation</label>
+        <referenceTo>Reconciliation__c</referenceTo>
+        <relationshipLabel>Ledger Items</relationshipLabel>
+        <relationshipName>Ledger_Items</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Refund__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Refund</label>
+        <referenceTo>Refund__c</referenceTo>
+        <relationshipLabel>Ledger Items</relationshipLabel>
+        <relationshipName>Ledger_Items</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Signed_Amount__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( RecordType.DeveloperName == &apos;credit&apos;, Amount__c, -1 * Amount__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Signed_Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Draft__c == True, &apos;Draft&apos;, IF(Reconciled__c == True, &apos;Allocated&apos;, &apos;Unallocated&apos;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Ledger Item</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Signed_Amount__c</columns>
+        <columns>Fiscal_Document__c</columns>
+        <columns>Payment__c</columns>
+        <columns>Refund__c</columns>
+        <columns>Reconciliation__c</columns>
+        <columns>Reconciled__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>LI-{0000}</displayFormat>
+        <label>Item Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Ledger Items</pluralLabel>
+    <recordTypes>
+        <fullName>credit</fullName>
+        <active>true</active>
+        <label>Credit</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>debit</fullName>
+        <active>true</active>
+        <label>Debit</label>
+    </recordTypes>
+    <searchLayouts>
+        <excludedStandardButtons>New</excludedStandardButtons>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Check_Parent_Record_is_Not_Null</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(IF(RecordType.DeveloperName = &quot;credit&quot;, AND( OR(ISNULL(Fiscal_Document__c),  Fiscal_Document__r.RecordType.DeveloperName != &quot;credit_note&quot;), ISNULL(Payment__c)), IF(RecordType.DeveloperName = &quot;debit&quot;, AND( OR(ISNULL(Fiscal_Document__c), Fiscal_Document__r.RecordType.DeveloperName != &quot;sales_invoice&quot;), ISNULL(Refund__c)), false)),  Draft__c == false)</errorConditionFormula>
+        <errorMessage>Parent Record cannot be Null</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Check_Single_Parent</fullName>
+        <active>true</active>
+        <errorConditionFormula>OR(AND(NOT(ISNULL(Fiscal_Document__c)), NOT(ISNULL(Payment__c)), ISNULL(Refund__c)), AND(NOT(ISNULL(Fiscal_Document__c)), NOT(ISNULL(Refund__c)), ISNULL(Payment__c)), AND(NOT(ISNULL(Payment__c)), NOT(ISNULL(Refund__c)), ISNULL(Fiscal_Document__c)))</errorConditionFormula>
+        <errorMessage>Ledger Item cannot have more than 1 parent</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prevent_Change_Reconciliation</fullName>
+        <active>false</active>
+        <errorConditionFormula>AND(ISCHANGED(Reconciliation__c), PRIORVALUE( Reconciled__c ) == True)</errorConditionFormula>
+        <errorDisplayField>Reconciliation__c</errorDisplayField>
+        <errorMessage>Reconciliation cannot be changed if Reconciliation is Reconciled</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prevent_Reconciliation_If_Draft</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Draft__c == True, NOT(ISBLANK(Reconciliation__c)))</errorConditionFormula>
+        <errorDisplayField>Reconciliation__c</errorDisplayField>
+        <errorMessage>Ledger Item must not be Draft before it can be assigned to a Reconciliation</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prevent_Reparenting</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(AND(OR(ISCHANGED( Fiscal_Document__c ), ISCHANGED( Payment__c), ISCHANGED( Refund__c)), NOT(ISNEW())), Draft__c == false)</errorConditionFormula>
+        <errorMessage>Ledger Item cannot be Reparented</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prevent_Reverse_Validation</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Draft__c == True, NOT(ISNEW()), ISCHANGED(Draft__c), Amount__c &gt; 0.00)</errorConditionFormula>
+        <errorDisplayField>Draft__c</errorDisplayField>
+        <errorMessage>Ledger Item cannot be reverted to Draft Status</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Protect_Non_Draft_Record_Type</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(ISCHANGED(RecordTypeId), Draft__c == False, NOT(ISNEW()))</errorConditionFormula>
+        <errorMessage>Record Type cannot be changed on a Ledger Item that is not in Draft</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Validate_Amount</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Amount__c = 0, Draft__c == false)</errorConditionFormula>
+        <errorDisplayField>Amount__c</errorDisplayField>
+        <errorMessage>Amount cannot be equal to 0</errorMessage>
+    </validationRules>
+</CustomObject>

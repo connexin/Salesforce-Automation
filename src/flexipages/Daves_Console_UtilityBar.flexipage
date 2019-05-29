@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <flexiPageRegions>
+        <componentInstances>
+            <componentName>runtime_rtc_spark:recentConversation</componentName>
+        </componentInstances>
+        <name>utilityItems</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <masterLabel>Daves Console UtilityBar</masterLabel>
+    <pageTemplate>one:utilityBarTemplateDesktop</pageTemplate>
+    <type>UtilityBar</type>
+</FlexiPage>

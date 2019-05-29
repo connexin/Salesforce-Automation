@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Virgin Media Fibre Break</name>
+    <style>none</style>
+    <subject>RE: Case</subject>
+    <textOnly>Hi {!Contact.FirstName},
+
+Thanks for your email,
+
+Apologies for the delay in coming back to you
+
+We experienced some issues when one of our main fibre&apos;s into Hull was broken at a Road Works site near Scunthorpe last Thursday
+
+Could I ask that you check your connection now and let me know if it&apos;s working now?
+
+Kind Regards,
+
+{!User.FirstName}
+Connexin Support Team
+01482 36 37 38</textOnly>
+    <type>custom</type>
+</EmailTemplate>

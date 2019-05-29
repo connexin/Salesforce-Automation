@@ -1,0 +1,49 @@
+<apex:page id="ResidentialCustomerDetails" controller="ResidentialBroadbandController" wizard="true" docType="html-5.0">
+    <apex:sectionHeader title="Residential Details"/>
+    <apex:form id="ResidentialDetails" forceSSL="true">
+        <apex:pageBlock title="Broadband Service">
+            <apex:pageMessages id="mesages"/>
+            <apex:pageBlockSection title="Residential Postcode" columns="1" collapsible="false">
+                <apex:inputText id="consumerPostcode"
+                                label="Postcode"
+                                value="{!consumerPostcode}"
+                                disabled="true"
+                                size="12" maxlength="8" />
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Consumer Details" columns="1" collapsible="false">
+                <apex:InputText id="name" label="name" value="{!consumerName}" />
+                <apex:inputTextarea id="address" label="address" value="{!consumerAddress}" />
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Credit Check" collapsible="false">
+                <apex:actionStatus id="actionStatus">
+                    <apex:facet name="start">
+                        <apex:outputPanel >
+                            <apex:image value="{!$Resource.Scanning}" width="50" height="50" rendered="{!creditIsPending}" />
+                        </apex:outputPanel>
+                    </apex:facet>
+                    <apex:facet name="stop">
+                        <apex:outputPanel >
+                            <apex:commandLink action="{!checkCredit}" id="checkCreditLink" status="actionStatus" >
+                                <apex:image value="{!$Resource.Credit_Check_Icon}" width="50" height="50" rendered="{!creditIsPending}" />
+                            </apex:commandLink>
+                            <apex:image value="{!$Resource.Green_Tick_Icon}" width="50" height="50" rendered="{!creditIsPassed}" />
+                            <apex:image value="{!$Resource.Red_Cross_Icon}" width="50" height="50" rendered="{!creditIsFailed}" />
+                        </apex:outputPanel>
+                    </apex:facet>
+                </apex:actionStatus>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Service" collapsible="false">
+                <apex:inputText label="Package" value="{!consumerPackage}" list="{!packageList}" />
+                <apex:inputText label="Term" value="{!consumerTerm}" list="{!termList}" />
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Add On" collapsible="false">
+                <apex:inputCheckbox label="Static IP" value="{!staticIP}" selected="false" disabled="false"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Previous" action="{!step2}" />
+                <apex:commandButton value="Next" action="{!step4}" />
+                <apex:commandButton value="Cancel" action="{!cancel}" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>        
+    </apex:form>
+</apex:page>

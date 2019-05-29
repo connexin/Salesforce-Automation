@@ -1,0 +1,13 @@
+Hi,<br />
+<br />
+Thank you for your email. We've created an accounts case with unique reference number {!Case.CaseNumber} for you and a member of our team will be in touch shortly to assist.<br />
+<br />
+In the meantime if there's anything else you'd like us to know you can reply to this email. Your case details are displayed below for your reference.<br />
+<br />
+Your Case Description:<br />
+{!Case.Description}<br />
+<br />
+Thank you,<br />
+<br />
+Connexin Accounts Team<br />
+01482 36 37 38

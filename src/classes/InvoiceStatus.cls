@@ -1,0 +1,1 @@
+public enum InvoiceStatus { PENDING, SKIPPED, DRAFT, READY, FAILED }

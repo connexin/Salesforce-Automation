@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>wk@connexin.co.uk</contactEmail>
+    <label>Crons</label>
+    <oauthConfig>
+        <callbackUrl>https://www.connexin.co.uk</callbackUrl>
+        <consumerKey>3MVG9PerJEe9i8iICQ8qavfYTX45V.beb5cqQKqTAF6_zSk7EQZwXnc4ft8o8B5iLCgYIYcXk3071L6yj_FJ7</consumerKey>
+        <scopes>Api</scopes>
+    </oauthConfig>
+</ConnectedApp>

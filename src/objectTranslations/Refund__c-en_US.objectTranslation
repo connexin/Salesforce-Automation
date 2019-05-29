@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Refund</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Refunds</value>
+    </caseValues>
+    <fields>
+        <label><!-- Amount Allocated --></label>
+        <name>Amount_Allocated__c</name>
+    </fields>
+    <fields>
+        <label><!-- Amount --></label>
+        <name>Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Confirmed --></label>
+        <name>Confirmed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Refund Date --></label>
+        <name>Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Draft --></label>
+        <name>Draft__c</name>
+    </fields>
+    <fields>
+        <label><!-- Failed --></label>
+        <name>Failed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Failed --></label>
+        <name>Payment_Failed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment --></label>
+        <name>Payment__c</name>
+        <relationshipLabel><!-- Refunds --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Reference --></label>
+        <name>Reference__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Amount Allocated cannot be less than 0 --></errorMessage>
+        <name>Amount_Allocated_Less_Zero</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Amount Allocated cannot be greater than Refund Amount --></errorMessage>
+        <name>Amount_Allocated_More_Amount</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Amount cannot be changed once Refund has been Confirmed --></errorMessage>
+        <name>Protect_Non_Draft_Amount</name>
+    </validationRules>
+</CustomObjectTranslation>

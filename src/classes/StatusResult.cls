@@ -1,0 +1,1 @@
+global enum StatusResult { PENDING, PASSED, FAILED }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>ThingPark Invoice Configuration</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>ThingPark Invoices Configuration</value>
+    </caseValues>
+    <fields>
+        <label><!-- Devices line --></label>
+        <name>Devices_line__c</name>
+    </fields>
+    <fields>
+        <label><!-- Messages line --></label>
+        <name>Messages_line__c</name>
+    </fields>
+    <fields>
+        <label><!-- Overage line --></label>
+        <name>Overage_line__c</name>
+    </fields>
+    <fields>
+        <label><!-- Service line --></label>
+        <name>Services_line__c</name>
+    </fields>
+    <fields>
+        <label><!-- Version --></label>
+        <name>Version__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

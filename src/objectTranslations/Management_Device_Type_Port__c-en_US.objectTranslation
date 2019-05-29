@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Management Device Type Port</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Management Device Type Ports</value>
+    </caseValues>
+    <fields>
+        <label><!-- Auto Negotiation Support --></label>
+        <name>Auto_Negotiation_Support__c</name>
+    </fields>
+    <fields>
+        <label><!-- Management Device Type --></label>
+        <name>Management_Device_Type__c</name>
+        <relationshipLabel><!-- Management Device Type Ports --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- PoE Input --></label>
+        <name>PoE_Input__c</name>
+    </fields>
+    <fields>
+        <label><!-- PoE Output --></label>
+        <name>PoE_Output__c</name>
+    </fields>
+    <fields>
+        <label><!-- Port Speed --></label>
+        <name>Port_Speed__c</name>
+    </fields>
+    <layouts>
+        <layout>Management Device Type Port Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

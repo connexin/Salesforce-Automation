@@ -1,0 +1,93 @@
+<apex:page standardController="Payment__c" extensions="PaymentController" recordSetVar="payments">
+
+    <script src="https://js.stripe.com/v3/"></script>
+    
+    <apex:sectionHeader title="Take Payment" subtitle="New Payment" help=""/>
+    
+    <apex:form id="paymentForm">
+        <apex:pageBlock id="pgBlk" mode="edit" title="Payment Site Edit">
+            
+            <apex:pageMessages />
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton id="cardButton" value="Take Payment" onclick="cardDetailsChanged()" rerender="none" rendered="{! payment.Source__c == 'stripe' }" />
+                <apex:commandButton id="ddButton" value="Take Payment" action="{! takePayment }" rendered="{! payment.Source__c == 'go_cardless' }" />
+                <apex:commandButton value="Cancel" action="{! cancelPayment }"/>
+            </apex:pageBlockButtons>
+            
+            <apex:actionFunction name="takePayment" action="{! takePayment }" />
+            
+            <apex:pageBlockSection title="Payment Details">
+                <apex:inputField value="{! payment.Account__c }" rendered="{! NOT( locked) }" >
+                    <apex:actionSupport event="onchange" rerender="paymentForm" action="{! accountUpdated }"/>
+                </apex:inputField>
+                <apex:outputField value="{! payment.Account__c }" rendered="{! locked }" />
+                <apex:inputField value="{! payment.Amount__c }" rendered="{! NOT(locked) }" />
+                <apex:outputField value="{! payment.Amount__c }" rendered="{! locked }" />
+                <apex:inputField value="{! payment.Description__c }" rendered="{! NOT(locked) }" />
+                <apex:outputField value="{! payment.Description__c }" rendered="{! locked }" />
+                <apex:pageBlockSectionItem rendered="{! NOT(ISBLANK(payment.Account__c)) }">
+                    <apex:outputLabel >Source</apex:outputLabel>
+                    <apex:outputPanel id="source" styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                        <apex:selectList value="{! payment.Source__c }" required="true" multiselect="false" size="1" disabled="{! ISBLANK(payment.Account__c) }">
+                            <apex:selectOptions value="{! paymentGatewayList }" />
+                            <apex:actionSupport event="onchange" reRender="paymentForm" />
+                        </apex:selectList>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>       
+            
+            <apex:outputPanel id="cardDetails" layout="none">
+                <apex:pageBlockSection id="cardDetailsPgBlkSection" title="Credit/Debit Card Details" rendered="{! payment.Source__c == 'stripe' }" columns="1">
+                    <apex:inputText id="stripeToken" value="{! stripeToken }" html-hidden="true" />
+                    <div id="card"></div>
+                    <script type="text/javascript">
+                        var stripe = Stripe("{! StripePublicAPIKey }");
+                        var elements = stripe.elements();
+                        var card = elements.create('card');
+                        card.mount('#card');
+                        
+                        function cardDetailsChanged() {
+                            stripe.createToken(card).then(function(result) {
+                                if (result.error) {
+                                    // Inform the user if there was an error
+                                    //var errorElement = document.getElementById('card-errors');
+                                    //errorElement.textContent = result.error.message;
+                                } else {
+                                    // Send the token to your server
+                                    stripeTokenHandler(result.token);
+                                }
+                            });
+                        }
+                        
+                        function stripeTokenHandler(token) {
+                            // Insert the token ID into the form so it gets submitted to the server
+                            console.log(token);
+                            var hiddenInput = document.getElementById('{! $Component.paymentForm.pgBlk.cardDetailsPgBlkSection.stripeToken }');
+                            hiddenInput.setAttribute('value', token.id);
+                            takePayment();
+                        }
+                    </script>
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+            
+        </apex:pageBlock>
+    </apex:form>
+    
+    <apex:includeScript value="/support/console/20.0/integration.js"/>
+    <script type="text/javascript">
+        function testSetTabTitle() {
+            //Set the current tab's title
+            sforce.console.setTabTitle('Take Payment');
+        }
+        var pageLoad = window.onload;
+        window.onload = function() {
+            if (pageLoad) {
+                pageLoad();
+            }
+            testSetTabTitle();
+        }
+        </script>
+    
+</apex:page>

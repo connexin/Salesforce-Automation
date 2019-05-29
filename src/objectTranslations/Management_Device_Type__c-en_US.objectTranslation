@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Management Device Type</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Management Device Types</value>
+    </caseValues>
+    <fields>
+        <label><!-- PTP --></label>
+        <name>PTP__c</name>
+    </fields>
+    <fields>
+        <label><!-- Rancid Device Type --></label>
+        <name>Rancid_Device_Type__c</name>
+        <picklistValues>
+            <masterLabel>Brocade</masterLabel>
+            <translation><!-- Brocade --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cisco</masterLabel>
+            <translation><!-- Cisco --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ubiquiti EdgeMax</masterLabel>
+            <translation><!-- Ubiquiti EdgeMax --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Zebra</masterLabel>
+            <translation><!-- Zebra --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Siklu PTP --></label>
+        <name>Siklu_PTP__c</name>
+    </fields>
+    <layouts>
+        <layout>Management Device Type Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>
