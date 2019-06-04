@@ -1,8 +1,8 @@
-<apex:page id="ResidentialCustomerDetails" controller="ResidentialBroadbandController" wizard="true" docType="html-5.0">
-    <apex:sectionHeader title="Residential Details"/>
-    <apex:form id="ResidentialDetails" forceSSL="true">
+<apex:page id="NewResidentialCustomerDetails" controller="ResidentialBroadbandController" wizard="true" docType="html-5.0">
+    <apex:sectionHeader title="Residential Broadband - Customer Details"/>
+    <apex:form id="NewResidentialDetails" forceSSL="true">
         <apex:pageBlock title="Broadband Service">
-            <apex:pageMessages id="mesages"/>
+            <apex:pageMessages id="messages"/>
             <apex:pageBlockSection title="Residential Postcode" columns="1" collapsible="false">
                 <apex:inputText id="consumerPostcode"
                                 label="Postcode"
@@ -10,10 +10,15 @@
                                 disabled="true"
                                 size="12" maxlength="8" />
             </apex:pageBlockSection>
+
             <apex:pageBlockSection title="Consumer Details" columns="1" collapsible="false">
-                <apex:InputText id="name" label="name" value="{!consumerName}" />
-                <apex:inputTextarea id="address" label="address" value="{!consumerAddress}" />
+                <apex:InputText id="name" label="name" value="{!consumerName}" size="45" maxlength="45" />
+                <apex:inputTextarea id="address" label="address" value="{!consumerAddress}" cols="54" rows="4" />
+                <apex:InputText id="city" label="city" value="{!consumerCity}" size="45" maxlength="45" />
+                <apex:InputText id="county" label="county" value="{!consumerCounty}" size="45" maxlength="45" />
+                <apex:InputText id="country" label="country" value="{!consumerCountry}" size="45" maxlength="45" />
             </apex:pageBlockSection>
+
             <apex:pageBlockSection title="Credit Check" collapsible="false">
                 <apex:actionStatus id="actionStatus">
                     <apex:facet name="start">

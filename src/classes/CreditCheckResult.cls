@@ -30,4 +30,8 @@ public class CreditCheckResult {
         return result == StatusResult.FAILED;
     }    
 
+    public String asString() {
+        return result.name();
+    }
+
 }

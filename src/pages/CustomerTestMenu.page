@@ -1,0 +1,79 @@
+<apex:page id="CustomerMenuPage" controller="CustomMenuController" wizard="true" docType="html-5.0">
+<apex:sectionHeader title="Custom Menu"/>
+<apex:form id="CustomerMenuForm" forceSSL="true">        
+<apex:outputPanel >
+    <apex:panelGrid columns="2" summary="Consumer Options">
+    <apex:panelGroup >
+        <apex:pageBlock title="Existing Residential Customer" id="existingResidentialCustomer" >
+            <apex:pageBlockSection columns="1" collapsible="false">
+                <apex:commandLink action="{!addThingToCustomer}" id="addThingToCustomerLink">
+                    <apex:commandButton value="Add Thing to Customer" id="addThingToCustomerButton" style="width:180px;"/>
+                </apex:commandLink>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="1" collapsible="false">
+                <apex:commandLink action="{!changeCustomerThing}" id="changeCustomerThingLink" >
+                    <apex:commandButton value="Change Customer Thing" id="changeCustomerThingButton" style="width:180px;"/>
+                </apex:commandLink>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="1" collapsible="false">
+                <apex:commandLink action="{!customerPlan}" id="customerPlanLink">
+                    <apex:commandButton value="Change Customer Plan" id="customerPlanButton" style="width:180px;"/>
+                </apex:commandLink>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="1" collapsible="false">
+                <apex:commandLink action="{!closeCustomerAccount}" id="closeCustomerAccountLink">
+                    <apex:commandButton value="close Customer Account" id="closeCustomerAccountButton" style="width:180px;"/>
+                </apex:commandLink>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:panelGroup>
+    <apex:panelGroup >
+        <apex:pageBlock title="New Residential Customer" id="newResidentialCustomer">
+            <apex:pageBlockSection columns="1" collapsible="false">
+                <apex:commandLink action="{!newCustomer}" id="newCustomer">
+                    <apex:commandButton value="New Residential Customer" id="step1" style="width:180px;"/>
+                </apex:commandLink>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:panelGroup>    
+    </apex:panelGrid>
+    
+    <apex:panelGrid columns="2" summary="B2B Options">
+    <apex:panelGroup >
+        <apex:pageBlock title="Existing B2B Customer" id="existingBusinessCustomer" >
+            <apex:pageBlockSection columns="1" collapsible="false">
+                <apex:commandLink action="{!addThingToCustomer}" id="addThingToCustomerLink">
+                    <apex:commandButton value="Add Thing to B2B Customer" id="addThingToCustomerButton" style="width:180px;"/>
+                </apex:commandLink>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="1" collapsible="false">
+                <apex:commandLink action="{!changeCustomerThing}" id="changeCustomerThingLink" >
+                    <apex:commandButton value="Change B2B Customer Thing" id="changeCustomerThingButton" style="width:180px;"/>
+                </apex:commandLink>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="1" collapsible="false">
+                <apex:commandLink action="{!customerPlan}" id="customerPlanLink">
+                    <apex:commandButton value="Change B2B Customer Plan" id="customerPlanButton" style="width:180px;"/>
+                </apex:commandLink>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="1" collapsible="false">
+                <apex:commandLink action="{!closeCustomerAccount}" id="closeCustomerAccountLink">
+                    <apex:commandButton value="close B2B Customer Account" id="closeCustomerAccountButton" style="width:180px;"/>
+                </apex:commandLink>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:panelGroup>
+    <apex:panelGroup >
+        <apex:pageBlock title="New Residential Customer" id="newBusinessCustomer">
+            <apex:pageBlockSection columns="1" collapsible="false">
+                <apex:commandLink action="{!newCustomer}" id="newCustomer">
+                    <apex:commandButton value="New B2B Customer" id="step1" style="width:180px;"/>
+                </apex:commandLink>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:panelGroup>    
+    </apex:panelGrid>
+
+</apex:outputPanel>
+</apex:form>
+</apex:page>

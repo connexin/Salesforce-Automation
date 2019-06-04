@@ -12,7 +12,7 @@ public class CreditCheckConfig {
     private CreditCheckConfig(final String scope) {
         this.config = getRow(scope);
     }
-    
+
     private Credit_Check_Configuration__mdt getRow(final String scope) {
         final List<Credit_Check_Configuration__mdt> configRows = [
             SELECT label, description__c, API_Version__c, Endpoint__c, JSON_Template__c , Active__c
@@ -79,5 +79,6 @@ public class CreditCheckConfig {
 
 	public void toLog() {
         System.debug('CreditCheckConfig.toLog : ' + asString());
-    }    
+    }
+    
 }

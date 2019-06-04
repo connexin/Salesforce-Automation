@@ -4,5 +4,5 @@
     <availableInTouch>true</availableInTouch>
     <confirmationTokenRequired>false</confirmationTokenRequired>
     <description>A page for testing tabs as a wizard</description>
-    <label>Tabbed Test Page</label>
+    <label>Test Tabbed Page</label>
 </ApexPage>

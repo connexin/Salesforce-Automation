@@ -9,6 +9,16 @@
         <value>Consumers</value>
     </caseValues>
     <fields>
+        <label><!-- Account --></label>
+        <name>Account__c</name>
+        <relationshipLabel><!-- Consumers --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Contact --></label>
+        <name>Contact__c</name>
+        <relationshipLabel><!-- Consumers --></relationshipLabel>
+    </fields>
+    <fields>
         <label><!-- Term of Contract --></label>
         <name>Contract_Term__c</name>
         <relationshipLabel><!-- Contract --></relationshipLabel>
@@ -24,15 +34,43 @@
     <fields>
         <label><!-- Customer Name --></label>
         <name>Customer_Name__c</name>
-        <relationshipLabel><!-- Contact --></relationshipLabel>
     </fields>
     <fields>
         <label><!-- Customer State --></label>
         <name>Customer_State__c</name>
     </fields>
     <fields>
+        <label><!-- Installation Address --></label>
+        <name>Installation_Address__c</name>
+    </fields>
+    <fields>
         <label><!-- Installation Booking --></label>
         <name>Installation_Booking__c</name>
+    </fields>
+    <fields>
+        <label><!-- Installation City --></label>
+        <name>Installation_City__c</name>
+    </fields>
+    <fields>
+        <label><!-- Installation Country --></label>
+        <name>Installation_Country__c</name>
+    </fields>
+    <fields>
+        <label><!-- Installation County --></label>
+        <name>Installation_County__c</name>
+    </fields>
+    <fields>
+        <label><!-- Installation Instructions --></label>
+        <name>Installation_Instructions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Installation Locality --></label>
+        <name>Installation_Locality__c</name>
+    </fields>
+    <fields>
+        <label><!-- Installation Work Order --></label>
+        <name>Installation_Work_Order__c</name>
+        <relationshipLabel><!-- Consumers --></relationshipLabel>
     </fields>
     <fields>
         <label><!-- Lead --></label>
@@ -45,6 +83,14 @@
         <relationshipLabel><!-- Consumers --></relationshipLabel>
     </fields>
     <fields>
+        <label><!-- Package Name --></label>
+        <name>Package_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Package Term --></label>
+        <name>Package_Term__c</name>
+    </fields>
+    <fields>
         <label><!-- Postcode --></label>
         <name>Postcode__c</name>
     </fields>
@@ -54,8 +100,14 @@
         <relationshipLabel><!-- Consumers --></relationshipLabel>
     </fields>
     <fields>
-        <label><!-- Special Instructions --></label>
-        <name>Special_Instructions__c</name>
+        <label><!-- Service Appointment --></label>
+        <name>Service_Appointment__c</name>
+        <relationshipLabel><!-- Consumers --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Customer requires a static IP address. --></help>
+        <label><!-- Static IP --></label>
+        <name>Static_IP__c</name>
     </fields>
     <layouts>
         <layout>Residential Customer</layout>

@@ -1,13 +1,13 @@
-<apex:page id="ResidentialCustomerCoverage" controller="ResidentialBroadbandController" wizard="true" docType="html-5.0">
-    <apex:sectionHeader title="Residential Coverage"/>
-    <apex:form id="ResidentialCoverage" forceSSL="true">
+<apex:page id="NewResidentialCustomerCoverage" controller="ResidentialBroadbandController" wizard="true" docType="html-5.0">
+    <apex:sectionHeader title="Residential Broadband - Coverage"/>
+    <apex:form id="NewResidentialCoverage" forceSSL="true">
         <apex:pageBlock title="Service Coverage">
             <apex:pageMessages id="messages" />
             <apex:pageBlockSection title="Residential Postcode" columns="1" collapsible="false">
                 <apex:inputText id="consumerPostcode"
                                 label="Postcode"
                                 value="{!consumerPostcode}"
-                                disabled="{!consumerPostcode!=null}"
+                                disabled="{!consumerPostcode}"
                                 size="12" maxlength="8"/>
             </apex:pageBlockSection>
             <apex:pageBlockSection title="Coverage Check" collapsible="false" >

@@ -3,7 +3,7 @@ public class ResidentialMenuController {
     public ApexPages.StandardController stdController;
 
     public PageReference newCustomer() {
-        return Page.ResidentialNewCustomerPage;
+        return Page.ResidentialNewCustomer;
     }
 
     public PageReference addDataToCustomer() {

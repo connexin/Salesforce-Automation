@@ -13,11 +13,24 @@
         <name>Narrative__c</name>
     </fields>
     <fields>
+        <label><!-- Scrum_Story --></label>
+        <name>Parent_Story__c</name>
+        <relationshipLabel><!-- Stories --></relationshipLabel>
+    </fields>
+    <fields>
         <label><!-- Story Type --></label>
         <name>Story_Type__c</name>
         <picklistValues>
             <masterLabel>Epic Story</masterLabel>
             <translation><!-- Epic Story --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Project</masterLabel>
+            <translation><!-- Project --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Scenario</masterLabel>
+            <translation><!-- Scenario --></translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>Technical Story</masterLabel>

@@ -18,6 +18,6 @@
         <filterScope>Everything</filterScope>
         <label>Customer status with details</label>
     </listViews>
-    <pluralLabel>Residential Customer statuses</pluralLabel>
+    <pluralLabel>Residential Customer States</pluralLabel>
     <visibility>Public</visibility>
 </CustomObject>

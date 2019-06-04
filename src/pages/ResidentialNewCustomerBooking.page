@@ -1,8 +1,8 @@
-<apex:page id="ResidentialCustomerBooking" controller="ResidentialBroadbandController" wizard="true" docType="html-5.0">
-    <apex:sectionHeader title="Residential Installation Booking"/>
-    <apex:form id="ResidentialInstallationBooking" forceSSL="true">
+<apex:page id="NewResidentialCustomerBooking" controller="ResidentialBroadbandController" wizard="true" docType="html-5.0">
+    <apex:sectionHeader title="Residential Broadband - Installation Booking"/>
+    <apex:form id="NewInstallationBooking" forceSSL="true">
         <apex:pageBlock title="Installation Booking">
-            <apex:pageMessages id="mesages"/>
+            <apex:pageMessages id="messages"/>
             <apex:pageBlockSection title="Residential Postcode" columns="1" collapsible="false">
                 <apex:inputText id="consumerPostcode"
                                 label="Postcode"
@@ -10,10 +10,11 @@
                                 disabled="true"
                                 size="12" maxlength="8" />
             </apex:pageBlockSection>            
-            <apex:pageBlockSection title="Consumer"  collapsible="false">
-                <apex:InputText id="date" label="date" value="{!bookingDate}" />
-                <apex:InputText id="time" label="time" value="{!bookingTime}" />
-                <apex:inputTextarea id="instructions" label="Special Instructions" value="{!bookingInstructions}" />
+            <apex:pageBlockSection title="Booking"  collapsible="false">
+                <apex:selectList >
+                    <apex:selectOptions value="{!appointmentList}" />
+                </apex:selectList>
+                <apex:inputTextarea label="Special Instructions" value="{!bookingInstructions}" />            
             </apex:pageBlockSection>
             <apex:pageBlockButtons location="bottom">
                 <apex:commandButton value="Previous" action="{!step3}" />

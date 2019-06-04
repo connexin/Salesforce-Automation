@@ -8,8 +8,8 @@
                 <apex:column headerValue="Name">
                     <apex:outputField value="{!record.name}"/>
                 </apex:column>
-                <apex:column headerValue="Customer_Name__c">
-                    <apex:outputField value="{!record.Customer_Name__c}"/>
+                <apex:column headerValue="Installation_Address__c">
+                    <apex:outputField value="{!record.Installation_Address__c}"/>
                 </apex:column>
                 <apex:column headerValue="Postcode__c">
                     <apex:outputField value="{!record.Postcode__c}"/>

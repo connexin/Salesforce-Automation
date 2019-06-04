@@ -1,8 +1,8 @@
-<apex:page id="tabbedPage" controller="ResidentialBroadbandController" wizard="true" docType="html-5.0">
+<apex:page id="NewResidentialWizard" controller="ResidentialBroadbandController" wizard="true" docType="html-5.0">
     <apex:sectionHeader title="New Residential Broadband Customer"/>    
     <apex:tabPanel switchType="client" selectedTab="name1" id="theTabPanel">
         <apex:tab label="Selection" name="step1" id="tabOne">
-            <apex:include pageName="ResidentialNewCustomerPage"/>
+            <apex:include pageName="ResidentialNewCustomer"/>
         </apex:tab>
         <apex:tab label="Coverage" name="step2" id="tabTwo">
             <apex:include pageName="ResidentialNewCustomerCoverage"/>

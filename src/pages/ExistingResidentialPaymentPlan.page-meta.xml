@@ -4,5 +4,5 @@
     <availableInTouch>true</availableInTouch>
     <confirmationTokenRequired>false</confirmationTokenRequired>
     <description>Customer Payment Plan</description>
-    <label>Customer Payment Plan</label>
+    <label>Existing Customer Payment Plan</label>
 </ApexPage>

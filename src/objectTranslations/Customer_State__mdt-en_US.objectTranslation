@@ -6,7 +6,7 @@
     </caseValues>
     <caseValues>
         <plural>true</plural>
-        <value>Residential Customer statuses</value>
+        <value>Residential Customer States</value>
     </caseValues>
     <fields>
         <label><!-- Description --></label>

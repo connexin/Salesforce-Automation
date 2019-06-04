@@ -62,10 +62,23 @@
         <visibleLines>25</visibleLines>
     </fields>
     <fields>
+        <fullName>Parent_Story__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Scrum_Story</label>
+        <referenceTo>Story__c</referenceTo>
+        <relationshipLabel>Stories</relationshipLabel>
+        <relationshipName>Stories</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Story_Type__c</fullName>
         <externalId>false</externalId>
         <label>Story Type</label>
-        <required>false</required>
+        <required>true</required>
         <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>
         <type>Picklist</type>
@@ -83,6 +96,14 @@
                 </value>
                 <value>
                     <fullName>Technical Story</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Project</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Scenario</fullName>
                     <default>false</default>
                 </value>
             </valueSetDefinition>

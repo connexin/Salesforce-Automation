@@ -3,5 +3,5 @@
     <apiVersion>46.0</apiVersion>
     <availableInTouch>true</availableInTouch>
     <confirmationTokenRequired>false</confirmationTokenRequired>
-    <label>Components Test Page</label>
+    <label>Test Components Page</label>
 </ApexPage>

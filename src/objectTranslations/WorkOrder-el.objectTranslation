@@ -30,6 +30,10 @@
         </sections>
     </layouts>
     <quickActions>
+        <label><!-- Schedule Appointment --></label>
+        <name>Residential_Installation</name>
+    </quickActions>
+    <quickActions>
         <label><!-- SendEmail --></label>
         <name>SendEmail</name>
     </quickActions>

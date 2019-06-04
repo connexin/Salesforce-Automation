@@ -58,6 +58,32 @@
         <label>Status</label>
     </fieldSets>
     <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Consumers</relationshipLabel>
+        <relationshipName>Consumers</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Consumers</relationshipLabel>
+        <relationshipName>Consumers</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Contract_Term__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
@@ -98,16 +124,14 @@
     </fields>
     <fields>
         <fullName>Customer_Name__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Customer Name</label>
-        <referenceTo>Lead</referenceTo>
-        <relationshipLabel>Contact</relationshipLabel>
-        <relationshipName>Consumer_contact</relationshipName>
-        <required>false</required>
+        <length>45</length>
+        <required>true</required>
         <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>
-        <type>Lookup</type>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Customer_State__c</fullName>
@@ -122,6 +146,15 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Installation_Address__c</fullName>
+        <externalId>false</externalId>
+        <label>Installation Address</label>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
         <fullName>Installation_Booking__c</fullName>
         <externalId>false</externalId>
         <label>Installation Booking</label>
@@ -129,6 +162,72 @@
         <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>
         <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Installation_City__c</fullName>
+        <externalId>false</externalId>
+        <label>Installation City</label>
+        <length>45</length>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Installation_Country__c</fullName>
+        <externalId>false</externalId>
+        <label>Installation Country</label>
+        <length>45</length>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Installation_County__c</fullName>
+        <externalId>false</externalId>
+        <label>Installation County</label>
+        <length>45</length>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Installation_Instructions__c</fullName>
+        <externalId>false</externalId>
+        <label>Installation Instructions</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Installation_Locality__c</fullName>
+        <externalId>false</externalId>
+        <label>Installation Locality</label>
+        <length>45</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Installation_Work_Order__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Installation Work Order</label>
+        <referenceTo>WorkOrder</referenceTo>
+        <relationshipLabel>Consumers</relationshipLabel>
+        <relationshipName>Consumers</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Lead__c</fullName>
@@ -157,6 +256,28 @@
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>Package_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Package Name</label>
+        <length>45</length>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Package_Term__c</fullName>
+        <externalId>false</externalId>
+        <label>Package Term</label>
+        <length>45</length>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Postcode__c</fullName>
         <description>UK Code code in format XX99 9XX</description>
         <externalId>false</externalId>
@@ -182,14 +303,28 @@
         <type>Lookup</type>
     </fields>
     <fields>
-        <fullName>Special_Instructions__c</fullName>
+        <fullName>Service_Appointment__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
-        <label>Special Instructions</label>
-        <length>32768</length>
+        <label>Service Appointment</label>
+        <referenceTo>ServiceAppointment</referenceTo>
+        <relationshipLabel>Consumers</relationshipLabel>
+        <relationshipName>Consumers</relationshipName>
+        <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>
-        <type>LongTextArea</type>
-        <visibleLines>8</visibleLines>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Static_IP__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Customer requires a static IP address.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Customer requires a static IP address.</inlineHelpText>
+        <label>Static IP</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
     </fields>
     <label>Consumer</label>
     <listViews>
@@ -200,7 +335,7 @@
         <columns>Product__c</columns>
         <columns>Contract_Term__c</columns>
         <columns>Installation_Booking__c</columns>
-        <columns>Special_Instructions__c</columns>
+        <columns>Installation_Instructions__c</columns>
         <columns>Lead__c</columns>
         <columns>Opportunity__c</columns>
         <filterScope>Everything</filterScope>
@@ -208,7 +343,7 @@
     </listViews>
     <nameField>
         <displayFormat>{YYYY}-{MM}-{0}</displayFormat>
-        <label>ID</label>
+        <label>Record Name</label>
         <trackFeedHistory>true</trackFeedHistory>
         <type>AutoNumber</type>
     </nameField>

@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ApexTestSuite xmlns="http://soap.sforce.com/2006/04/metadata">
+    <testClassName>CloseWorkOrderTriggerTest</testClassName>
+    <testClassName>ConsumerTest</testClassName>
     <testClassName>CoverageCheckConfigTest</testClassName>
     <testClassName>CoverageCheckResultTest</testClassName>
     <testClassName>CoverageCheckServiceTest</testClassName>
+    <testClassName>CreateWorkOrderLineItemTest</testClassName>
     <testClassName>CreditCheckConfigTest</testClassName>
     <testClassName>CreditCheckResultTest</testClassName>
     <testClassName>CreditCheckServiceTest</testClassName>
     <testClassName>DebtorsTestClass</testClassName>
+    <testClassName>ResidentialBroadbandControllerTest</testClassName>
+    <testClassName>ResidentialCoverageCheckTest</testClassName>
+    <testClassName>ResidentialCreditCheckTest</testClassName>
+    <testClassName>ResidentialCustomerTest</testClassName>
 </ApexTestSuite>

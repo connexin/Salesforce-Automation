@@ -4,5 +4,5 @@
     <availableInTouch>true</availableInTouch>
     <confirmationTokenRequired>false</confirmationTokenRequired>
     <description>Change Customer Package</description>
-    <label>Change Customer Package</label>
+    <label>Existing Change Customer Package</label>
 </ApexPage>
