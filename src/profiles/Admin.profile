@@ -116,7 +116,19 @@
         <visible>true</visible>
     </applicationVisibilities>
     <classAccesses>
+        <apexClass>AbstractDTO</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>AbstractJsonTemplate</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>AbstractStringTemplate</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>AbstractStringTemplateTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -181,6 +193,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>Consumer</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ConsumerDTO</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -281,6 +297,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>DirectDebitTestClass</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>DynamicConsumerController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -528,6 +548,14 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>GenerateApexDto</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>GenerateApexDtoTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>GoCardlessAPI</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -596,11 +624,19 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>LookupConsumerLead</apexClass>
+        <apexClass>LookupLead</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>LookupConsumerOpportunity</apexClass>
+        <apexClass>LookupLeadTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>LookupOpportunity</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>LookupOpportunityTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -736,11 +772,19 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>ResidentialBroadband</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>ResidentialBroadbandController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>ResidentialBroadbandControllerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ResidentialBroadbandTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -760,14 +804,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>ResidentialCustomer</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>ResidentialCustomerTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>ResidentialMenuController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -777,6 +813,14 @@
     </classAccesses>
     <classAccesses>
         <apexClass>ResidentialPackagesMock</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SelectAllColumns</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SelectAllColumnsTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1583,7 +1627,27 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Consumer__c.Installation_Address__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Consumer__c.Installation_Booking__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Consumer__c.Installation_City__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Consumer__c.Installation_Country__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Consumer__c.Installation_County__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1609,6 +1673,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Consumer__c.Opportunity__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Consumer__c.Package_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Consumer__c.Package_Term__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -6270,6 +6344,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>DirectDebitView</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>DynamicConsumerPage</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>

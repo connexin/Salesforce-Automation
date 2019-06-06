@@ -1,7 +1,13 @@
 public virtual class AbstractJsonTemplate {
+
     public class InvalidReplacementException extends Exception {}
+
     protected String jsonTemplate { get; set;}
     protected Boolean failOnError = true;
+    
+    protected AbstractJsonTemplate(final String newJsonTemplate) {
+        this.jsonTemplate = newJsonTemplate;
+    }
     
     protected AbstractJsonTemplate replace(final String target, final String replacement) {
         if (jsonTemplate == null) {
@@ -27,7 +33,7 @@ public virtual class AbstractJsonTemplate {
         return this;
     }
 
-	// simple helper for improved semantics
+	// trivial helper for fluent semantics
     protected String with(final String withValue) {
         return withValue;
     }

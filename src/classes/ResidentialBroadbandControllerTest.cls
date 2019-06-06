@@ -2,6 +2,7 @@
 
     public static testMethod void testResidentialBroadbandController() {
         ResidentialBroadbandController controller = new ResidentialBroadbandController();
+        assumeNotNull(controller);
 
         PageReference pageRef = controller.step1();
         Test.setCurrentPage(pageRef);
@@ -15,4 +16,5 @@
         controller.consumerAddress = 'Address';
         controller.step4();
     }
+
 }

@@ -149,7 +149,7 @@
         <fullName>Installation_Address__c</fullName>
         <externalId>false</externalId>
         <label>Installation Address</label>
-        <required>true</required>
+        <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>
         <type>TextArea</type>
@@ -168,7 +168,7 @@
         <externalId>false</externalId>
         <label>Installation City</label>
         <length>45</length>
-        <required>true</required>
+        <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>
         <type>Text</type>
@@ -179,7 +179,7 @@
         <externalId>false</externalId>
         <label>Installation Country</label>
         <length>45</length>
-        <required>true</required>
+        <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>
         <type>Text</type>
@@ -190,7 +190,7 @@
         <externalId>false</externalId>
         <label>Installation County</label>
         <length>45</length>
-        <required>true</required>
+        <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>
         <type>Text</type>
@@ -260,7 +260,7 @@
         <externalId>false</externalId>
         <label>Package Name</label>
         <length>45</length>
-        <required>true</required>
+        <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>
         <type>Text</type>
@@ -271,7 +271,7 @@
         <externalId>false</externalId>
         <label>Package Term</label>
         <length>45</length>
-        <required>true</required>
+        <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>
         <type>Text</type>

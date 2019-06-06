@@ -7,7 +7,7 @@
 
 		Test.stopTest();
     }
-    
+
 	@isTest static void testParse() {
 		String json = '{'+
 		'  \"Name\": \"\",'+
@@ -27,5 +27,4 @@
 		Consumer consumer = Consumer.parse(json);
 		System.assert(consumer != null);
 	}
-    
 }

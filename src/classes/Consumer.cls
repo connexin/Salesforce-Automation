@@ -1,5 +1,7 @@
 public class Consumer {
     
+    private Consumer__c consumer;
+    
     public String Name {get;set;}
     public String CoverageCheckResult {get;set;}
     public String CreditCheckResult {get;set;}
@@ -14,7 +16,7 @@ public class Consumer {
     public String ContractTerm {get;set;}
     
     public Consumer() {
-        Consumer consumer = new Consumer();
+        consumer = new Consumer__c();
     }
     
     public static Consumer parse(String json) {

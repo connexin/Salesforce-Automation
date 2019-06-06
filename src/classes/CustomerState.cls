@@ -37,16 +37,12 @@ public class CustomerState {
         }
     }
 
-    public String stateName() {
-        return customerState.DeveloperName;
+    public void isLead() {
+        setState('isLead');
     }
 
-    public String label() {
-        return customerState.Label;
-    }
-
-    public String description() {
-        return customerState.Description__c;
+    public void isOpportunity() {
+        setState('isOpportunity');
     }
 
     public void failedCoverage() {
@@ -65,6 +61,10 @@ public class CustomerState {
         setState('Credit_Check_Passed');
     }
 
+    public void failedDeposit() {
+        setState('Lost_Deposit');
+    }
+    
     public void depositTaken() {
         setState('Deposit_Taken');
     }
@@ -133,6 +133,19 @@ public class CustomerState {
         setState('Lost_Other');
     }
 
+    
+    public String stateName() {
+        return customerState.DeveloperName;
+    }
+
+    public String label() {
+        return customerState.Label;
+    }
+
+    public String description() {
+        return customerState.Description__c;
+    }
+    
 	public String asJson() {
         return JSON.serialize(customerState);
     }

@@ -83,11 +83,11 @@
     </fields>
     <recordTypes>
         <label><!-- Break --></label>
-        <name>Break</name>
+        <name>FSL__Break</name>
     </recordTypes>
     <recordTypes>
         <label><!-- Non Availability --></label>
-        <name>Non_Availability</name>
+        <name>FSL__Non_Availability</name>
     </recordTypes>
     <validationRules>
         <errorMessage><!-- Gantt color must be in hexadecimal format: (for example: #ffffff) --></errorMessage>

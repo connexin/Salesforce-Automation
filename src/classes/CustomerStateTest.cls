@@ -4,33 +4,33 @@
         Test.startTest();
 
         final CustomerState customerState = CustomerState.initialise();
-        assertNotNull(customerState);
+        assumeNotNull(customerState);
         customerState.toLog();
 
+        customerState.isLead();
+        customerState.isOpportunity();
         customerState.failedCoverage();
-        System.debug('customerState : ' + customerState);
-
         customerState.passedCoverage();
-        System.debug('customerState : ' + customerState);
-
         customerState.failedCredit();
-        System.debug('customerState : ' + customerState);
-
         customerState.passedCredit();
-        System.debug('customerCredit : ' + customerState);
-
+        customerState.failedDeposit();
         customerState.depositTaken();
-        System.debug('customerCredit : ' + customerState);
-
         customerState.installationBooked();
-        System.debug('customerCredit : ' + customerState);
-
+        customerState.installationDispatched();
+        customerState.surveyPending();
         customerState.passedSurvey();
-        System.debug('customerCredit : ' + customerState);
-
+        customerState.failedSurvey();
+        customerState.failedInstall();
+        customerState.installationInProgress();
         customerState.installationComplete();
-        System.debug('customerCredit : ' + customerState);
-        
+        customerState.installationCommissioned();
+        customerState.suspendedBilling();
+        customerState.suspendedOverage();
+        customerState.onPaymentPlan();
+        customerState.onTransientPackage();
+        customerState.cancelled();
+        customerState.lost();
+
         Test.stopTest();
     }
     

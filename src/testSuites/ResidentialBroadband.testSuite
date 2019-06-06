@@ -13,5 +13,4 @@
     <testClassName>ResidentialBroadbandControllerTest</testClassName>
     <testClassName>ResidentialCoverageCheckTest</testClassName>
     <testClassName>ResidentialCreditCheckTest</testClassName>
-    <testClassName>ResidentialCustomerTest</testClassName>
 </ApexTestSuite>

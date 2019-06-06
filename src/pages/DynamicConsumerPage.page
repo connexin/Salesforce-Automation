@@ -1,0 +1,3 @@
+<apex:page controller="DynamicConsumerController">
+    {!query}
+</apex:page>
